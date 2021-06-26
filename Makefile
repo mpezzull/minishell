@@ -6,11 +6,11 @@
 #    By: assokenay <assokenay@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/06/26 18:50:13 by assokenay        ###   ########.fr        #
+#    Updated: 2021/06/26 19:10:51 by assokenay        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = main.c
+SRCS = main.c echo.c init.c counters.c
 
 NAME = minishell
 
