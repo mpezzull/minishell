@@ -6,7 +6,7 @@
 /*   By: assokenay <assokenay@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 19:05:58 by assokenay         #+#    #+#             */
-/*   Updated: 2021/06/26 19:11:50 by assokenay        ###   ########.fr       */
+/*   Updated: 2021/06/27 15:14:29 by assokenay        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_instr	*ft_echo(char *token, char **splitted)
 
 	echo = init_instr();
 	echo->cmd = ft_strdup(splitted[0]);
-	if (!ft_strcmp(splitted[1], "-n"))
+	if (splitted[1] && !ft_strcmp(splitted[1], "-n"))
 		echo->flag = ft_strdup(splitted[1]);
 	d_quotes = ft_count_chr(token, '\"');
 	if (d_quotes == 0)

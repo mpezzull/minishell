@@ -6,7 +6,7 @@
 /*   By: assokenay <assokenay@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 19:09:58 by assokenay         #+#    #+#             */
-/*   Updated: 2021/06/26 19:11:51 by assokenay        ###   ########.fr       */
+/*   Updated: 2021/06/26 19:13:17 by assokenay        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_count_chr(char *str, char c)
 {
-	int i;
+	int	i;
 	int	res;
 
 	i = 0;
