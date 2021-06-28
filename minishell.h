@@ -6,7 +6,7 @@
 /*   By: assokenay <assokenay@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/06/26 18:16:08 by assokenay        ###   ########.fr       */
+/*   Updated: 2021/06/28 11:57:08 by assokenay        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <errno.h>
+# include <unistd.h>
 # include "libft/libft.h"
 
 typedef struct s_instr	t_instr;
