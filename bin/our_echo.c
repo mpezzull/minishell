@@ -6,12 +6,15 @@
 /*   By: assokenay <assokenay@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 11:54:05 by assokenay         #+#    #+#             */
-/*   Updated: 2021/06/28 12:12:10 by assokenay        ###   ########.fr       */
+/*   Updated: 2021/06/28 12:15:11 by assokenay        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <unistd.h>
+
+
+//echo -naaa ciao a tutti
 
 int	main(int argc, char **argv)
 {
