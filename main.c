@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: assokenay <assokenay@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/06/27 20:17:25 by assokenay        ###   ########.fr       */
+/*   Updated: 2021/07/13 18:31:14 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	main(int argc, char **argv, char **envp)
 	char	*token;
 	char	*prompt;
 	char	*temp;
+
+
 
 	if (argc == 10)
 		ft_error("Launch with \"./minishell\"", 1);
