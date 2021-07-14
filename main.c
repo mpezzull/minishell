@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: assokenay <assokenay@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/06/27 20:17:25 by assokenay        ###   ########.fr       */
+/*   Updated: 2021/07/13 18:10:24 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,17 @@ int	main(int argc, char **argv, char **envp)
 	char	*prompt;
 	char	*temp;
 
-	if (argc == 10)
+	if (argc != 1)
 		ft_error("Launch with \"./minishell\"", 1);
-	printf("\n\t\t\033[1mWelcome in the worst minishell of the world!\n\n");
-	temp = ft_strjoin(argv[0], ">$ \033[0m");
-	prompt = ft_strjoin("\033[1;35m", temp);
+	printf("\n\t\t\033[1mWelcome in the worst minishell of the world!\n\n \033[0m");
+	temp = ft_strjoin(argv[0], ">$ ");
+	prompt = ft_strjoin(" ", temp);
 	free(temp);
-	while (ft_strcmp(token, "exit"))
+	while (1)
 	{
 		token = readline(prompt);
-//		system(token);
+		if (ft_strcmp(token, "exit") == 0)
+			break ;
 		if (!ft_strcmp(token, "exec"))
 			execve("/bin/sh", argv, envp);
 		add_history(token);
