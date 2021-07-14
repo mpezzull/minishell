@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 11:54:05 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/14 02:58:19 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/14 16:21:03 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_options(char *str, char option)
 		return (0);
 	while (str[index] == option)
 		index++;
-	if (!str[index] == '\0')
+	if (!(str[index] == '\0'))
 		return (0);
 	if (index == 1)
 		return (-1);

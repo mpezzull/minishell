@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/14 14:57:32 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/14 15:58:46 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*token;
 	char	*prompt;
 	char	*temp;
+	t_instr	*instr;
 
 	if (argc != 1)
 		ft_error("Launch with \"./minishell\"", 1);
@@ -32,7 +33,10 @@ int	main(int argc, char **argv, char **envp)
 		if (!ft_strcmp(token, "exec"))
 			execve("/bin/sh", argv, envp);
 		add_history(token);
-		ft_parsing(token);
+		instr = ft_parsing(token);
+		temp = ft_strjoin("./bin/", instr->cmd);
+		execve(temp, instr->args, envp);
+		free(temp);
 	}
 	free(prompt);
 	free(token);
