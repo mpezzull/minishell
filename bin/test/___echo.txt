@@ -1,0 +1,62 @@
+
+-a
+-x
+-j
+-y
+-k
+- -
+- - -
+- - - -
+test
+-n test
+-n -n test
+-n -n -n test
+-nn test
+-nn -nn test
+-nn -nn -nn test
+- test
+- -n test
+- -n -n test
+- -n -n -n test
+- -nn test
+- -nn -nn test
+- -nn -nn -nn test
+-n- test
+-n- -n test
+-n- -n -n test
+-n- -n -n -n test
+-n- -nn test
+-n- -nn -nn test
+-n- -nn -nn -nn test
+-n- test
+-n test -n
+-nn test -nn
+-n -n test -n -n
+-nnnn test -nnnn
+-nnnnn - -n test -nnnn - -n
+-nn -n --n test -nn - --n
+-n- -nn -nn test
+-n- -nn -nn -nn test
+-n- test
+-n test -n
+-nn test -nn
+-n -n test -n -n
+-nnnn test -nnnn
+-nnnnn - -n test -nnnn - -n
+-nn -n --n test -nn - --n
+-n- -nn -nn test
+-n- -nn -nn -nn test
+-n- test
+-n test -n
+-nn test -nn
+-n -n test -n -n
+-nnnn test -nnnn
+-nnnnn - -n test -nnnn - -n
+-nn -n --n test -nn - --n
+The person you were before is still not very coherent.
+A flailing monkey is running away.
+A sickingly prodigous profile shot the sheriff.
+An old apple takes the world for granted.
+-nnn Rock music lies ahead, what with the future yet to come.
+-n Ring Any Bells?
+-n The snow-covered path was no help in finding his way out of the back-country.
