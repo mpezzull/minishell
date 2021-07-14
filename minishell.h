@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/13 17:59:52 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/14 14:57:33 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <readline/history.h>
 # include <errno.h>
 # include <unistd.h>
+# include <string.h>
 # include "libft/libft.h"
 # include <string.h>
 
