@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: assokenay <assokenay@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/06/27 20:17:25 by assokenay        ###   ########.fr       */
+/*   Updated: 2021/07/14 17:36:19 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	main(int argc, char **argv, char **envp)
 			execve("/bin/sh", argv, envp);
 		add_history(token);
 		ft_parsing(token);
-	}
+		
+			}
 	free(prompt);
 	free(token);
 }
