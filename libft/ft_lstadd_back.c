@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/12 17:33:25 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/15 18:56:35 by mde-rosa         ###   ########.fr       */
+/*   Created: 2021/01/20 18:12:07 by mpezzull          #+#    #+#             */
+/*   Updated: 2021/01/20 18:32:41 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	char	*csrc;
-	char	*cdest;
-	size_t	i;
+	t_list	*temp;
 
-	csrc = (char *)src;
-	cdest = (char *)dest;
-	i = 0;
-	if (!dest && !src)
-		return (NULL);
-	while (n--)
+	if (!lst)
+		return ;
+	temp = *lst;
+	if (temp == NULL)
 	{
-		cdest[i] = csrc[i];
-		i++;
+		*lst = new;
+		return ;
 	}
-	return (cdest);
+	while (temp)
+	{
+		if (temp->next == NULL)
+			break ;
+		temp = temp->next;
+	}
+	temp->next = new;
 }
