@@ -6,19 +6,19 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 19:05:58 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/14 16:21:52 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/15 16:28:25 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_instr	*ft_echo(char *token, char **splitted)
+t_cmd	*ft_echo(char *token, char **splitted)
 {
-	t_instr	*echo;
+	t_cmd	*echo;
 	int		d_quotes;
 //	int		s_quotes;
 
-	echo = init_instr();
+	echo = init_cmd();
 	echo->cmd = ft_strdup("ft_echo");
 	if (splitted[1] && !ft_strcmp(splitted[1], "-n"))
 		echo->flag = ft_strdup(splitted[1]);
@@ -31,7 +31,7 @@ t_instr	*ft_echo(char *token, char **splitted)
 	return (echo);
 }
 
-void	ft_zero_dquotes(t_instr *echo, char **splitted)
+void	ft_zero_dquotes(t_cmd *echo, char **splitted)
 {
 	int	i;
 	int	j;
