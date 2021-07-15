@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/15 17:50:01 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/15 19:45:50 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,20 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strcmp(cmd_line, "exit") == 0)
 			break ;
 		add_history(cmd_line);
-//		lexer = ft_lexer(cmd_line);
+		lexer = ft_lexer(cmd_line);
 //		cmd = ft_parsing(lexer);
 //		ft_expander(cmd);
 //		ft_executer(cmd);
 		free(cmd_line);
 	}
 	free(prompt);
+	int i = 0;
+
+	while (i++< 10)
+	{
+		printf("%s %s\n", lexer->args, lexer->token);
+		lexer = lexer->next;
+	}
 }
 
 t_cmd	*ft_parsing(char *cmd_line)

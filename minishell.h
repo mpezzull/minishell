@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/15 16:31:37 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/15 19:43:03 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,7 @@ int		ft_count_chr(char *str, char c);
 int		ft_count_words(char **splitted);
 void	ft_zero_dquotes(t_cmd *instr, char **splitted);
 t_cmd	*ft_echo(char *token, char **splitted);
+t_lexer	*ft_lexer(char *str);
+void	ft_lstadd_back_lexer(t_lexer **lst, t_lexer *new);
 
 #endif
