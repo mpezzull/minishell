@@ -6,24 +6,24 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 19:09:05 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/14 15:48:31 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/15 16:28:25 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_instr	*init_instr(void)
+t_cmd	*init_cmd(void)
 {
-	t_instr	*instr;
+	t_cmd	*instr;
 
-	instr = (t_instr *)malloc(sizeof(t_instr));
+	instr = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!instr)
 		ft_error(strerror(errno), errno);
 	instr->flag = NULL;
 	return (instr);
 }
 
-void	ft_init_args(t_instr *instr, int num_args)
+void	ft_init_args(t_cmd *instr, int num_args)
 {
 	instr->args = (char **)malloc(sizeof(char *) * (num_args + 2));
 	if (!instr->args)

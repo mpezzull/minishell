@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/14 15:58:46 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/15 17:50:01 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,44 +14,43 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*token;
+	char	*cmd_line;
 	char	*prompt;
 	char	*temp;
-	t_instr	*instr;
+	t_cmd	*cmd;
+	t_lexer	*lexer;
 
 	if (argc != 1)
 		ft_error("Launch with \"./minishell\"", 1);
 	printf("\n\t\t\033[1mWelcome in the worst minishell of the world!\n\n \033[0m");
-	temp = ft_strjoin(argv[0], ">$ ");
-	prompt = ft_strjoin(" ", temp);
+	temp = ft_strdup("@minishell:~$ ");
+	prompt = ft_strjoin(getenv("USER"), temp);
 	free(temp);
 	while (1)
 	{
-		token = readline(prompt);
-		if (ft_strcmp(token, "exit") == 0)
+		cmd_line = readline(prompt);
+		if (ft_strcmp(cmd_line, "exit") == 0)
 			break ;
-		if (!ft_strcmp(token, "exec"))
-			execve("/bin/sh", argv, envp);
-		add_history(token);
-		instr = ft_parsing(token);
-		temp = ft_strjoin("./bin/", instr->cmd);
-		execve(temp, instr->args, envp);
-		free(temp);
+		add_history(cmd_line);
+//		lexer = ft_lexer(cmd_line);
+//		cmd = ft_parsing(lexer);
+//		ft_expander(cmd);
+//		ft_executer(cmd);
+		free(cmd_line);
 	}
 	free(prompt);
-	free(token);
 }
 
-t_instr	*ft_parsing(char *token)
+t_cmd	*ft_parsing(char *cmd_line)
 {
-	t_instr	*instr;
+	t_cmd	*instr;
 	char	**splitted;
 
-	if (!token)
-		ft_error("invalid token", 1);
-	splitted = ft_split(token, ' ');
+	if (!cmd_line)
+		ft_error("invalid cmd_line", 1);
+	splitted = ft_split(cmd_line, ' ');
 	if (!ft_strcmp(splitted[0], "echo"))
-		instr = ft_echo(token, splitted);
+		instr = ft_echo(cmd_line, splitted);
 	return (instr);
 }
 
