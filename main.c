@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/15 19:45:50 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/16 17:05:07 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,14 @@ int	main(int argc, char **argv, char **envp)
 		free(cmd_line);
 	}
 	free(prompt);
+// per stampare la struttura che restituisce lexer (al posto di 10 mettere quante strutture sono)
 	int i = 0;
-
 	while (i++< 10)
 	{
 		printf("%s %s\n", lexer->args, lexer->token);
 		lexer = lexer->next;
 	}
+	return (0);
 }
 
 t_cmd	*ft_parsing(char *cmd_line)
