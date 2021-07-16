@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/15 19:43:03 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/16 19:22:31 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ struct	s_cmd
 struct	s_lexer
 {
 	char	*args;
-	char	*token;
+	int		token;
 	t_lexer	*next;
 };
 
