@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/16 17:05:17 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/17 17:10:48 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,6 @@ int	main(int argc, char **argv, char **envp)
 	free(prompt);
 }
 
-/*t_cmd	*ft_parsing(char *cmd_line)
-{
-	t_cmd	*instr;
-	char	**splitted;
-
-	if (!cmd_line)
-		ft_error("invalid cmd_line", 1);
-	splitted = ft_split(cmd_line, ' ');
-	if (!ft_strcmp(splitted[0], "echo"))
-		instr = ft_echo(cmd_line, splitted);
-	return (instr);
-}
-*/
 void	ft_error(char *strerror, int nbr)
 {
 	printf("%s\n", strerror);

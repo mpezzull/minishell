@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/16 17:44:47 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/17 17:31:01 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ struct	s_lexer
 	t_lexer	*next;
 };
 
-t_cmd	ft_parsing(t_lexer *lexer);
+t_cmd	*ft_parsing(t_lexer *lexer);
 void	ft_error(char *strerror, int nbr);
 t_cmd	*init_cmd(void);
 void	ft_init_args(t_cmd *instr, int num_args);
@@ -59,5 +59,11 @@ int		ft_count_chr(char *str, char c);
 int		ft_count_words(char **splitted);
 void	ft_zero_dquotes(t_cmd *instr, char **splitted);
 t_cmd	*ft_echo(char *token, char **splitted);
+int		ft_count_args(t_lexer *lexer);
+t_cmd	*ft_cmd_new(int n_args);
+void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new);
+
+
+
 
 #endif

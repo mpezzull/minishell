@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+         #
+#    By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/07/13 18:45:56 by mde-rosa         ###   ########.fr        #
+#    Updated: 2021/07/17 17:28:25 by mpezzull         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = main.c echo.c init.c counters.c
+SRCS = main.c echo.c init.c counters.c parser.c
 
 NAME = minishell
 
