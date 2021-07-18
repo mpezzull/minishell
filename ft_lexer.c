@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:40:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/18 16:31:08 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/18 17:22:14 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 char	**ft_quotes(char *cmd_line);
 int		ft_is_space(char c);
 int		ft_is_end(char *str, int index);
-
 
 t_lexer	*ft_lstnew_two(char*args, int token)
 {
@@ -114,6 +113,7 @@ int	ft_is_space(char c)
 char	**ft_quotes(char *cmd_line)
 {
 	char		*new_line;
+	char		*word;
 	char		**args;
 	t_lex_data	list;
 	
@@ -128,46 +128,44 @@ char	**ft_quotes(char *cmd_line)
 	i = 0;
 	while (cmd_line[i])
 	{
-		while (!ft_is_space(cmd_line[i]))
+		while (ft_is_space(cmd_line[i]))
 			i++;
 		list.start = i;
 		if (cmd_line[i] == '\'')
 		{
+			i++;
 			list.s_quote = 1;
 			list.start += 1;
+			while (cmd_line[i] && cmd_line[i] != '\'' )
+				i++;
+			list.end = i - 1;
 		}
 		if (cmd_line[i] == '\"')
 		{
+			i++;
 			list.d_quote = 1;
 			list.start += 1;
+			while (cmd_line[i] && cmd_line[i] != '\"')
+				i++;
+			list.end = i - 1;
 		}
 		while (cmd_line[i])
 		{
 			if (list.s_quote == 0 && list.d_quote == 0)
 			{
-				if ((ft_is_space(cmd_line[i]) == 0) && (ft_is_end(&cmd_line[i], i)
-						== 0))
-					i++;
-				else
-				{
-					list.end = i - 1;
-					if (ft_is_space(cmd_line[i]))
-						i++;
-				}
-			}
-			if (list.s_quote)
-			{
-				while (!cmd_line[i] && cmd_line[i] != '\'' )
+				while ((cmd_line[i] && ft_is_space(cmd_line[i]) == 0 && ft_is_end(&cmd_line[i], i) == 0))
 					i++;
 				list.end = i - 1;
+	//			else
+	//			{
+	//				list.end = i - 1;
+	//				if (ft_is_space(cmd_line[i]))
+	//					i++;
+	//			}
 			}
-			if (list.d_quote)
-			{
-				while (!cmd_line[i] && cmd_line[i] != '\"')
-					i++;
-				list.end = i - 1;
-			}
-		//	printf("list: start %d - end %d -  %d %d") // continuare il print per stampare struttura e vedere se funziona
+
+			
+			printf("list: start %d - end %d -  s_quote %d + d_quotes %d\n", list.start, list.end, list.s_quote, list.d_quote); // continuare il print per stampare struttura e vedere se funziona
 		}
 	}
 
