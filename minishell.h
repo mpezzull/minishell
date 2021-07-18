@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/17 17:31:01 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/18 16:57:48 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "libft/libft.h"
 # include <string.h>
 
+# define DEFAULT	0
 # define GREAT		1
 # define LESS		2
 # define GREATGREAT	3
@@ -28,6 +29,7 @@
 # define PIPE		5
 # define WORD		6
 # define NOTOKEN	7
+
 
 typedef struct s_cmd	t_cmd;
 typedef struct s_lexer	t_lexer;
@@ -37,8 +39,8 @@ struct	s_cmd
 	char	*cmd;
 	char	*flag;
 	char	**args;
-	char	*in;
-	char	*out;
+	int		in;
+	int		out;
 	char	*file_in;
 	char	*file_out;
 	t_cmd	*next;
