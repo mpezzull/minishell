@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:40:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/16 21:25:17 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/18 16:31:08 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,14 @@ t_lexer	*ft_lexer(char *cmd_line)
 
 	address_first = &lexer;
 	args = ft_quotes(cmd_line);
-// stampa tutte le strutture (10)
+// riempe tutte le strutture (10)
 //	int i = 0;
 //	while (i++ < 10)
 //	{
 //		tmp = ft_lstnew_two(ft_strdup("parola"), &i);
 //		ft_lstadd_back_lexer(address_first, tmp);
 //	}
-//fine stampa
+//fine riempimento
 	return (lexer);
 }
 
