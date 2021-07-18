@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:40:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/16 19:54:54 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/16 21:25:17 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ t_lex_data	initlist(void)
 	return (list);
 }
 
-// ritorna il numero di caratteri che compongono il token , ritorna 0 se non ci sono token.
+// ritorna il numero di caratteri che compongono il token, ritorna 0 se non ci sono token.
 int	ft_is_end(char *str, int index)
 {
 	if (str[index] == '<' || str[index] == '>' || str[index] == '|'
@@ -128,7 +128,8 @@ char	**ft_quotes(char *cmd_line)
 	i = 0;
 	while (cmd_line[i])
 	{
-		i += ft_is_space(cmd_line[i]);
+		while (!ft_is_space(cmd_line[i]))
+			i++;
 		list.start = i;
 		if (cmd_line[i] == '\'')
 		{
@@ -156,17 +157,17 @@ char	**ft_quotes(char *cmd_line)
 			}
 			if (list.s_quote)
 			{
-				if (cmd_line[i] != '\'')
+				while (!cmd_line[i] && cmd_line[i] != '\'' )
 					i++;
 				list.end = i - 1;
 			}
 			if (list.d_quote)
 			{
-				if (cmd_line[i] != '\"')
+				while (!cmd_line[i] && cmd_line[i] != '\"')
 					i++;
 				list.end = i - 1;
 			}
-			printf("list: start %d - end %d -  %d %d") // continuare il print per stampare struttura e vedere se funziona
+		//	printf("list: start %d - end %d -  %d %d") // continuare il print per stampare struttura e vedere se funziona
 		}
 	}
 
