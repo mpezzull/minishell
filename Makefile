@@ -6,7 +6,7 @@
 #    By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/07/18 17:08:09 by mde-rosa         ###   ########.fr        #
+#    Updated: 2021/07/18 18:32:28 by mde-rosa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,12 +43,13 @@ fclean		:	clean
 				@(make fclean --no-print-directory -C ./libft/)
 				@(make fclean --no-print-directory -C ./bin/)
 				@rm -f $(NAME)
+				@rm -f debug
 			 	@echo "\033[1;31mbinaries deleted\033[0m"
 
 re			:	fclean all
 
-debug		:
-				@$(CC) -g $(SRCS) $(LIBS)
-				@echo "per aprire il debug: lancia lldb a.out"
+debug		:	re
+				@$(CC) -g $(SRCS) $(LIBS) -o debug
+				@echo "per aprire il debug: \033[1;32mlancia \"lldb debug\"\033[0m"
 
-.PHONY		:	all clean fclean re
+.PHONY		:	all clean fclean re debug
