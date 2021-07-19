@@ -6,7 +6,7 @@
 #    By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/07/17 17:28:25 by mpezzull         ###   ########.fr        #
+#    Updated: 2021/07/19 18:51:49 by mpezzull         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,8 +43,13 @@ fclean		:	clean
 				@(make fclean --no-print-directory -C ./libft/)
 				@(make fclean --no-print-directory -C ./bin/)
 				@rm -f $(NAME)
+				@rm -rf debug*
 			 	@echo "\033[1;31mbinaries deleted\033[0m"
 
 re			:	fclean all
+
+debug		:	re
+				@$(CC) -g $(SRCS) $(LIBS) -o debug
+				@echo "per aprire il debug: \033[1;32mlancia \"lldb debug\"\033[0m"
 
 .PHONY		:	all clean fclean re

@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/18 17:43:45 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/19 18:09:26 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,20 @@ int	main(int argc, char **argv, char **envp)
 		free(cmd_line);
 	}
 	free(prompt);
-	while (lexer)
+	int i = 0;
+	while (cmd)
 	{
-		printf("%s %d\n", lexer->args, lexer->token);
-		printf("%s\n", cmd->cmd);
-		if (cmd->args)
-			printf("%s\n", cmd->args[0]);
-		lexer = lexer->next;
-//		cmd = cmd->next;
+		int j = 0;
+//		printf("%s %d\n", lexer->args, lexer->token);
+		printf("---------------	%d ----------------\n", i++);
+		printf("cmd:     %s\n", cmd->cmd);
+		while (cmd->args && cmd->args[j])
+		{
+			printf("args[%i]: %s\n", j, cmd->args[j]);
+			j++;
+		}
+//		lexer = lexer->next;
+		cmd = cmd->next;
 	}
 	return (0);
 }
