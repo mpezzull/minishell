@@ -6,21 +6,22 @@
 #    By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/07/18 18:32:28 by mde-rosa         ###   ########.fr        #
+#    Updated: 2021/07/19 17:58:01 by mde-rosa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = main.c echo.c init.c counters.c ft_lexer.c
+SRCS =	main.c echo.c init.c counters.c \
+		ft_lexer.c
 
-NAME = minishell
+NAME =	minishell
 
-LIBS = ./libft/libft.a -lreadline
+LIBS =	./libft/libft.a -lreadline
 
-OBJCS	=	$(SRCS:.c=.o)
+OBJCS =	$(SRCS:.c=.o)
 
-CC = gcc
+CC =	gcc
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS =	-Wall -Wextra -Werror
 
 %.o			:	%.c
 				@$(CC)  -c $<
@@ -43,7 +44,7 @@ fclean		:	clean
 				@(make fclean --no-print-directory -C ./libft/)
 				@(make fclean --no-print-directory -C ./bin/)
 				@rm -f $(NAME)
-				@rm -f debug
+				@rm -rf debug*
 			 	@echo "\033[1;31mbinaries deleted\033[0m"
 
 re			:	fclean all

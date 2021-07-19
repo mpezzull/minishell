@@ -6,15 +6,18 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:40:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/18 17:22:14 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/19 17:58:09 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ft_quotes(char *cmd_line);
+
+typedef struct s_lex_data	t_lex_data;
+t_lexer	*ft_line_to_args(char *cmd_line, t_lexer *lexer);
 int		ft_is_space(char c);
 int		ft_is_end(char *str, int index);
+void	ft_save_word(char *cmd_line, t_lexer *lexer, t_lex_data *list);
 
 t_lexer	*ft_lstnew_two(char*args, int token)
 {
@@ -55,10 +58,9 @@ t_lexer	*ft_lexer(char *cmd_line)
 	t_lexer	*lexer;
 	t_lexer	*tmp;
 	void	*address_first;
-	char	**args;
 
 	address_first = &lexer;
-	args = ft_quotes(cmd_line);
+	ft_line_to_args(cmd_line, lexer);
 // riempe tutte le strutture (10)
 //	int i = 0;
 //	while (i++ < 10)
@@ -70,13 +72,17 @@ t_lexer	*ft_lexer(char *cmd_line)
 	return (lexer);
 }
 
-typedef struct s_lex_data
+
+
+struct s_lex_data
 {
-	int	s_quote;
-	int	d_quote;
+	int	s_quote_open;
+	int	d_quote_open;
+	int	s_quote_closed;
+	int	d_quote_closed;
 	int	start;
 	int	end;
-}				t_lex_data;
+};
 
 t_lex_data	initlist(void)
 {
@@ -84,8 +90,10 @@ t_lex_data	initlist(void)
 
 	list.start = 0;
 	list.end = 0;
-	list.s_quote = 0;
-	list.d_quote = 0;
+	list.s_quote_open = 0;
+	list.d_quote_open = 0;
+	list.s_quote_closed = 0;
+	list.d_quote_closed = 0;
 	return (list);
 }
 
@@ -110,64 +118,96 @@ int	ft_is_space(char c)
 	return (0);
 }
 
-char	**ft_quotes(char *cmd_line)
+//data una stringa ed una posizione in essa, scorre (partendo dalla posizione successiva a quella indicata) alla ricerca del carattere specificato in search
+//ritorna 1 se trova il carattere, 0 se non lo trova.
+int	ft_there_is_char(char *str, int index, char search)
 {
-	char		*new_line;
+	index++;
+	while (str[index])
+		if (str[index++] == search)
+			return (1);
+	return (0);
+}
+
+int	ft_count_char(char *str, int start, int end, char c)
+{
+	int	counter;
+
+	counter = 0;
+	while (start <= end)
+	{
+		if (str[start++] == c)
+			counter++;
+	}
+	return (counter);
+}
+
+void	ft_save_word(char *cmd_line, t_lexer *lexer, t_lex_data *list)
+{
+	int		start;
+	int		lenght;
+	char	*arg;
+	int		i;
+
+	i = 0;
+	if (list->s_quote_open && list->s_quote_closed) //virgoletta singola aperta e chiusa, non viene interpretato nulla, bisogna solo aggiungere backslash prima del $.
+	{
+		start = list->start;
+		lenght = (list->end - list->start + ft_count_char(cmd_line, list->start, list->end, '$'));
+		arg = (char *)malloc((lenght * sizeof(char) + 1));
+		while (start <= list->end)
+		{
+			if (cmd_line[start] == '$')
+				arg[i++] = '\\';
+			arg[i++] = cmd_line[start++];
+		}
+		arg[i] = '\0';
+		*list = initlist();
+		printf("arg      : %s\n", arg);
+	}
+	if (list->s_quote_open && list->s_quote_closed == 0) //virgoletta singola aperta ma non chiusa, la virgoletta deve essere solo stampata come un normale carattere bisogna solo aggiungere backslash prima della virgoletta.
+	{
+		i = 0;
+		arg = (char *)malloc(((list->end - list->start) * sizeof(char) + 2));
+	}
+}
+
+t_lexer	*ft_line_to_args(char *cmd_line, t_lexer *lexer)
+{
 	char		*word;
-	char		**args;
 	t_lex_data	list;
-	
+	int			i;
+
 	list = initlist();
-	
 	printf("cmd_line : %s\n", cmd_line);
-	new_line = ft_strdup(cmd_line);
-	printf("ft_quotes: %s\n", new_line);
-
-	int i;
-
 	i = 0;
 	while (cmd_line[i])
 	{
+		list = initlist();
 		while (ft_is_space(cmd_line[i]))
 			i++;
 		list.start = i;
 		if (cmd_line[i] == '\'')
 		{
-			i++;
-			list.s_quote = 1;
-			list.start += 1;
-			while (cmd_line[i] && cmd_line[i] != '\'' )
-				i++;
-			list.end = i - 1;
-		}
-		if (cmd_line[i] == '\"')
-		{
-			i++;
-			list.d_quote = 1;
-			list.start += 1;
-			while (cmd_line[i] && cmd_line[i] != '\"')
-				i++;
-			list.end = i - 1;
-		}
-		while (cmd_line[i])
-		{
-			if (list.s_quote == 0 && list.d_quote == 0)
+			list.s_quote_open = 1;
+			if (ft_there_is_char(cmd_line, i, '\''))
 			{
-				while ((cmd_line[i] && ft_is_space(cmd_line[i]) == 0 && ft_is_end(&cmd_line[i], i) == 0))
+				i++;
+				list.start++;
+				list.s_quote_closed = 1;
+				while (cmd_line[i] != '\'')
 					i++;
 				list.end = i - 1;
-	//			else
-	//			{
-	//				list.end = i - 1;
-	//				if (ft_is_space(cmd_line[i]))
-	//					i++;
-	//			}
 			}
-
-			
-			printf("list: start %d - end %d -  s_quote %d + d_quotes %d\n", list.start, list.end, list.s_quote, list.d_quote); // continuare il print per stampare struttura e vedere se funziona
+			else
+			{
+				while ((cmd_line[i] && ft_is_space(cmd_line[i]) == 0
+						&& ft_is_end(&cmd_line[i], i) == 0))
+					i++;
+				list.end = i - 1;
+			}
+			ft_save_word(cmd_line, lexer, &list);
 		}
 	}
-
-	return (args);
+	return (lexer);
 }
