@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:42:27 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/07/19 18:50:13 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/20 18:57:13 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,45 +16,60 @@ t_cmd	*ft_parsing(t_lexer *lexer)
 {
 	t_cmd	*head;
 	t_cmd	*temp;
-	int		new_cmd;
+	int		token_found;
 	int		n_args;
 	int		i;
 
-	new_cmd = 1;
+	token_found = PIPE;
 	head = NULL;
 	while (lexer)
 	{
-		if (new_cmd)
+		if (token_found == PIPE)
 		{
 			n_args = ft_count_args(lexer);
 			temp = ft_cmd_new(n_args);
 			ft_cmdadd_back(&head, temp);
 			if (lexer->token == WORD)
 				temp->cmd = ft_strdup(lexer->args);
-			new_cmd = 0;
+			token_found = 0;
+		}
+		else if ((token_found == GREAT || token_found == GREATGREAT)
+			&& lexer->token == WORD)
+		{
+			temp->file_out = ft_strdup(lexer->args);
+			temp->out = token_found;
+			token_found = 0;
+		}
+		else if (token_found == LESS && lexer->token == WORD)
+		{
+			temp->file_in = ft_strdup(lexer->args);
+			temp->in = token_found;
+			token_found = 0;
 		}
 		else
 		{
 			if (lexer->token == WORD)
 				temp->args[i++] = ft_strdup(lexer->args);
+			if (lexer->token == GREAT || lexer->token == GREATGREAT)
+			{
+				token_found = lexer->token;
+				temp->out = token_found;
+			}
+			if (lexer->token == LESS)
+			{
+				token_found = lexer->token;
+				temp->in = token_found;
+			}
 			if (lexer->token == PIPE)
 			{
-				temp->out = PIPE;
-				new_cmd = 1;
+				token_found = lexer->token;
+				temp->out = token_found;
 				i = 0;
 				temp = temp->next;
 			}
 		}
 		lexer = lexer->next;
 	}
-	// while (head)
-	// {
-	// 	printf("head:     %x\n", (unsigned int)head);
-	// 	printf("%s\n", (head)->cmd);
-	// 	if ((head)->args)
-	// 		printf("%s\n", (head)->args[0]);
-	// 	(head) = (head)->next;
-	// }
 	return (head);
 }
 
@@ -147,29 +162,39 @@ t_lexer	*ft_lexer(char *cmd_line)
 {
 	t_lexer	*lexer;
 	t_lexer	*tmp;
-	void	*address_first;
+	void	*head;
 	char	**args;
 
-	address_first = &lexer;
-	int i = 0;
+	head = &lexer;
 	tmp = ft_lstnew_two(ft_strdup("ls"), WORD);
-	ft_lstadd_back_lexer(address_first, tmp);
+	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("-l"), WORD);
-	ft_lstadd_back_lexer(address_first, tmp);
+	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("|"), PIPE);
-	ft_lstadd_back_lexer(address_first, tmp);
+	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("cat"), WORD);
-	ft_lstadd_back_lexer(address_first, tmp);
+	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("file1"), WORD);
-	ft_lstadd_back_lexer(address_first, tmp);
+	ft_lstadd_back_lexer(head, tmp);
+	tmp = ft_lstnew_two(ft_strdup(">"), GREAT);
+	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("file2"), WORD);
-	ft_lstadd_back_lexer(address_first, tmp);
-	tmp = ft_lstnew_two(ft_strdup("file3"), WORD);
-	ft_lstadd_back_lexer(address_first, tmp);
+	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("|"), PIPE);
-	ft_lstadd_back_lexer(address_first, tmp);
+	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("cat"), WORD);
-	ft_lstadd_back_lexer(address_first, tmp);
+	ft_lstadd_back_lexer(head, tmp);
+	tmp = ft_lstnew_two(ft_strdup(">>"), GREATGREAT);
+	ft_lstadd_back_lexer(head, tmp);
+	tmp = ft_lstnew_two(ft_strdup("file3"), WORD);
+	ft_lstadd_back_lexer(head, tmp);
+	tmp = ft_lstnew_two(ft_strdup("|"), PIPE);
+	ft_lstadd_back_lexer(head, tmp);
+	tmp = ft_lstnew_two(ft_strdup("cat"), WORD);
+	ft_lstadd_back_lexer(head, tmp);
+	tmp = ft_lstnew_two(ft_strdup(">>"), LESS);
+	ft_lstadd_back_lexer(head, tmp);
+	tmp = ft_lstnew_two(ft_strdup("file3"), WORD);
+
 	return (lexer);
 }
-

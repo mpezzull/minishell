@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/19 18:09:26 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/20 18:54:37 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,33 @@ int	main(int argc, char **argv, char **envp)
 		cmd = ft_parsing(lexer);
 //		ft_expander(cmd);
 //		ft_executer(cmd);
+
+		int i = 0;
+		while (cmd)
+		{
+			int j = 0;
+			printf("---------------	%d ----------------\n", i++);
+			printf("cmd:     %s\n", cmd->cmd);
+			while (cmd->args && cmd->args[j])
+			{
+				printf("args[%i]: %s\n", j, cmd->args[j]);
+				j++;
+			}
+			if (cmd->out)
+				printf("out: %d\n", cmd->out);
+			if (cmd->file_out)
+				printf("file_out: %s\n", cmd->file_out);
+			if (cmd->in)
+				printf("in: %d\n", cmd->in);
+			if (cmd->file_in)
+				printf("file_in: %s\n", cmd->file_in);
+			printf("cmd_next:  %x\n", (unsigned int)cmd->next);
+			cmd = cmd->next;
+		}
+
 		free(cmd_line);
 	}
 	free(prompt);
-	int i = 0;
-	while (cmd)
-	{
-		int j = 0;
-//		printf("%s %d\n", lexer->args, lexer->token);
-		printf("---------------	%d ----------------\n", i++);
-		printf("cmd:     %s\n", cmd->cmd);
-		while (cmd->args && cmd->args[j])
-		{
-			printf("args[%i]: %s\n", j, cmd->args[j]);
-			j++;
-		}
-//		lexer = lexer->next;
-		cmd = cmd->next;
-	}
 	return (0);
 }
 
