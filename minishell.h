@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/20 00:28:56 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/20 02:03:28 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,15 @@
 # include <string.h>
 # include "libft/libft.h"
 # include <string.h>
+
+# define DEFAULT	0
+# define GREAT		1
+# define LESS		2
+# define GREATGREAT	3
+# define LESSLESS	4
+# define PIPE		5
+# define WORD		6
+# define NOTOKEN	7
 
 typedef struct s_cmd	t_cmd;
 typedef struct s_lexer	t_lexer;
@@ -73,5 +82,7 @@ int			ft_there_is_token(char *str, int index);
 int			ft_count_char(char *str, int start, int end, char c);
 int			ft_there_is_char(char *str, int index, char search);
 char		*ft_create_arg(char *cmd_line, t_lexer *lexer, t_lex_data *list);
+
+int ft_single_quote(char *cmd_line, int i, t_lex_data *list);
 
 #endif
