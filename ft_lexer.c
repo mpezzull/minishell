@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:40:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/20 13:11:09 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/20 16:15:55 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,9 @@ t_lexer	*ft_lexer(char *cmd_line)
 // prende in ingresso la cmd_line e riempe la lista con gli argomenti
 void	ft_line_to_args(char *cmd_line, t_lexer **lexer)
 {
-	char		*word;
 	t_lex_data	list;
-	t_lexer		*tmp;
 	int			i;
 
-	word = NULL;
 	list = initlist();
 	i = 0;
 	while (cmd_line[i])
@@ -53,17 +50,28 @@ void	ft_line_to_args(char *cmd_line, t_lexer **lexer)
 			i++;
 		list.start = i;
 		if (cmd_line[i] == '\'')
-		{
-			i = ft_squote_data(cmd_line, i, &list);
-			word = ft_squote_arg(cmd_line, *lexer, &list);
-			tmp = ft_lstnew_two(word, WORD);
-			ft_lstadd_back_lexer(lexer, tmp);
-			i++;
-		}
+			ft_single_quote(cmd_line, &i, lexer, &list);
+//		if (cmd_line[i] == '\'')
+//		{
+//
+//		}
 	}
 }
 
-//salva in list posizioni di start e end della parola
+void	ft_single_quote(char *cmd_line, int *i, t_lexer **lexer,
+		t_lex_data *list)
+{
+	char	*word;
+	t_lexer	*tmp;
+
+	*i = ft_squote_data(cmd_line, *i, list);
+	word = ft_squote_arg(cmd_line, *lexer, list);
+	tmp = ft_lstnew_two(word, WORD);
+	ft_lstadd_back_lexer(lexer, tmp);
+	(*i)++;
+}
+
+//salva in list le posizioni di start e end della parola
 //restituisce l'indice dopo la fine della parola
 int	ft_squote_data(char *cmd_line, int i, t_lex_data *list)
 {
@@ -136,13 +144,9 @@ char	*ft_squote_notclosed(char *cmd_line, t_lexer *lexer, t_lex_data *list)
 	start = list->start;
 	lenght = (1 + list->end - list->start + 1);
 	arg = (char *)malloc((lenght * sizeof(char) + 1));
-	arg[i] = '\\';
+	arg[i++] = '\\';
 	while (start <= list->end)
-	{
-		if (cmd_line[start] == '$')
-			arg[i++] = '\\';
 		arg[i++] = cmd_line[start++];
-	}
 	arg[i] = '\0';
 	*list = initlist();
 	return (arg);
