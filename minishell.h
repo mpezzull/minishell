@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/20 02:03:28 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/20 13:07:48 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,15 @@ void		ft_lstadd_back_lexer(t_lexer **lst, t_lexer *new);
 
 t_lex_data	initlist(void);
 t_lexer		*ft_lstnew_two(char*args, int token);
-char		*ft_line_to_args(char *cmd_line, t_lexer **lexer);
+void		ft_line_to_args(char *cmd_line, t_lexer **lexer);
 int			ft_is_space(char c);
 int			ft_there_is_token(char *str, int index);
 int			ft_count_char(char *str, int start, int end, char c);
 int			ft_there_is_char(char *str, int index, char search);
-char		*ft_create_arg(char *cmd_line, t_lexer *lexer, t_lex_data *list);
+char		*ft_squote_arg(char *cmd_line, t_lexer *lexer, t_lex_data *list);
 
-int ft_single_quote(char *cmd_line, int i, t_lex_data *list);
+int ft_squote_data(char *cmd_line, int i, t_lex_data *list);
+char	*ft_squote_openclosed(char *cmd_line, t_lexer *lexer, t_lex_data *list);
+char	*ft_squote_notclosed(char *cmd_line, t_lexer *lexer, t_lex_data *list);
 
 #endif
