@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/20 16:10:21 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/20 17:25:11 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 # define WORD		6
 # define NOTOKEN	7
 
-typedef struct s_cmd	t_cmd;
-typedef struct s_lexer	t_lexer;
+typedef struct s_cmd		t_cmd;
+typedef struct s_lexer		t_lexer;
 typedef struct s_lex_data	t_lex_data;
 
 struct s_lex_data
@@ -82,11 +82,18 @@ int			ft_there_is_token(char *str, int index);
 int			ft_count_char(char *str, int start, int end, char c);
 int			ft_there_is_char(char *str, int index, char search);
 char		*ft_squote_arg(char *cmd_line, t_lexer *lexer, t_lex_data *list);
-int 		ft_squote_data(char *cmd_line, int i, t_lex_data *list);
-char		*ft_squote_openclosed(char *cmd_line, t_lexer *lexer, t_lex_data *list);
-char		*ft_squote_notclosed(char *cmd_line, t_lexer *lexer, t_lex_data *list);
+int			ft_squote_data(char *cmd_line, int i, t_lex_data *list);
+char		*ft_squote_openclosed(char *cmd_line, t_lexer *lexer,
+				t_lex_data *list);
+char		*ft_quote_notclosed(char *cmd_line, t_lexer *lexer,
+				t_lex_data *list);
 void		ft_single_quote(char *cmd_line, int *i, t_lexer **lexer,
-			t_lex_data *list);
-
+				t_lex_data *list);
+char		*ft_dquote_arg(char *cmd_line, t_lexer *lexer, t_lex_data *list);
+int			ft_dquote_data(char *cmd_line, int i, t_lex_data *list);
+char		*ft_dquote_openclosed(char *cmd_line, t_lexer *lexer,
+				t_lex_data *list);
+void		ft_double_quote(char *cmd_line, int *i, t_lexer **lexer,
+				t_lex_data *list);
 
 #endif
