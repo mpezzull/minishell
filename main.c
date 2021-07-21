@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/20 18:54:37 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/21 19:14:55 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv, char **envp)
 	temp = ft_strdup("@minishell:~$ ");
 	prompt = ft_strjoin(getenv("USER"), temp);
 	free(temp);
-	while (1)
+	while (TRUE)
 	{
 		cmd_line = readline(prompt);
 		if (ft_strcmp(cmd_line, "exit") == 0)
@@ -38,7 +38,6 @@ int	main(int argc, char **argv, char **envp)
 		cmd = ft_parsing(lexer);
 //		ft_expander(cmd);
 //		ft_executer(cmd);
-
 		int i = 0;
 		while (cmd)
 		{
@@ -72,4 +71,80 @@ void	ft_error(char *strerror, int nbr)
 {
 	printf("%s\n", strerror);
 	exit(nbr);
+}
+
+t_lexer	*ft_lstnew_two(char*args, int token)
+{
+	t_lexer	*lst;
+
+	lst = (void *)malloc(sizeof(t_lexer));
+	if (!lst)
+		ft_error(strerror(errno), errno);
+	lst->args = args;
+	lst->token = token;
+	lst->next = NULL;
+	return (lst);
+}
+
+void	ft_lstadd_back_lexer(t_lexer **lst, t_lexer *new)
+{
+	t_lexer	*temp;
+
+	if (!lst)
+		return ;
+	temp = *lst;
+	if (temp == NULL)
+	{
+		*lst = new;
+		return ;
+	}
+	while (temp)
+	{
+		if (temp->next == NULL)
+			break ;
+		temp = temp->next;
+	}
+	temp->next = new;
+}
+
+t_lexer	*ft_lexer(char *cmd_line)
+{
+	t_lexer	*lexer;
+	t_lexer	*tmp;
+	void	*head;
+	char	**args;
+
+	head = &lexer;
+	tmp = ft_lstnew_two(ft_strdup("ls"), WORD);
+	ft_lstadd_back_lexer(head, tmp);
+	tmp = ft_lstnew_two(ft_strdup("-l"), WORD);
+	ft_lstadd_back_lexer(head, tmp);
+	tmp = ft_lstnew_two(ft_strdup("|"), PIPE);
+	ft_lstadd_back_lexer(head, tmp);
+	tmp = ft_lstnew_two(ft_strdup("cat"), WORD);
+	ft_lstadd_back_lexer(head, tmp);
+	tmp = ft_lstnew_two(ft_strdup("file1"), WORD);
+	ft_lstadd_back_lexer(head, tmp);
+	tmp = ft_lstnew_two(ft_strdup(">"), GREAT);
+	ft_lstadd_back_lexer(head, tmp);
+	tmp = ft_lstnew_two(ft_strdup("file2"), WORD);
+	ft_lstadd_back_lexer(head, tmp);
+	tmp = ft_lstnew_two(ft_strdup("|"), PIPE);
+	ft_lstadd_back_lexer(head, tmp);
+	tmp = ft_lstnew_two(ft_strdup("cat"), WORD);
+	ft_lstadd_back_lexer(head, tmp);
+	tmp = ft_lstnew_two(ft_strdup(">>"), GREATGREAT);
+	ft_lstadd_back_lexer(head, tmp);
+	tmp = ft_lstnew_two(ft_strdup("file3"), WORD);
+	ft_lstadd_back_lexer(head, tmp);
+	tmp = ft_lstnew_two(ft_strdup("|"), PIPE);
+	ft_lstadd_back_lexer(head, tmp);
+	tmp = ft_lstnew_two(ft_strdup("cat"), WORD);
+	ft_lstadd_back_lexer(head, tmp);
+	tmp = ft_lstnew_two(ft_strdup("<<"), LESSLESS);
+	ft_lstadd_back_lexer(head, tmp);
+	tmp = ft_lstnew_two(ft_strdup("file4"), WORD);
+	ft_lstadd_back_lexer(head, tmp);
+
+	return (lexer);
 }

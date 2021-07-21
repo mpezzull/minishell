@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/19 18:50:45 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/21 17:04:07 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,18 @@
 # define WORD		6
 # define NOTOKEN	7
 
+# define TRUE		1
 
 typedef struct s_cmd	t_cmd;
 typedef struct s_lexer	t_lexer;
+typedef struct s_parser	t_parser;
+
+struct s_parser
+{
+	int		token_found;
+	int		n_args;
+	char	*lessless;
+};
 
 struct	s_cmd
 {
