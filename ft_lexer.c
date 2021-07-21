@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:40:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/20 17:25:20 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/22 01:12:12 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_lexer	*ft_lexer(char *cmd_line)
 	lexer = NULL;
 	address_first = &lexer;
 	ft_line_to_args(cmd_line, address_first);
-/*
+
 //inizia la stampa della lista
 	tmp = *address_first;
 	while (tmp)
@@ -31,7 +31,7 @@ t_lexer	*ft_lexer(char *cmd_line)
 		tmp = (tmp)->next;
 	}
 //termina stampa della lista
-*/
+
 	return (lexer);
 }
 
@@ -51,7 +51,11 @@ void	ft_line_to_args(char *cmd_line, t_lexer **lexer)
 		list.start = i;
 		if (cmd_line[i] == '\'')
 			ft_single_quote(cmd_line, &i, lexer, &list);
-		if (cmd_line[i] == '\"')
+		else if (cmd_line[i] == '\"')
 			ft_double_quote(cmd_line, &i, lexer, &list);
+		else if (cmd_line[i] == '>' || cmd_line[i] == '<' || cmd_line[i] == '|')
+			ft_token(cmd_line, &i, lexer, &list);
+		else
+			i++;
 	}
 }
