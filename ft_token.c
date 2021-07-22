@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.c                                            :+:      :+:    :+:   */
+/*   ft_token.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 01:08:16 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/22 01:19:40 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/22 01:31:54 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_token(char *cmd_line, int *i, t_lexer **lexer, t_lex_data *list)
+void	ft_token(char *cmd_line, int *i, t_lexer **lexer)
 {
 	char	*word;
 	t_lexer	*tmp;
@@ -23,7 +23,6 @@ void	ft_token(char *cmd_line, int *i, t_lexer **lexer, t_lex_data *list)
 	tmp = ft_lstnew_two(word, token);
 	ft_lstadd_back_lexer(lexer, tmp);
 	*i = ft_token_lenght(token, *i);
-//	(*i)++;
 }
 
 char	*ft_token_arg(char *cmd_line, int i, int token)

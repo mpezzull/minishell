@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 20:07:16 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/20 15:45:03 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/22 02:34:23 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,9 @@ void	ft_lstadd_back_lexer(t_lexer **lst, t_lexer *new)
 // ritorna 0 se non ci sono token.
 int	ft_there_is_token(char *str, int index)
 {
-	if (str[index] == '<' || str[index] == '>' || str[index] == '|'
-		|| str[index] == '$')
+	if (str[index] == '<' || str[index] == '>' || str[index] == '|')
 		return (1);
-	if ((str[index] == '$' && str[index + 1] == '?') || (str[index]
+	if ((str[index + 1] == '?') || (str[index]
 			== '<' && str[index + 1] == '<') || (str[index] == '>'
 			&& str[index + 1] == '>'))
 		return (2);

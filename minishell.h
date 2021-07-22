@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/22 01:09:14 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/22 02:11:38 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,12 @@ char		*ft_dquote_openclosed(char *cmd_line, t_lexer *lexer,
 				t_lex_data *list);
 void		ft_double_quote(char *cmd_line, int *i, t_lexer **lexer,
 				t_lex_data *list);
-void	ft_token(char *cmd_line, int *i, t_lexer **lexer, t_lex_data *list);
-char *ft_token_arg(char *cmd_line, int i, int token);
-int	ft_token_lenght(int token, int i);
-int	ft_token_witch(char *cmd_line, int i);
-
-
-
+void		ft_token(char *cmd_line, int *i, t_lexer **lexer);
+char 		*ft_token_arg(char *cmd_line, int i, int token);
+int			ft_token_lenght(int token, int i);
+int			ft_token_witch(char *cmd_line, int i);
+void		ft_word(char *cmd_line, int *i, t_lexer **lexer);
+char 		*ft_word_arg(char *cmd_line, int i);
+int			ft_word_lenght(char *cmd_line, int i);
 
 #endif

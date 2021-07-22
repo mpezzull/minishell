@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:40:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/22 01:12:12 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/22 02:39:55 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	ft_line_to_args(char *cmd_line, t_lexer **lexer)
 		else if (cmd_line[i] == '\"')
 			ft_double_quote(cmd_line, &i, lexer, &list);
 		else if (cmd_line[i] == '>' || cmd_line[i] == '<' || cmd_line[i] == '|')
-			ft_token(cmd_line, &i, lexer, &list);
+			ft_token(cmd_line, &i, lexer);
 		else
-			i++;
+			ft_word(cmd_line, &i, lexer);
 	}
 }
