@@ -6,11 +6,32 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:42:27 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/07/21 19:23:36 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/22 15:57:33 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	**ft_realloc(char	**ptr, int cur_size, int new_size)
+{
+	char	**new_ptr;
+
+	if (ptr == 0)
+	{
+		ptr = (char **)malloc(sizeof(char *) * (new_size + 1));
+		if (!ptr)
+			ft_error(strerror(errno), errno);
+		return (ptr);
+	}
+	if (new_size <= cur_size)
+		return (ptr);
+	new_ptr = (char **)malloc(sizeof(char *) * (new_size + 1));
+	if (!new_ptr)
+		ft_error(strerror(errno), errno);
+	ft_memcpy(new_ptr, ptr, cur_size * sizeof(char *));
+	free(ptr);
+	return (new_ptr);
+}
 
 t_cmd	*ft_parsing(t_lexer *lexer)
 {
@@ -24,7 +45,7 @@ t_cmd	*ft_parsing(t_lexer *lexer)
 	i = 0;
 	while (lexer)
 	{
-		if (data.token_found == PIPE)
+		if (data.token_found == PIPE && lexer->token == WORD)
 		{
 			data.n_args = ft_count_args(lexer);
 			temp = ft_cmd_new(data.n_args);
@@ -48,11 +69,14 @@ t_cmd	*ft_parsing(t_lexer *lexer)
 		}
 		else if (data.token_found == LESSLESS && lexer->token == WORD)
 		{
+			temp->in = data.token_found;
+			data.token_found = 0;
 			while (TRUE)
 			{
 				data.lessless = readline(">");
 				if (ft_strcmp(data.lessless, lexer->args) == 0)
 					break ;
+				temp->args = ft_realloc(temp->args, data.n_args, ++(data.n_args));
 				temp->args[i++] = data.lessless;
 			}
 		}
@@ -130,19 +154,7 @@ int	ft_count_args(t_lexer *lexer)
 		return (count);
 	while (lexer && lexer->token != PIPE)
 	{
-		if (lexer->token == LESSLESS)
-		{
-			lexer = lexer->next;
-			while (TRUE)
-			{
-				lessless = readline(">d");
-				if (ft_strcmp(lessless, lexer->args) == 0)
-					break ;
-				count++;
-			}
-		}
-		else
-			count++;
+		count++;
 		lexer = lexer->next;
 	}
 	count--;
