@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/22 14:52:15 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/22 18:07:55 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,13 +113,13 @@ t_lexer	*ft_lexer(char *cmd_line)
 	t_lexer	*tmp;
 	void	*head;
 	char	**args;
-
+	
 	head = &lexer;
-	tmp = ft_lstnew_two(ft_strdup("ls"), WORD);
+	tmp = ft_lstnew_two(ft_strdup("<"), LESS);
 	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("-l"), WORD);
+	tmp = ft_lstnew_two(ft_strdup("main.c"), WORD);
 	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("|"), PIPE);
+	tmp = ft_lstnew_two(ft_strdup("cat"), WORD);
 	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("cat"), WORD);
 	ft_lstadd_back_lexer(head, tmp);
