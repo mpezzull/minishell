@@ -6,7 +6,7 @@
 #    By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/07/22 16:13:58 by mpezzull         ###   ########.fr        #
+#    Updated: 2021/07/23 12:14:23 by mpezzull         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ SRCS = main.c echo.c init.c counters.c parser.c parser_utils.c
 
 NAME = minishell
 
-LIBS = ./libft/libft.a -lreadline
+LIBS = -I /Users/$(USER)/.brew/opt/readline/include ./libft/libft.a -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
 
 OBJCS	=	$(SRCS:.c=.o)
 
@@ -30,8 +30,8 @@ all			:	$(NAME)
 $(NAME)		:	$(OBJCS)
 				@(make --no-print-directory -C libft/)
 				@(make --no-print-directory -C bin/)
-				@$(CC) $(FLAGS) -o $(NAME) $(OBJCS) $(LIBS)
-			 	@echo "\033[1;32m$@ successfully build\033[0m"
+				@$(CC) $(FLAGS) -o $(NAME) $(LIBS) $(OBJCS)
+				@echo "\033[1;32m$@ successfully build\033[0m"
 
 clean		:
 				@(make clean --no-print-directory -C ./libft/)

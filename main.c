@@ -6,13 +6,30 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/22 18:07:55 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/23 14:25:32 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_lexer	*ft_lexer(char *cmd_line);
+
+void	signal_handler(int sig_num)
+{
+	if (sig_num == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line(rl_line_buffer);
+		rl_redisplay();
+	}
+	else if (sig_num == SIGQUIT)
+	{
+		rl_on_new_line();
+		rl_replace_line(rl_line_buffer);
+		rl_redisplay();
+	}
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -30,7 +47,15 @@ int	main(int argc, char **argv, char **envp)
 	free(temp);
 	while (TRUE)
 	{
+		signal(SIGINT, signal_handler);
+		signal(SIGQUIT, signal_handler);
 		cmd_line = readline(prompt);
+		if (cmd_line == NULL)
+		{
+			rl_replace_line(ft_strdup("exit"));
+			rl_redisplay();
+			break ;
+		}
 		if (ft_strcmp(cmd_line, "exit") == 0)
 			break ;
 		add_history(cmd_line);
@@ -141,7 +166,7 @@ t_lexer	*ft_lexer(char *cmd_line)
 	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("cat"), WORD);
 	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("<<"), LESSLESS);
+	tmp = ft_lstnew_two(ft_strdup("<<"), LESS);
 	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("file4"), WORD);
 	ft_lstadd_back_lexer(head, tmp);

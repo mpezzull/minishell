@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:42:27 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/07/22 18:06:28 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/22 18:21:06 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,21 +92,4 @@ t_cmd	*ft_parsing(t_lexer *lexer)
 		lexer = lexer->next;
 	}
 	return (head);
-}
-
-int	ft_count_args(t_lexer *lexer)
-{
-	int		count;
-	char	*lessless;
-
-	count = 0;
-	if (!lexer)
-		return (count);
-	while (lexer && lexer->token != PIPE)
-	{
-		count++;
-		lexer = lexer->next;
-	}
-	count--;
-	return (count);
 }
