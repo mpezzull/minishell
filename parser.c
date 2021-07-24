@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:42:27 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/07/24 17:11:01 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/24 17:44:45 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,9 @@ void	ft_heredoc_shell(t_lexer *lexer, t_cmd *temp, int *i)
 {
 	t_parser	data;
 	int			pid;
+	int			fd[2];
 
+	pipe(fd);
 	pid = fork();
 	signal(SIGINT, SIG_IGN);
 	if (pid == 0)
@@ -104,14 +106,20 @@ void	ft_heredoc_shell(t_lexer *lexer, t_cmd *temp, int *i)
 			data.lessless = readline(">");
 			if (ft_strcmp(data.lessless, lexer->args) == 0)
 				break ;
-			temp->args = ft_realloc(temp->args, *i, *i + 1);
-			temp->args[(*i)++] = data.lessless;
+			write(fd[1], data.lessless, ft_strlen(data.lessless));
 		}
 		exit(0);
 	}
 	else
 	{
+		temp->args = ft_realloc(temp->args, *i, *i + 1);
+		while (get_next_line(fd[0], &temp->args[(*i)++]))
+		{
+			temp->args = ft_realloc(temp->args, *i, *i + 1);
+			write(1, "greve", 5);
+		}
 		wait(NULL);
+
 	}
 }
 

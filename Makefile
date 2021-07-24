@@ -6,11 +6,11 @@
 #    By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/07/23 12:14:23 by mpezzull         ###   ########.fr        #
+#    Updated: 2021/07/24 17:42:38 by mpezzull         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = main.c echo.c init.c counters.c parser.c parser_utils.c
+SRCS = main.c echo.c init.c counters.c parser.c parser_utils.c get_next_line.c
 
 NAME = minishell
 

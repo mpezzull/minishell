@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/24 17:03:34 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/24 17:43:16 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <string.h>
 # include "libft/libft.h"
 # include <string.h>
+# include "get_next_line.h"
 
 # define DEFAULT	0
 # define GREAT		1
@@ -83,5 +84,7 @@ void	ft_print_cmd(t_cmd *cmd);
 void	ft_check_double_token(t_lexer *lexer);
 void	ft_heredoc_shell(t_lexer *lexer, t_cmd *temp, int *i);
 void	ft_signal_handler_heredoc(int sig_num);
+void	ft_signal_handler(int sig_num);
+
 
 #endif
