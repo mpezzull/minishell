@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/24 15:10:57 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/24 16:27:30 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ void	signal_handler(int sig_num)
 	if (sig_num == SIGINT)
 	{
 		rl_on_new_line();
-		rl_replace_line("                                  ", 1);
+		rl_replace_line("  ", 1);
 		rl_redisplay();
 		write(1, "\n", 1);
 		rl_on_new_line();
-		rl_replace_line(rl_line_buffer, 1);
+		rl_replace_line("", 1);
 		rl_redisplay();
 	}
 	else if (sig_num == SIGQUIT)
 	{
 		rl_on_new_line();
-		rl_replace_line("  ", 1);
+		rl_replace_line("", 1);
 		rl_redisplay();
 	}
 }
@@ -51,7 +51,7 @@ int	main(int argc, char **argv, char **envp)
 	while (TRUE)
 	{
 		signal(SIGINT, signal_handler);
-		signal(SIGQUIT, signal_handler);
+		signal(SIGQUIT, SIG_IGN);
 		cmd_line = readline(prompt);
 		if (cmd_line == NULL)
 		{
@@ -150,7 +150,7 @@ t_lexer	*ft_lexer(char *cmd_line)
 	head = &lexer;
 	tmp = ft_lstnew_two(ft_strdup("<"), LESS);
 	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("main.c"), LESS);
+	tmp = ft_lstnew_two(ft_strdup("main.c"), WORD);
 	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("cat"), WORD);
 	ft_lstadd_back_lexer(head, tmp);
