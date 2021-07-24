@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/24 16:27:30 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/24 17:06:22 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_lexer	*ft_lexer(char *cmd_line);
 
-void	signal_handler(int sig_num)
+void	ft_signal_handler(int sig_num)
 {
 	if (sig_num == SIGINT)
 	{
@@ -50,7 +50,7 @@ int	main(int argc, char **argv, char **envp)
 	free(temp);
 	while (TRUE)
 	{
-		signal(SIGINT, signal_handler);
+		signal(SIGINT, ft_signal_handler);
 		signal(SIGQUIT, SIG_IGN);
 		cmd_line = readline(prompt);
 		if (cmd_line == NULL)
@@ -174,7 +174,7 @@ t_lexer	*ft_lexer(char *cmd_line)
 	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("cat"), WORD);
 	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("<<"), LESS);
+	tmp = ft_lstnew_two(ft_strdup("<<"), LESSLESS);
 	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("file4"), WORD);
 	ft_lstadd_back_lexer(head, tmp);

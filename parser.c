@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:42:27 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/07/24 15:10:46 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/24 17:11:01 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,7 @@ t_cmd	*ft_parsing(t_lexer *lexer)
 		{
 			temp->in = data.token_found;
 			data.token_found = 0;
-			while (TRUE)
-			{
-				data.lessless = readline(">");
-				if (ft_strcmp(data.lessless, lexer->args) == 0)
-					break ;
-				temp->args = ft_realloc(temp->args, i, i + 1);
-				temp->args[i++] = data.lessless;
-			}
+			ft_heredoc_shell(lexer, temp, &i);
 		}
 		else
 		{
@@ -93,4 +86,37 @@ t_cmd	*ft_parsing(t_lexer *lexer)
 		lexer = lexer->next;
 	}
 	return (head);
+}
+
+void	ft_heredoc_shell(t_lexer *lexer, t_cmd *temp, int *i)
+{
+	t_parser	data;
+	int			pid;
+
+	pid = fork();
+	signal(SIGINT, SIG_IGN);
+	if (pid == 0)
+	{
+		while (TRUE)
+		{
+			signal(SIGQUIT, SIG_IGN);
+			signal(SIGINT, ft_signal_handler_heredoc);
+			data.lessless = readline(">");
+			if (ft_strcmp(data.lessless, lexer->args) == 0)
+				break ;
+			temp->args = ft_realloc(temp->args, *i, *i + 1);
+			temp->args[(*i)++] = data.lessless;
+		}
+		exit(0);
+	}
+	else
+	{
+		wait(NULL);
+	}
+}
+
+void	ft_signal_handler_heredoc(int sig_num)
+{
+	if (sig_num == SIGINT)
+		exit(0);
 }
