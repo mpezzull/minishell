@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:42:27 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/07/22 18:21:06 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/24 15:10:46 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_cmd	*ft_parsing(t_lexer *lexer)
 	temp = NULL;
 	while (lexer)
 	{
+		ft_check_double_token(lexer);
 		if (!temp)
 		{
 			temp = ft_cmd_new(0);

@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/23 12:35:33 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/24 15:10:25 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@
 # define FIRST		8
 
 # define TRUE		1
+
+//Errors
+# define SYNTAX_ERROR 3
 
 typedef struct s_cmd	t_cmd;
 typedef struct s_lexer	t_lexer;
@@ -75,6 +78,8 @@ t_cmd	*ft_echo(char *token, char **splitted);
 t_cmd	*ft_cmd_new(int n_args);
 void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new);
 char	**ft_realloc(char	**ptr, int cur_size, int new_size);
-int		rl_replace_line(char *line);
+int		rl_replace_line(char *line, int clear_undo);
+void	ft_print_cmd(t_cmd *cmd);
+void	ft_check_double_token(t_lexer *lexer);
 
 #endif

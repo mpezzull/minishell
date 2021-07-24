@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 16:00:52 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/07/22 16:03:33 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/24 15:19:48 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,16 @@ void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new)
 		temp = temp->next;
 	}
 	temp->next = new;
+}
+
+void	ft_check_double_token(t_lexer *lexer)
+{
+	static int		prev;
+	int				curr;
+
+	curr = lexer->token;
+	if (prev != DEFAULT && prev != WORD && prev != PIPE && curr != WORD)
+		ft_error(ft_strjoin("minishell: syntax error near unexpected token ",
+				lexer->args), SYNTAX_ERROR);
+	prev = curr;
 }
