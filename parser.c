@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:42:27 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/07/24 17:44:45 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/25 17:36:03 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,33 +93,40 @@ void	ft_heredoc_shell(t_lexer *lexer, t_cmd *temp, int *i)
 	t_parser	data;
 	int			pid;
 	int			fd[2];
+	char		*line;
+	int			j;
 
+	j = 0;
 	pipe(fd);
 	pid = fork();
-	signal(SIGINT, SIG_IGN);
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
 		while (TRUE)
 		{
 			signal(SIGQUIT, SIG_IGN);
-			signal(SIGINT, ft_signal_handler_heredoc);
 			data.lessless = readline(">");
 			if (ft_strcmp(data.lessless, lexer->args) == 0)
 				break ;
 			write(fd[1], data.lessless, ft_strlen(data.lessless));
+			write(fd[1], "\n", 1);
 		}
+		write(fd[1], "\0", 1);
 		exit(0);
 	}
 	else
 	{
-		temp->args = ft_realloc(temp->args, *i, *i + 1);
-		while (get_next_line(fd[0], &temp->args[(*i)++]))
-		{
-			temp->args = ft_realloc(temp->args, *i, *i + 1);
-			write(1, "greve", 5);
-		}
 		wait(NULL);
-
+		while (j != -5)
+		{
+			line = NULL;
+			j = get_next_line(fd[0], &line);
+			if (line)
+			{
+				temp->args = ft_realloc(temp->args, *i, *i + 1);
+				temp->args[(*i)++] = ft_strdup(line);
+			}
+		}
 	}
 }
 

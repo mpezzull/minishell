@@ -6,11 +6,12 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 17:38:58 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/07/24 17:39:00 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/25 17:14:57 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "minishell.h"
 
 int	get_next_line(int fd, char **line)
 {
@@ -23,8 +24,10 @@ int	get_next_line(int fd, char **line)
 	gnl.ret = read(fd, &gnl.buffer, 1);
 	while (gnl.ret > 0)
 	{
-		if (gnl.buffer == '\n' || gnl.buffer == '\0')
+		if (gnl.buffer == '\n')
 			break ;
+		if (gnl.buffer == '\0')
+			return (-5);
 		gnl.temp[gnl.len++] = gnl.buffer;
 		gnl.ret = read(fd, &gnl.buffer, 1);
 	}

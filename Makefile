@@ -6,7 +6,7 @@
 #    By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/07/24 17:42:38 by mpezzull         ###   ########.fr        #
+#    Updated: 2021/07/25 13:43:24 by mpezzull         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ fclean		:	clean
 re			:	fclean all
 
 debug		:	re
-				@$(CC) -g $(SRCS) $(LIBS) -o debug
+				@$(CC) -g $(LIBS) $(SRCS) -o debug
 				@echo "per aprire il debug: \033[1;32mlancia \"lldb debug\"\033[0m"
 
 .PHONY		:	all clean fclean re

@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/24 17:06:22 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/25 17:04:23 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	main(int argc, char **argv, char **envp)
 		cmd = ft_parsing(lexer);
 //		ft_expander(cmd);
 //		ft_executer(cmd);
-//		ft_print_cmd(cmd);
+		ft_print_cmd(cmd);
 		free(cmd_line);
 	}
 	free(prompt);
@@ -176,7 +176,7 @@ t_lexer	*ft_lexer(char *cmd_line)
 	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("<<"), LESSLESS);
 	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("file4"), WORD);
+	tmp = ft_lstnew_two(ft_strdup("5"), WORD);
 	ft_lstadd_back_lexer(head, tmp);
 
 	return (lexer);
