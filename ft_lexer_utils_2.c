@@ -1,39 +1,102 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lexer_utils_2.c                                 :+:      :+:    :+:   */
+/*   ft_token.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/19 20:31:16 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/20 00:32:17 by mde-rosa         ###   ########.fr       */
+/*   Created: 2021/07/22 01:08:16 by mde-rosa          #+#    #+#             */
+/*   Updated: 2021/07/26 17:02:36 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// data una stringa ed una posizione in essa, scorre (partendo dalla posizione
-// successiva a quella indicata) alla ricerca del carattere search
-// ritorna 1 se trova il carattere, 0 se non lo trova.
-int	ft_there_is_char(char *str, int index, char search)
+char	*ft_token(char *cmd_line, int *i, t_lexer **lexer)
 {
-	index++;
-	while (str[index])
-		if (str[index++] == search)
-			return (1);
-	return (0);
+	char	*word;
+	t_lexer	*tmp;
+	int		token;
+
+	token = ft_token_witch1(cmd_line, *i);
+	word = ft_token_arg(cmd_line, *i, token);
+	*i = ft_token_lenght(token, *i);
+	return (word);
 }
 
-//ritorna il numero di quanti 'c' ci sono nella str da start a end
-int	ft_count_char(char *str, int start, int end, char c)
+char	*ft_token_arg(char *cmd_line, int i, int token)
 {
-	int	counter;
+	char	*arg;
+	int		lenght;
 
-	counter = 0;
-	while (start <= end)
+	if (token == GREATGREAT || token == LESSLESS)
+		lenght = 2;
+	else
+		lenght = 1;
+	arg = (char *)malloc((lenght * sizeof(char) + 1));
+	arg[0] = cmd_line[i];
+	if (token == GREATGREAT || token == LESSLESS)
 	{
-		if (str[start++] == c)
-			counter++;
+		arg[1] = cmd_line[i + 1];
+		arg[2] = '\0';
 	}
-	return (counter);
+	else
+		arg[1] = '\0';
+	return (arg);
+}
+
+// ritorna l indice al carattere successivo al token.
+int	ft_token_lenght(int token, int i)
+{
+	int	lenght;
+
+	lenght = i;
+	if (token == GREATGREAT || token == LESSLESS)
+		lenght += 2;
+	else
+		lenght += 1;
+	return (lenght);
+}
+
+int	ft_token_witch1(char *cmd_line, int i)
+{
+	if (cmd_line[i] == '>')
+	{
+		if (cmd_line[i + 1] == '>')
+			return (GREATGREAT);
+		return (GREAT);
+	}
+	else if (cmd_line[i] == '<')
+	{
+		if (cmd_line[i + 1] == '<')
+			return (LESSLESS);
+		return (LESS);
+	}
+	else if (cmd_line[i] == '|')
+		return (PIPE);
+	else
+		return (NOTOKEN);
+}
+
+int	ft_token_witch(char *word)
+{
+	int	i;
+
+	i = 0;
+	if (word[i] == '>')
+	{
+		if (word[i + 1] == '>')
+			return (GREATGREAT);
+		return (GREAT);
+	}
+	else if (word[i] == '<')
+	{
+		if (word[i + 1] == '<')
+			return (LESSLESS);
+		return (LESS);
+	}
+	else if (word[i] == '|')
+		return (PIPE);
+	else
+		return (NOTOKEN);
 }

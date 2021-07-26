@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/22 02:11:38 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/26 16:55:16 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,28 +79,13 @@ t_lexer		*ft_lstnew_two(char*args, int token);
 void		ft_line_to_args(char *cmd_line, t_lexer **lexer);
 int			ft_is_space(char c);
 int			ft_there_is_token(char *str, int index);
-int			ft_count_char(char *str, int start, int end, char c);
-int			ft_there_is_char(char *str, int index, char search);
-char		*ft_squote_arg(char *cmd_line, t_lexer *lexer, t_lex_data *list);
-int			ft_squote_data(char *cmd_line, int i, t_lex_data *list);
-char		*ft_squote_openclosed(char *cmd_line, t_lexer *lexer,
-				t_lex_data *list);
-char		*ft_quote_notclosed(char *cmd_line, t_lexer *lexer,
-				t_lex_data *list);
-void		ft_single_quote(char *cmd_line, int *i, t_lexer **lexer,
-				t_lex_data *list);
-char		*ft_dquote_arg(char *cmd_line, t_lexer *lexer, t_lex_data *list);
-int			ft_dquote_data(char *cmd_line, int i, t_lex_data *list);
-char		*ft_dquote_openclosed(char *cmd_line, t_lexer *lexer,
-				t_lex_data *list);
-void		ft_double_quote(char *cmd_line, int *i, t_lexer **lexer,
-				t_lex_data *list);
-void		ft_token(char *cmd_line, int *i, t_lexer **lexer);
+char		*ft_token(char *cmd_line, int *i, t_lexer **lexer);
 char 		*ft_token_arg(char *cmd_line, int i, int token);
 int			ft_token_lenght(int token, int i);
-int			ft_token_witch(char *cmd_line, int i);
-void		ft_word(char *cmd_line, int *i, t_lexer **lexer);
-char 		*ft_word_arg(char *cmd_line, int i);
-int			ft_word_lenght(char *cmd_line, int i);
+int			ft_token_witch(char *word);
+int			ft_token_witch1(char *cmd_line, int i);
+char		*ft_create_word(char *cmd_line, int *i);
+char 		*ft_save_word(char *cmd_line, int *start, int lenght);
+int			ft_check_closed(char *cmd_line, int i);
 
 #endif
