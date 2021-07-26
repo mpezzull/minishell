@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:42:27 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/07/25 17:36:03 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/26 16:19:58 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,48 +90,59 @@ t_cmd	*ft_parsing(t_lexer *lexer)
 
 void	ft_heredoc_shell(t_lexer *lexer, t_cmd *temp, int *i)
 {
-	t_parser	data;
 	int			pid;
 	int			fd[2];
-	char		*line;
-	int			j;
 
-	j = 0;
+	signal(SIGINT, SIG_IGN);
 	pipe(fd);
 	pid = fork();
 	if (pid == 0)
-	{
-		signal(SIGINT, SIG_DFL);
-		while (TRUE)
-		{
-			signal(SIGQUIT, SIG_IGN);
-			data.lessless = readline(">");
-			if (ft_strcmp(data.lessless, lexer->args) == 0)
-				break ;
-			write(fd[1], data.lessless, ft_strlen(data.lessless));
-			write(fd[1], "\n", 1);
-		}
-		write(fd[1], "\0", 1);
-		exit(0);
-	}
+		ft_heredoc_child(lexer, fd);
 	else
 	{
 		wait(NULL);
-		while (j != -5)
-		{
-			line = NULL;
-			j = get_next_line(fd[0], &line);
-			if (line)
-			{
-				temp->args = ft_realloc(temp->args, *i, *i + 1);
-				temp->args[(*i)++] = ft_strdup(line);
-			}
-		}
+		write(fd[1], "\0", 1);
+		ft_heredoc_parent(temp, fd, *i);
 	}
 }
 
+//per ora non deve fare nulla (non viene nemmeno chiamata)
 void	ft_signal_handler_heredoc(int sig_num)
 {
-	if (sig_num == SIGINT)
-		exit(0);
+}
+
+void	ft_heredoc_child(t_lexer *lexer, int *fd)
+{
+	t_parser	data;
+
+	while (TRUE)
+	{
+		signal(SIGINT, SIG_DFL);
+		data.lessless = readline("> ");
+		if (ft_strcmp(data.lessless, lexer->args) == 0)
+			break ;
+		write(fd[1], data.lessless, ft_strlen(data.lessless));
+		write(fd[1], "\n", 1);
+	}
+	write(fd[1], "\0", 1);
+	exit(0);
+}
+
+void	ft_heredoc_parent(t_cmd	*temp, int *fd, int i)
+{
+	int		j;
+	char	*line;
+
+	line = NULL;
+	j = 0;
+	while (j != -5)
+	{
+		line = NULL;
+		j = get_next_line(fd[0], &line);
+		if (line)
+		{
+			temp->args = ft_realloc(temp->args, i, i + 1);
+			temp->args[i++] = ft_strdup(line);
+		}
+	}
 }
