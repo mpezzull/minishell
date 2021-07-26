@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/26 16:17:57 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/26 17:37:51 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "libft/libft.h"
 # include <string.h>
 # include <signal.h>
+# include <fcntl.h>
 # include "get_next_line.h"
 
 # define DEFAULT	0
@@ -41,6 +42,7 @@
 typedef struct s_cmd	t_cmd;
 typedef struct s_lexer	t_lexer;
 typedef struct s_parser	t_parser;
+typedef struct s_env	t_env;
 
 struct s_parser
 {
@@ -68,6 +70,14 @@ struct	s_lexer
 	t_lexer	*next;
 };
 
+struct s_env
+{
+	char	*name;
+	char	*value;
+	t_env	*next;	
+};
+
+
 t_cmd	*ft_parsing(t_lexer *lexer);
 void	ft_error(char *strerror, int nbr);
 t_cmd	*init_cmd(void);
@@ -88,5 +98,6 @@ void	ft_signal_handler_heredoc(int sig_num);
 void	ft_signal_handler(int sig_num);
 void	ft_heredoc_child(t_lexer *lexer, int *fd);
 void	ft_heredoc_parent(t_cmd	*temp, int *fd, int i);
+char	**cp_str_array(char **envp);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/26 14:44:06 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/26 17:38:29 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*cmd_line;
 	char	*prompt;
 	char	*temp;
+	char	**our_env;
 	t_cmd	*cmd;
 	t_lexer	*lexer;
 
@@ -48,6 +49,7 @@ int	main(int argc, char **argv, char **envp)
 	temp = ft_strdup("@minishell:~$ ");
 	prompt = ft_strjoin(getenv("USER"), temp);
 	free(temp);
+	our_env = cp_str_array(envp);
 	while (TRUE)
 	{
 		signal(SIGINT, ft_signal_handler);
@@ -64,7 +66,7 @@ int	main(int argc, char **argv, char **envp)
 		add_history(cmd_line);
 		lexer = ft_lexer(cmd_line);
 		cmd = ft_parsing(lexer);
-//		ft_expander(cmd);
+//		ft_expander(cmd, our_env);
 //		ft_executer(cmd);
 		ft_print_cmd(cmd);
 		free(cmd_line);
@@ -174,7 +176,7 @@ t_lexer	*ft_lexer(char *cmd_line)
 	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("cat"), WORD);
 	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("<<"), LESSLESS);
+	tmp = ft_lstnew_two(ft_strdup("<<"), LESS);
 	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("5"), WORD);
 	ft_lstadd_back_lexer(head, tmp);

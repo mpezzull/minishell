@@ -6,32 +6,11 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 16:00:52 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/07/24 15:19:48 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/26 17:45:25 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	**ft_realloc(char	**ptr, int cur_size, int new_size)
-{
-	char	**new_ptr;
-
-	if (ptr == 0)
-	{
-		ptr = (char **)malloc(sizeof(char *) * (new_size + 1));
-		if (!ptr)
-			ft_error(strerror(errno), errno);
-		return (ptr);
-	}
-	if (new_size <= cur_size)
-		return (ptr);
-	new_ptr = (char **)malloc(sizeof(char *) * (new_size + 1));
-	if (!new_ptr)
-		ft_error(strerror(errno), errno);
-	ft_memcpy(new_ptr, ptr, cur_size * sizeof(char *));
-	free(ptr);
-	return (new_ptr);
-}
 
 t_cmd	*ft_cmd_new(int n_args)
 {
