@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/27 18:24:19 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/27 20:39:01 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		ft_expander(cmd, our_env);
 //		ft_executer(cmd);
-		ft_print_cmd(cmd);
+//		ft_print_cmd(cmd);
 		free(cmd_line);
 	}
+	ft_free(cmd, lexer);
 	free(prompt);
 	return (0);
 }

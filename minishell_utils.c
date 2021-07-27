@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:41:43 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/07/27 14:05:12 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/27 20:24:50 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ char	**ft_realloc(char	**ptr, int cur_size, int new_size)
 
 	if (ptr == 0)
 	{
-		ptr = (char **)malloc(sizeof(char *) * (new_size + 1));
+		ptr = (char **)ft_calloc((new_size + 1), sizeof(char *));
 		if (!ptr)
 			ft_error(strerror(errno), errno);
 		return (ptr);
 	}
 	if (new_size <= cur_size)
 		return (ptr);
-	new_ptr = (char **)malloc(sizeof(char *) * (new_size + 1));
+	new_ptr = (char **)ft_calloc((new_size + 1), sizeof(char *));
 	if (!new_ptr)
 		ft_error(strerror(errno), errno);
 	ft_memcpy(new_ptr, ptr, cur_size * sizeof(char *));
@@ -55,14 +55,14 @@ char	*ft_realloc_str(char	*ptr, int cur_size, int new_size)
 
 	if (ptr == 0)
 	{
-		ptr = (char *)malloc(sizeof(char) * (new_size + 1));
+		ptr = (char *)ft_calloc(new_size + 1, sizeof(char));
 		if (!ptr)
 			ft_error(strerror(errno), errno);
 		return (ptr);
 	}
 	if (new_size <= cur_size)
 		return (ptr);
-	new_ptr = (char *)malloc(sizeof(char) * (new_size + 1));
+	new_ptr = (char *)ft_calloc(new_size + 1, sizeof(char));
 	if (!new_ptr)
 		ft_error(strerror(errno), errno);
 	ft_memcpy(new_ptr, ptr, cur_size * sizeof(char));
