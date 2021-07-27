@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/26 17:37:51 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/27 14:05:20 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,10 @@ void	ft_signal_handler(int sig_num);
 void	ft_heredoc_child(t_lexer *lexer, int *fd);
 void	ft_heredoc_parent(t_cmd	*temp, int *fd, int i);
 char	**cp_str_array(char **envp);
+void	ft_expander(t_cmd *cmd, char **our_env);
+char	*ft_findenv(char *name, char **environ);
+char	*ft_realloc_str(char	*ptr, int cur_size, int new_size);
+
+
 
 #endif
