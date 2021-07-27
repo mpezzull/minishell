@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/27 14:54:12 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/27 18:24:19 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,11 +152,11 @@ t_lexer	*ft_lexer(char *cmd_line)
 	head = &lexer;
 	tmp = ft_lstnew_two(ft_strdup("<"), LESS);
 	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("main.c"), WORD);
+	tmp = ft_lstnew_two(ft_strdup("$HOME"), WORD);
 	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("cat"), WORD);
 	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("ciao $USER"), WORD);
+	tmp = ft_lstnew_two(ft_strdup("ciao $USER , sei in $PWD"), WORD);
 	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("\\ $PWD"), WORD);
 	ft_lstadd_back_lexer(head, tmp);
@@ -166,11 +166,11 @@ t_lexer	*ft_lexer(char *cmd_line)
 	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("|"), PIPE);
 	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("cat"), WORD);
+	tmp = ft_lstnew_two(ft_strdup("$PATH"), WORD);
 	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup(">>"), GREATGREAT);
 	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("file3"), WORD);
+	tmp = ft_lstnew_two(ft_strdup("$SHELL"), WORD);
 	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("|"), PIPE);
 	ft_lstadd_back_lexer(head, tmp);
