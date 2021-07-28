@@ -6,25 +6,11 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 20:07:16 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/28 02:12:08 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/28 02:21:50 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// sets all values ​​to zero.
-t_lex_data	initlist(void)
-{
-	t_lex_data		list;
-
-	list.start = 0;
-	list.end = 0;
-	list.s_quote_open = 0;
-	list.d_quote_open = 0;
-	list.s_quote_closed = 0;
-	list.d_quote_closed = 0;
-	return (list);
-}
 
 t_lexer	*ft_lstnew_two(char*args, int token)
 {

@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:40:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/28 02:05:46 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/28 02:21:48 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_lexer	*ft_lexer(char *cmd_line)
 	printf(" #\targs\tTOKEN\n");
 	while (tmp)
 	{
-		printf(" %d %10s\t", i, (tmp)->args);
+		printf(" %d %10s\t", i++, (tmp)->args);
 		if ((tmp)->token == GREAT)
 			printf("%s\n", "GREAT");
 		if ((tmp)->token == LESS)
@@ -42,7 +42,6 @@ t_lexer	*ft_lexer(char *cmd_line)
 		if ((tmp)->token == WORD)
 			printf("%s\n", "WORD");
 		fflush(stdout);
-		i++;
 		tmp = (tmp)->next;
 	}
 //termina stampa della lista
@@ -53,21 +52,17 @@ t_lexer	*ft_lexer(char *cmd_line)
 // fills the list of structures in t_lexer ** lexer
 void	ft_split_lexer(char *cmd_line, t_lexer **lexer)
 {
-	t_lex_data	list;
 	t_lexer		*tmp;
 	int			i;
 	char		*word;
 	int			token;
 
-	list = initlist();
 	i = 0;
 	while (cmd_line[i])
 	{
-		list = initlist();
 		token = WORD;
 		while (ft_is_space(cmd_line[i]))
 			i++;
-		list.start = i;
 		if (cmd_line[i] == '>' || cmd_line[i] == '<' || cmd_line[i] == '|')
 		{
 			word = ft_token(cmd_line, &i, lexer);

@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/28 02:05:41 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/28 02:22:31 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,6 @@
 typedef struct s_cmd		t_cmd;
 typedef struct s_lexer		t_lexer;
 typedef struct s_lex_data	t_lex_data;
-
-struct s_lex_data
-{
-	int	s_quote_open;
-	int	d_quote_open;
-	int	s_quote_closed;
-	int	d_quote_closed;
-	int	start;
-	int	end;
-};
 
 struct	s_cmd
 {
@@ -74,18 +64,17 @@ t_cmd		*ft_echo(char *token, char **splitted);
 t_lexer		*ft_lexer(char *str);
 void		ft_lstadd_back_lexer(t_lexer **lst, t_lexer *new);
 
-t_lex_data	initlist(void);
 t_lexer		*ft_lstnew_two(char*args, int token);
 void		ft_split_lexer(char *cmd_line, t_lexer **lexer);
 int			ft_is_space(char c);
 int			ft_there_is_token(char *str, int index);
 char		*ft_token(char *cmd_line, int *i, t_lexer **lexer);
-char 		*ft_token_arg(char *cmd_line, int i, int token);
+char		*ft_token_arg(char *cmd_line, int i, int token);
 int			ft_token_lenght(int token, int i);
 int			ft_token_witch(char *word);
 int			ft_token_witch_index(char *cmd_line, int i);
 char		*ft_create_word(char *cmd_line, int *i);
-char 		*ft_save_word(char *cmd_line, int *start, int lenght);
+char		*ft_save_word(char *cmd_line, int *start, int lenght);
 int			ft_check_closed(char *cmd_line, int i);
 
 #endif
