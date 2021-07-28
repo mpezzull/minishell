@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:40:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/28 16:46:04 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/28 16:49:55 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_lexer	*ft_lexer(char *cmd_line)
 //inizia la stampa della lista
 	tmp = *address_first;
 	int i = 0;
-	printf(" #\targs\tTOKEN\n");
+	printf("---------ft_lexer-------------------\n #\targs\tTOKEN\n");
 	while (tmp)
 	{
 		printf(" %d %10s\t", i++, (tmp)->args);
@@ -41,6 +41,7 @@ t_lexer	*ft_lexer(char *cmd_line)
 			printf("%s\n", "PIPE");
 		if ((tmp)->token == WORD)
 			printf("%s\n", "WORD");
+		printf("---------ft_lexer-------------------\n");
 		fflush(stdout);
 		tmp = (tmp)->next;
 	}
