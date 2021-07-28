@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_token.c                                         :+:      :+:    :+:   */
+/*   ft_lexer_utils_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 01:08:16 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/26 17:02:36 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/28 02:09:28 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// returns the token as a string
+// increment the index to the end of the word
 char	*ft_token(char *cmd_line, int *i, t_lexer **lexer)
 {
 	char	*word;
 	t_lexer	*tmp;
 	int		token;
 
-	token = ft_token_witch1(cmd_line, *i);
+	token = ft_token_witch_index(cmd_line, *i);
 	word = ft_token_arg(cmd_line, *i, token);
 	*i = ft_token_lenght(token, *i);
 	return (word);
 }
 
+// create and save the word (use malloc - to free!)
 char	*ft_token_arg(char *cmd_line, int i, int token)
 {
 	char	*arg;
@@ -45,7 +48,7 @@ char	*ft_token_arg(char *cmd_line, int i, int token)
 	return (arg);
 }
 
-// ritorna l indice al carattere successivo al token.
+// increment the index up to the character following the token
 int	ft_token_lenght(int token, int i)
 {
 	int	lenght;
@@ -58,7 +61,8 @@ int	ft_token_lenght(int token, int i)
 	return (lenght);
 }
 
-int	ft_token_witch1(char *cmd_line, int i)
+// returns the token as an integer (as defined)
+int	ft_token_witch_index(char *cmd_line, int i)
 {
 	if (cmd_line[i] == '>')
 	{
@@ -78,6 +82,7 @@ int	ft_token_witch1(char *cmd_line, int i)
 		return (NOTOKEN);
 }
 
+// returns the token as an integer (as defined)
 int	ft_token_witch(char *word)
 {
 	int	i;

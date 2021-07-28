@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:40:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/26 17:14:59 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/28 02:05:46 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,29 @@ t_lexer	*ft_lexer(char *cmd_line)
 
 	lexer = NULL;
 	address_first = &lexer;
-	ft_line_to_args(cmd_line, address_first);
+	ft_split_lexer(cmd_line, address_first);
 
 //inizia la stampa della lista
 	tmp = *address_first;
-	printf("%10s %s\n", "args", "token");
+	int i = 0;
+	printf(" #\targs\tTOKEN\n");
 	while (tmp)
 	{
-		printf("%10s %3d\n", (tmp)->args, (tmp)->token);
+		printf(" %d %10s\t", i, (tmp)->args);
+		if ((tmp)->token == GREAT)
+			printf("%s\n", "GREAT");
+		if ((tmp)->token == LESS)
+			printf("%s\n", "LESS");
+		if ((tmp)->token == GREATGREAT)
+			printf("%s\n", "GREATGREAT");
+		if ((tmp)->token == LESSLESS)
+			printf("%s\n", "LESSLESS");
+		if ((tmp)->token == PIPE)
+			printf("%s\n", "PIPE");
+		if ((tmp)->token == WORD)
+			printf("%s\n", "WORD");
 		fflush(stdout);
+		i++;
 		tmp = (tmp)->next;
 	}
 //termina stampa della lista
@@ -36,8 +50,8 @@ t_lexer	*ft_lexer(char *cmd_line)
 	return (lexer);
 }
 
-// prende in ingresso la cmd_line e riempe la lista con gli argomenti
-void	ft_line_to_args(char *cmd_line, t_lexer **lexer)
+// fills the list of structures in t_lexer ** lexer
+void	ft_split_lexer(char *cmd_line, t_lexer **lexer)
 {
 	t_lex_data	list;
 	t_lexer		*tmp;
@@ -50,6 +64,7 @@ void	ft_line_to_args(char *cmd_line, t_lexer **lexer)
 	while (cmd_line[i])
 	{
 		list = initlist();
+		token = WORD;
 		while (ft_is_space(cmd_line[i]))
 			i++;
 		list.start = i;
@@ -59,15 +74,14 @@ void	ft_line_to_args(char *cmd_line, t_lexer **lexer)
 			token = ft_token_witch(word);
 		}
 		else
-		{
 			word = ft_create_word(cmd_line, &i);
-			token = WORD;
-		}
 		tmp = ft_lstnew_two(word, token);
 		ft_lstadd_back_lexer(lexer, tmp);
 	}
 }
 
+// returns the word starting from the index up to the next space/token
+// increment the index to the end of the word
 char	*ft_create_word(char *cmd_line, int *index)
 {
 	int		start;
@@ -103,8 +117,7 @@ char	*ft_create_word(char *cmd_line, int *index)
 	return (word);
 }
 
-
-char *ft_save_word(char *cmd_line, int *start, int lenght)
+char	*ft_save_word(char *cmd_line, int *start, int lenght)
 {
 	char	*word;
 	char	type;

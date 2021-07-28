@@ -6,12 +6,13 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 20:07:16 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/22 02:34:23 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/28 02:12:08 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// sets all values ​​to zero.
 t_lex_data	initlist(void)
 {
 	t_lex_data		list;
@@ -59,8 +60,8 @@ void	ft_lstadd_back_lexer(t_lexer **lst, t_lexer *new)
 	temp->next = new;
 }
 
-// ritorna il numero di caratteri che compongono il token,
-// ritorna 0 se non ci sono token.
+// returns 1 if char is a token.
+// (it also checks the next character)
 int	ft_there_is_token(char *str, int index)
 {
 	if (str[index] == '<' || str[index] == '>' || str[index] == '|')
@@ -72,8 +73,7 @@ int	ft_there_is_token(char *str, int index)
 	return (0);
 }
 
-// ritorna 1 se il carattere passato é [\\t] [\\n] [\\v] [\\f] [\\r] [space],
-// altimenti ritorna 0.
+// returns 1 if char is one among [\\t] [\\n] [\\v] [\\f] [\\r] [space].
 int	ft_is_space(char c)
 {
 	if ((c >= 9 && c <= 13) || c == 32)
