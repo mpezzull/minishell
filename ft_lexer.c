@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:40:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/28 02:21:48 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/28 02:32:10 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_split_lexer(char *cmd_line, t_lexer **lexer)
 		if (cmd_line[i] == '>' || cmd_line[i] == '<' || cmd_line[i] == '|')
 		{
 			word = ft_token(cmd_line, &i, lexer);
-			token = ft_token_witch(word);
+			token = ft_token_witch(word, 0);
 		}
 		else
 			word = ft_create_word(cmd_line, &i);
@@ -144,19 +144,4 @@ char	*ft_save_word(char *cmd_line, int *start, int lenght)
 	}
 	word[index] = '\0';
 	return (word);
-}
-
-int	ft_check_closed(char *cmd_line, int i)
-{
-	char	search;
-
-	search = cmd_line[i];
-	i++;
-	while (cmd_line[i] != '\0')
-	{
-		if (cmd_line[i] == search)
-			return (1);
-		i++;
-	}
-	ft_error("Quote not closed", 1);
 }

@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 01:08:16 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/28 02:22:41 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/28 02:28:28 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_token(char *cmd_line, int *i, t_lexer **lexer)
 	t_lexer	*tmp;
 	int		token;
 
-	token = ft_token_witch_index(cmd_line, *i);
+	token = ft_token_witch(cmd_line, *i);
 	word = ft_token_arg(cmd_line, *i, token);
 	*i = ft_token_lenght(token, *i);
 	return (word);
@@ -62,7 +62,7 @@ int	ft_token_lenght(int token, int i)
 }
 
 // returns the token as an integer (as defined)
-int	ft_token_witch_index(char *cmd_line, int i)
+int	ft_token_witch(char *cmd_line, int i)
 {
 	if (cmd_line[i] == '>')
 	{
@@ -77,30 +77,6 @@ int	ft_token_witch_index(char *cmd_line, int i)
 		return (LESS);
 	}
 	else if (cmd_line[i] == '|')
-		return (PIPE);
-	else
-		return (NOTOKEN);
-}
-
-// returns the token as an integer (as defined)
-int	ft_token_witch(char *word)
-{
-	int	i;
-
-	i = 0;
-	if (word[i] == '>')
-	{
-		if (word[i + 1] == '>')
-			return (GREATGREAT);
-		return (GREAT);
-	}
-	else if (word[i] == '<')
-	{
-		if (word[i + 1] == '<')
-			return (LESSLESS);
-		return (LESS);
-	}
-	else if (word[i] == '|')
 		return (PIPE);
 	else
 		return (NOTOKEN);

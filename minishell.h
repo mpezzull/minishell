@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/28 02:22:31 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/28 02:28:25 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char		*ft_token(char *cmd_line, int *i, t_lexer **lexer);
 char		*ft_token_arg(char *cmd_line, int i, int token);
 int			ft_token_lenght(int token, int i);
 int			ft_token_witch(char *word);
-int			ft_token_witch_index(char *cmd_line, int i);
+int			ft_token_witch(char *cmd_line, int i);
 char		*ft_create_word(char *cmd_line, int *i);
 char		*ft_save_word(char *cmd_line, int *start, int lenght);
 int			ft_check_closed(char *cmd_line, int i);

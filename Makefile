@@ -6,12 +6,12 @@
 #    By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/07/26 17:09:21 by mde-rosa         ###   ########.fr        #
+#    Updated: 2021/07/28 02:30:27 by mde-rosa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS	=	main.c echo.c init.c counters.c \
-			ft_lexer.c ft_lexer_utils.c ft_lexer_utils_2.c \
+			ft_lexer.c ft_lexer_2.c ft_lexer_utils.c \
 
 NAME	=	minishell
 

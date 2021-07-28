@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 20:07:16 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/28 02:21:50 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/28 02:34:00 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,21 @@ int	ft_is_space(char c)
 	if ((c >= 9 && c <= 13) || c == 32)
 		return (1);
 	return (0);
+}
+
+// returns 1 if there is another quote like cmd_line[i]
+// exit with ft_error
+int	ft_check_closed(char *cmd_line, int i)
+{
+	char	search;
+
+	search = cmd_line[i];
+	i++;
+	while (cmd_line[i] != '\0')
+	{
+		if (cmd_line[i] == search)
+			return (1);
+		i++;
+	}
+	ft_error("Quote not closed", 1);
 }
