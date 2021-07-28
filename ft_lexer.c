@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:40:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/28 16:02:47 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/28 16:46:04 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,17 @@ void	ft_split_lexer(char *cmd_line, t_lexer **lexer)
 		token = WORD;
 		while (ft_is_space(cmd_line[i]))
 			i++;
-		if (cmd_line[i] == '>' || cmd_line[i] == '<' || cmd_line[i] == '|')
+		if (cmd_line[i] != '\0')
 		{
-			word = ft_token(cmd_line, &i, lexer);
-			token = ft_token_witch(word, 0);
+			if (cmd_line[i] == '>' || cmd_line[i] == '<' || cmd_line[i] == '|')
+			{
+				word = ft_token(cmd_line, &i, lexer);
+				token = ft_token_witch(word, 0);
+			}
+			else
+				word = ft_create_word(cmd_line, &i);
+			tmp = ft_lstnew_two(word, token);
+			ft_lstadd_back_lexer(lexer, tmp);
 		}
-		else
-			word = ft_create_word(cmd_line, &i);
-		tmp = ft_lstnew_two(word, token);
-		ft_lstadd_back_lexer(lexer, tmp);
 	}
 }
