@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/26 19:09:05 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/19 20:41:32 by mde-rosa         ###   ########.fr       */
+/*   Created: 2021/01/20 19:03:21 by mde-rosa          #+#    #+#             */
+/*   Updated: 2021/07/15 19:51:07 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-t_cmd	*init_cmd(void)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	t_cmd	*instr;
+	t_list *temp;
+	t_list *temp_next;
 
-	instr = (t_cmd *)malloc(sizeof(t_cmd));
-	if (!instr)
-		ft_error(strerror(errno), errno);
-	instr->flag = NULL;
-	return (instr);
-}
-
-void	ft_init_args(t_cmd *instr, int num_args)
-{
-	instr->args = (char **)malloc(sizeof(char *) * (num_args + 2));
-	if (!instr->args)
-		ft_error(strerror(errno), errno);
+	temp = *lst;
+	while (temp)
+	{
+		temp_next = temp->next;
+		del(temp->content);
+		free(temp);
+		temp = temp_next;
+	}
+	*lst = NULL;
 }

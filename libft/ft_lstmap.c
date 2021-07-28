@@ -1,31 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/26 19:09:05 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/19 20:41:32 by mde-rosa         ###   ########.fr       */
+/*   Created: 2021/01/20 20:10:51 by mde-rosa          #+#    #+#             */
+/*   Updated: 2021/07/15 19:51:07 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-t_cmd	*init_cmd(void)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void *))
 {
-	t_cmd	*instr;
+	t_list	*temp;
+	t_list	*new;
 
-	instr = (t_cmd *)malloc(sizeof(t_cmd));
-	if (!instr)
-		ft_error(strerror(errno), errno);
-	instr->flag = NULL;
-	return (instr);
-}
-
-void	ft_init_args(t_cmd *instr, int num_args)
-{
-	instr->args = (char **)malloc(sizeof(char *) * (num_args + 2));
-	if (!instr->args)
-		ft_error(strerror(errno), errno);
+	temp = NULL;
+	while (lst)
+	{
+		if (!(new = ft_lstnew((*f)(lst->content))))
+		{
+			while (temp)
+			{
+				new = temp->next;
+				(*del)(temp->content);
+				free(temp);
+				temp = new;
+			}
+			lst = NULL;
+			return (NULL);
+		}
+		ft_lstadd_back(&temp, new);
+		lst = lst->next;
+	}
+	return (temp);
 }
