@@ -6,16 +6,25 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:48:21 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/07/27 20:37:29 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/28 14:57:42 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_expand_env(char	*env, char *value)
+void	ft_expand_env(char	*env, char *value, int len_word)
 {
+	int		i;
+	char	*cpy_env;
+
+	i = 0;
+	cpy_env = ft_strdup(env);
+	while (i++ < len_word + 1)
+		cpy_env++;
 	while (*value)
 		*(env++) = *(value++);
+	while (*cpy_env)
+		*(env++) = *(cpy_env++);
 }
 
 void	ft_expander(t_cmd *cmd, char **our_env)
@@ -46,10 +55,10 @@ char	*ft_find_and_expand(char *to_replace, char **our_env)
 	char	*pos_dollar;
 	char	*pos_backslash;
 	char	*env_value;
-	char	**word;
+	char	*word;
 	int		len_cmd;
 
-	printf("before: %s \n", to_replace);
+//	printf("before: %s \n", to_replace);
 	pos_dollar = ft_strchr(to_replace, '$');
 	while (pos_dollar != NULL)
 	{
@@ -57,17 +66,20 @@ char	*ft_find_and_expand(char *to_replace, char **our_env)
 		if (pos_dollar && (pos_backslash == NULL
 				|| (pos_backslash + 1 != pos_dollar)) && pos_dollar + 1)
 		{
-			word = ft_split(pos_dollar + 1, ' ');
-			env_value = ft_getenv(*word, our_env);
+			word = *ft_split(pos_dollar + 1, ' ');
+			env_value = ft_getenv(word, our_env);
 			len_cmd = ft_strlen(to_replace);
 			to_replace = ft_realloc_str(to_replace,
 					len_cmd, len_cmd + ft_strlen(env_value));
-			ft_expand_env(ft_strchr(to_replace, '$'), env_value);
+			ft_expand_env(ft_strchr(to_replace, '$'), env_value,
+				ft_strlen(word));
 //			ft_free_word(word);
+			pos_dollar = ft_strchr(to_replace, '$');
 		}
-		pos_dollar = ft_strchr(to_replace, '$');
+		else
+			pos_dollar = NULL;
 	}
-	printf("after: %s \n", to_replace);
+//	printf("after: %s \n", to_replace);
 	return (to_replace);
 }
 

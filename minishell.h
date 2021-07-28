@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/27 20:06:30 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/28 14:55:28 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ char	*ft_realloc_str(char	*ptr, int cur_size, int new_size);
 char	*ft_find_and_expand(char *to_replace, char **our_env);
 void	ft_free(t_cmd *cmd, t_lexer *lexer);
 void	ft_free_word(char **word);
+void	ft_expand_env(char	*env, char *value, int len_word);
 
 #endif

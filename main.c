@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/27 20:39:01 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/28 13:58:50 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		ft_expander(cmd, our_env);
 //		ft_executer(cmd);
-//		ft_print_cmd(cmd);
+		ft_print_cmd(cmd);
 		free(cmd_line);
 	}
-	ft_free(cmd, lexer);
+//	ft_free(cmd, lexer);
 	free(prompt);
 	return (0);
 }
@@ -153,13 +153,13 @@ t_lexer	*ft_lexer(char *cmd_line)
 	head = &lexer;
 	tmp = ft_lstnew_two(ft_strdup("<"), LESS);
 	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("$HOME"), WORD);
+	tmp = ft_lstnew_two(ft_strdup("\\$HOME"), WORD);
 	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("cat"), WORD);
 	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("ciao $USER , sei in $PWD"), WORD);
 	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("\\ $PWD"), WORD);
+	tmp = ft_lstnew_two(ft_strdup("\\$PWD"), WORD);
 	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup(">"), GREAT);
 	ft_lstadd_back_lexer(head, tmp);
@@ -167,11 +167,11 @@ t_lexer	*ft_lexer(char *cmd_line)
 	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("|"), PIPE);
 	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("$PATH"), WORD);
+	tmp = ft_lstnew_two(ft_strdup("\\$PATH"), WORD);
 	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup(">>"), GREATGREAT);
 	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("$SHELL"), WORD);
+	tmp = ft_lstnew_two(ft_strdup("\\$SHELL"), WORD);
 	ft_lstadd_back_lexer(head, tmp);
 	tmp = ft_lstnew_two(ft_strdup("|"), PIPE);
 	ft_lstadd_back_lexer(head, tmp);
