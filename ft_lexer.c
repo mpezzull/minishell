@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:40:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/28 16:49:55 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/28 17:09:14 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ t_lexer	*ft_lexer(char *cmd_line)
 			printf("%s\n", "PIPE");
 		if ((tmp)->token == WORD)
 			printf("%s\n", "WORD");
-		printf("---------ft_lexer-------------------\n");
 		fflush(stdout);
 		tmp = (tmp)->next;
 	}
+	printf("---------ft_lexer-------------------\n");
 //termina stampa della lista
 
 	return (lexer);
