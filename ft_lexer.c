@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:40:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/28 02:32:10 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/28 16:02:47 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,75 +73,4 @@ void	ft_split_lexer(char *cmd_line, t_lexer **lexer)
 		tmp = ft_lstnew_two(word, token);
 		ft_lstadd_back_lexer(lexer, tmp);
 	}
-}
-
-// returns the word starting from the index up to the next space/token
-// increment the index to the end of the word
-char	*ft_create_word(char *cmd_line, int *index)
-{
-	int		start;
-	int		lenght;
-	char	type;
-	char	*word;
-
-	start = *index;
-	lenght = 0;
-	while (cmd_line[*index] && ft_is_space(cmd_line[*index]) == 0
-		&& ft_there_is_token(cmd_line, *index) == 0)
-	{
-		if (cmd_line[*index] == '\'' || cmd_line[*index] == '\"')
-		{
-			type = cmd_line[*index];
-			ft_check_closed(cmd_line, (*index)++);
-			while (cmd_line[*index] != type)
-			{
-				if (type == '\'' && cmd_line[*index] == '$')
-					lenght++;
-				(*index)++;
-				lenght++;
-			}
-			(*index)++;
-		}
-		else
-		{
-			lenght++;
-			(*index)++;
-		}
-	}
-	word = ft_save_word(cmd_line, &start, lenght);
-	return (word);
-}
-
-char	*ft_save_word(char *cmd_line, int *start, int lenght)
-{
-	char	*word;
-	char	type;
-	int		index;
-
-	index = 0;
-	word = (char *)malloc((lenght * sizeof(char) + 1));
-	if (!word)
-		ft_error(strerror(errno), errno);
-	word[0] = '\0';
-	while (cmd_line[*start] && ft_is_space(cmd_line[*start]) == 0
-		&& ft_there_is_token(cmd_line, *start) == 0)
-	{
-		if (cmd_line[*start] == '\'' || cmd_line[*start] == '\"')
-		{
-			type = cmd_line[*start];
-			(*start)++;
-			while (cmd_line[*start] != type)
-			{
-				if (type == '\'' && cmd_line[*start] == '$')
-					word[index++] = '\\';
-				word[index++] = cmd_line[(*start)++];
-			}
-			if (cmd_line[*start] == type)
-				(*start)++;
-		}
-		else
-			word[index++] = cmd_line[(*start)++];
-	}
-	word[index] = '\0';
-	return (word);
 }
