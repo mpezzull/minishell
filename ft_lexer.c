@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:40:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/29 17:46:34 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/29 18:45:42 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,38 +15,11 @@
 t_lexer	*ft_lexer(char *cmd_line)
 {
 	t_lexer	*lexer;
-	t_lexer	*tmp;
 	t_lexer	**address_first;
 
 	lexer = NULL;
 	address_first = &lexer;
 	ft_split_lexer(cmd_line, address_first);
-
-//inizia la stampa della lista
-	tmp = *address_first;
-	int i = 0;
-	printf("---------ft_lexer-------------------\n #\targs\tTOKEN\n");
-	while (tmp)
-	{
-		printf(" %d %10s\t", i++, (tmp)->args);
-		if ((tmp)->token == GREAT)
-			printf("%s\n", "GREAT");
-		if ((tmp)->token == LESS)
-			printf("%s\n", "LESS");
-		if ((tmp)->token == GREATGREAT)
-			printf("%s\n", "GREATGREAT");
-		if ((tmp)->token == LESSLESS)
-			printf("%s\n", "LESSLESS");
-		if ((tmp)->token == PIPE)
-			printf("%s\n", "PIPE");
-		if ((tmp)->token == WORD)
-			printf("%s\n", "WORD");
-		fflush(stdout);
-		tmp = (tmp)->next;
-	}
-	printf("---------ft_lexer-------------------\n");
-//termina stampa della lista
-
 	return (lexer);
 }
 

@@ -6,7 +6,7 @@
 #    By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/07/29 17:34:35 by mde-rosa         ###   ########.fr        #
+#    Updated: 2021/07/29 18:46:48 by mde-rosa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ CC		=	gcc
 FLAGS	=	-Wall -Wextra -Werror
 
 %.o		:	%.c
-			@$(CC)  -c $<
+			@$(CC) $(FLAGS) -c $<
 
 all		:	$(NAME)
 			
@@ -50,7 +50,7 @@ fclean	:	clean
 re		:	fclean all
 
 debug	:	re
-			@$(CC) -g $(SRCS) $(LIBS) -o debug
+			@$(CC) -g $(OBJCS) $(LIBS) -o debug
 			@echo "\033[1;31mper aprire il debug: \033[1;32mlancia \"lldb debug\"\033[0m"
 
 .PHONY	:	all clean fclean re debug

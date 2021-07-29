@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/29 17:45:47 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/29 18:44:27 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,7 @@ char		*ft_save_word(char *cmd_line, int *start, int lenght);
 int			ft_check_closed(char *cmd_line, int i);
 int			ft_word_lenght(char *cmd_line, int *index, int lenght);
 void		ft_word_str(char *cmd_line, int *index, int *start, char *word);
+void		ft_print_lexer(t_lexer *lexer);
+
 
 #endif
