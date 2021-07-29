@@ -6,7 +6,7 @@
 #    By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/07/28 15:58:23 by mde-rosa         ###   ########.fr        #
+#    Updated: 2021/07/29 17:34:35 by mde-rosa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ SRCS	=	main.c echo.c init.c counters.c \
 
 NAME	=	minishell
 
-LIBS	=	./libft/libft.a -lreadline
+LIBS	=	-L./libft -L/usr/local/lib -lft -lreadline -lhistory -ltinfo
 
 OBJCS	=	$(SRCS:.c=.o)
 
