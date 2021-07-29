@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 15:55:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/28 16:02:45 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/29 17:44:28 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	ft_word_lenght(char *cmd_line, int *index, int lenght)
 char	*ft_save_word(char *cmd_line, int *start, int lenght)
 {
 	char	*word;
-	char	type;
 	int		index;
 
 	index = 0;

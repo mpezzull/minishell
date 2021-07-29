@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/28 15:58:29 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/29 18:47:43 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,16 @@ int	main(int argc, char **argv, char **envp)
 	char	*cmd_line;
 	char	*prompt;
 	char	*temp;
-	t_cmd	*cmd;
+	char	**our_env;
+//	t_cmd	*cmd;
 	t_lexer	*lexer;
 
+	char deleteme = argv[0][0];
+	if (!deleteme)
+		deleteme = argv[0][0];
+	our_env = envp;
+	if (!our_env)
+		our_env = envp;
 	if (argc != 1)
 		ft_error("Launch with \"./minishell\"", 1);
 /*	printf("\n");
@@ -68,15 +75,13 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		add_history(cmd_line);
 		lexer = ft_lexer(cmd_line);
+		ft_print_lexer(lexer);
 //		cmd = ft_parsing(lexer);
 //		ft_expander(cmd);
 //		ft_executer(cmd);
 		free(cmd_line);
 	}
 	free(prompt);
-// per stampare la struttura che restituisce lexer (al posto di 10 mettere quante strutture sono)
-	int i = 0;
-
 	return (0);
 }
 
@@ -97,4 +102,31 @@ void	ft_error(char *strerror, int nbr)
 {
 	printf("%s\n", strerror);
 	exit(nbr);
+}
+
+void	ft_print_lexer(t_lexer *lexer)
+{
+	int	i;
+
+	i = 0;
+	printf("---------ft_lexer-------------------\n #\targs\tTOKEN\n");
+	while (lexer)
+	{
+		printf(" %d %10s\t", i++, lexer->args);
+		if (lexer->token == GREAT)
+			printf("%s\n", "GREAT");
+		if (lexer->token == LESS)
+			printf("%s\n", "LESS");
+		if (lexer->token == GREATGREAT)
+			printf("%s\n", "GREATGREAT");
+		if (lexer->token == LESSLESS)
+			printf("%s\n", "LESSLESS");
+		if (lexer->token == PIPE)
+			printf("%s\n", "PIPE");
+		if (lexer->token == WORD)
+			printf("%s\n", "WORD");
+		fflush(stdout);
+		lexer = lexer->next;
+	}
+	printf("---------ft_lexer-------------------\n");
 }

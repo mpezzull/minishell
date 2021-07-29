@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 19:05:58 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/19 20:41:31 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/29 18:44:42 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_cmd	*ft_echo(char *token, char **splitted)
 void	ft_zero_dquotes(t_cmd *echo, char **splitted)
 {
 	int	i;
-	int	j;
+//	int	j;
 	int	num_words;
 
 	i = 0;

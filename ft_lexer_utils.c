@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 20:07:16 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/28 16:01:40 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/29 17:47:30 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	ft_check_closed(char *cmd_line, int i)
 		i++;
 	}
 	ft_error("Quote not closed", 1);
+	return (0);
 }
 
 t_lexer	*ft_lstnew_two(char*args, int token)
