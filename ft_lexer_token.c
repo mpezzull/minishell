@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lexer_utils_2.c                                 :+:      :+:    :+:   */
+/*   ft_lexer_token.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 01:08:16 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/28 02:28:28 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/29 17:45:28 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 // returns the token as a string
 // increment the index to the end of the word
-char	*ft_token(char *cmd_line, int *i, t_lexer **lexer)
+char	*ft_token(char *cmd_line, int *i)
 {
 	char	*word;
-	t_lexer	*tmp;
 	int		token;
 
 	token = ft_token_witch(cmd_line, *i);

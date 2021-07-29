@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:40:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/29 17:35:10 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/29 17:46:34 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_split_lexer(char *cmd_line, t_lexer **lexer)
 		{
 			if (cmd_line[i] == '>' || cmd_line[i] == '<' || cmd_line[i] == '|')
 			{
-				word = ft_token(cmd_line, &i, lexer);
+				word = ft_token(cmd_line, &i);
 				token = ft_token_witch(word, 0);
 			}
 			else
