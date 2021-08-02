@@ -6,11 +6,33 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/29 18:47:43 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/07/28 13:58:50 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_lexer	*ft_lexer(char *cmd_line);
+
+void	ft_signal_handler(int sig_num)
+{
+	if (sig_num == SIGINT)
+	{
+		rl_on_new_line();
+		rl_replace_line("  ", 1);
+		rl_redisplay();
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 1);
+		rl_redisplay();
+	}
+	else if (sig_num == SIGQUIT)
+	{
+		rl_on_new_line();
+		rl_replace_line("", 1);
+		rl_redisplay();
+	}
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -18,7 +40,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*prompt;
 	char	*temp;
 	char	**our_env;
-//	t_cmd	*cmd;
+	t_cmd	*cmd;
 	t_lexer	*lexer;
 
 	char deleteme = argv[0][0];
@@ -29,6 +51,7 @@ int	main(int argc, char **argv, char **envp)
 		our_env = envp;
 	if (argc != 1)
 		ft_error("Launch with \"./minishell\"", 1);
+
 /*	printf("\n");
 	printf("\t\t\t──────────────────────────────────\n");
 	printf("\t\t\t────────────██████████────────────\n");
@@ -68,34 +91,32 @@ int	main(int argc, char **argv, char **envp)
 	temp = ft_strdup("@minishell:~$ ");
 	prompt = ft_strjoin(getenv("USER"), temp);
 	free(temp);
-	while (1)
+	our_env = cp_str_array(envp);
+	while (TRUE)
 	{
+		signal(SIGINT, ft_signal_handler);
+		signal(SIGQUIT, SIG_IGN);
 		cmd_line = readline(prompt);
-		if (ft_strcmp(cmd_line, "exit") == 0)
+		if (cmd_line == NULL)
+		{
+			rl_replace_line("exit ", 1);
+			rl_redisplay();
 			break ;
+		}
 		add_history(cmd_line);
 		lexer = ft_lexer(cmd_line);
 		ft_print_lexer(lexer);
-//		cmd = ft_parsing(lexer);
-//		ft_expander(cmd);
+		cmd = ft_parsing(lexer);
+		if (ft_strstr(cmd_line, "exit") != NULL)
+			break ;
+		ft_expander(cmd, our_env);
 //		ft_executer(cmd);
+		ft_print_cmd(cmd);
 		free(cmd_line);
 	}
+//	ft_free(cmd, lexer);
 	free(prompt);
 	return (0);
-}
-
-t_cmd	*ft_parsing(char *cmd_line)
-{
-	t_cmd	*instr;
-	char	**splitted;
-
-	if (!cmd_line)
-		ft_error("invalid cmd_line", 1);
-	splitted = ft_split(cmd_line, ' ');
-	if (!ft_strcmp(splitted[0], "echo"))
-		instr = ft_echo(cmd_line, splitted);
-	return (instr);
 }
 
 void	ft_error(char *strerror, int nbr)
@@ -130,3 +151,33 @@ void	ft_print_lexer(t_lexer *lexer)
 	}
 	printf("---------ft_lexer-------------------\n");
 }
+
+void	ft_print_cmd(t_cmd *cmd)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (cmd)
+	{
+		j = 0;
+		printf("---------------	%d ----------------\n", i++);
+		printf("cmd:     %s\n", cmd->cmd);
+		while (cmd->args && cmd->args[j])
+		{
+			printf("args[%i]: %s\n", j, cmd->args[j]);
+			j++;
+		}
+		if (cmd->out)
+			printf("out: %d\n", cmd->out);
+		if (cmd->file_out)
+			printf("file_out: %s\n", cmd->file_out);
+		if (cmd->in)
+			printf("in: %d\n", cmd->in);
+		if (cmd->file_in)
+			printf("file_in: %s\n", cmd->file_in);
+		printf("cmd_next:  %x\n", (unsigned int)cmd->next);
+		cmd = cmd->next;
+	}
+}
+
