@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 11:54:05 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/14 19:48:34 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/07/15 00:58:53 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <unistd.h>
 
 
-//ritorna il numero di caratteri letti, (-1 se trova solo il '-'), 0 se la stringa non contiene opzioni!
+//ritorna il numero di caratteri letti, (1 se trova solo il '-'), 0 se la stringa non contiene opzioni!
 int	check_options(char *str, char option)
 {
 	int index;
@@ -30,15 +30,9 @@ int	check_options(char *str, char option)
 		index++;
 	if (!(str[index] == '\0'))
 		return (0);
-	if (index == 1)
-		return (-1);
 	return(index);
 }
-/*
-./ft_echo -n -n -n -n ciao | cat -e
-argc = 6;
 
-*/
 int	main(int argc, char **argv)
 {
 	int	i;
@@ -48,17 +42,12 @@ int	main(int argc, char **argv)
 	option = 0;
 	if (argc > 1)
 	{
-		if (argv[1][0] == '-' && argv[1][1] == '\0')
-		{
-			i++;
-			option = -1;
-		}
 		if (option == 0)
 		{	
 			while (check_options(argv[i], 'n') > 1)
 				i++;
 		}
-		if (i > 1 && option == 0)
+		if (i > 1)
 			option = 1;
 		while (i < argc)
 		{
@@ -68,26 +57,7 @@ int	main(int argc, char **argv)
 			i++;
 		}
 	}
-	if (option <= 0)
+	if (option == 0)
 		printf("\n");
 	return (0);
 }
-		
-/*
-	if (argv[1][0] == '-' && argv[1][1] == 'n' && argv[1][2] != ' ')
-	{
-		option = 1;
-		i++;
-	}
-	while (i < argc)
-	{
-		printf("%s", argv[i]);
-		if (i < (argc - 1))
-			printf(" ");
-		if (i == (argc - 1) && option == 0)
-			printf("\n");
-		i++;
-	}
-	return (0);
-	*/
-

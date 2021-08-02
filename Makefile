@@ -11,22 +11,23 @@
 # **************************************************************************** #
 
 SRCS = main.c echo.c init.c counters.c parser.c parser_utils.c get_next_line.c \
-		minishell_utils.c expander.c free.c
+		minishell_utils.c expander.c free.c \
+    			ft_lexer.c ft_lexer_word.c ft_lexer_token.c ft_lexer_utils.c 
 
-NAME = minishell
+NAME	=	minishell
 
-LIBS = -I /Users/$(USER)/.brew/opt/readline/include ./libft/libft.a -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
+LIBS = -I /Users/$(USER)/.brew/opt/readline/include ./libft/libft.a -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -lhistory -ltinfo
 
 OBJCS	=	$(SRCS:.c=.o)
 
-CC = gcc
+CC		=	gcc
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS	=	-Wall -Wextra -Werror
 
-%.o			:	%.c
-				@$(CC)  -c $<
+%.o		:	%.c
+			@$(CC) $(FLAGS) -c $<
 
-all			:	$(NAME)
+all		:	$(NAME)
 			
 $(NAME)		:	$(OBJCS)
 				@(make --no-print-directory -C libft/)
@@ -49,8 +50,8 @@ fclean		:	clean
 
 re			:	fclean all
 
-debug		:	re
-				@$(CC) -g $(LIBS) $(SRCS) -o debug
-				@echo "per aprire il debug: \033[1;32mlancia \"lldb debug\"\033[0m"
+debug	:	re
+			  @$(CC) -g $(OBJCS) $(LIBS) -o debug
+		  	@echo "\033[1;31mper aprire il debug: \033[1;32mlancia \"lldb debug\"\033[0m"
 
 .PHONY		:	all clean fclean re

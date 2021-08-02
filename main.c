@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
 /*   Updated: 2021/07/28 13:58:50 by mpezzull         ###   ########.fr       */
@@ -43,9 +43,51 @@ int	main(int argc, char **argv, char **envp)
 	t_cmd	*cmd;
 	t_lexer	*lexer;
 
+	char deleteme = argv[0][0];
+	if (!deleteme)
+		deleteme = argv[0][0];
+	our_env = envp;
+	if (!our_env)
+		our_env = envp;
 	if (argc != 1)
 		ft_error("Launch with \"./minishell\"", 1);
-	printf("\n\t\t\033[1mWelcome in the worst minishell of the world!\n\n\033[0m");
+
+/*	printf("\n");
+	printf("\t\t\t──────────────────────────────────\n");
+	printf("\t\t\t────────────██████████────────────\n");
+	printf("\t\t\t────────███████████████████───────\n");
+	printf("\t\t\t──────███████████████████████─────\n");
+	printf("\t\t\t────██████████████████████████────\n");
+	printf("\t\t\t───█████████████▀──────────▀███───\n");
+	printf("\t\t\t──█████████████──────────────███──\n");
+	printf("\t\t\t─████████████────────────────████─\n");
+	printf("\t\t\t─██████████───────────────────███─\n");
+	printf("\t\t\t██████████▀───────────────────████\n");
+	printf("\t\t\t████████▀─────────────────────████\n");
+	printf("\t\t\t██████▀────────────────────────███\n");
+	printf("\t\t\t█████──▄▀▀▀▀▀▀▀▄────▄▀▀▀▀▀▀▀▄──███\n");
+	printf("\t\t\t█████────▄▄▄▄▄────────▄▄▄▄▄────███\n");
+	printf("\t\t\t█████──▄▀───▄██▄────▄▀───▄██▄──███\n");
+	printf("\t\t\t█████──▀▄───▀▀█▀────▀▄───▀▀█▀──███\n");
+	printf("\t\t\t█▀──█────▀▀▀▀▀────────▀▀▀▀▀────███\n");
+	printf("\t\t\t█───█──────────────────────────█─█\n");
+	printf("\t\t\t█────────────────────▄───────────█\n");
+	printf("\t\t\t█───────────▄▀────────▀▄─────────█\n");
+	printf("\t\t\t▀█─▄█───────▀▄─▀██──██───────────█\n");
+	printf("\t\t\t─▀██────────────────────────────██\n");
+	printf("\t\t\t──██────▄▀▀──────█─█──────▀▀▄──██─\n");
+	printf("\t\t\t───█──────█▀▄────▀─▀────▄▀█────█──\n");
+	printf("\t\t\t───█──────▀──▀▀▄▄▄▄▄▄▄▀▀──▀────█──\n");
+	printf("\t\t\t───▀█─────────────────────────█▀──\n");
+	printf("\t\t\t────▀█───────────────────────█▀───\n");
+	printf("\t\t\t─────▀█─────────────────────█▀────\n");
+	printf("\t\t\t──────▀█───────────────────█▀─────\n");
+	printf("\t\t\t───────▀█─────────────────█▀──────\n");
+	printf("\t\t\t────────▀█───▄───────▄───█▀───────\n");
+	printf("\t\t\t─────────▀█▄──▀▄▄▄▄▄▀──▄█▀────────\n");
+	printf("\t\t\t───────────▀▀█▄▄▄▄▄▄▄█▀▀──────────\n");
+	printf("\n");
+*/	printf("\n\t\t\033[1mWelcome in the worst minishell of the world!\n\n\033[0m");
 	temp = ft_strdup("@minishell:~$ ");
 	prompt = ft_strjoin(getenv("USER"), temp);
 	free(temp);
@@ -63,6 +105,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		add_history(cmd_line);
 		lexer = ft_lexer(cmd_line);
+		ft_print_lexer(lexer);
 		cmd = ft_parsing(lexer);
 		if (ft_strstr(cmd_line, "exit") != NULL)
 			break ;
@@ -82,39 +125,33 @@ void	ft_error(char *strerror, int nbr)
 	exit(nbr);
 }
 
-t_lexer	*ft_lstnew_two(char*args, int token)
+void	ft_print_lexer(t_lexer *lexer)
 {
-	t_lexer	*lst;
+	int	i;
 
-	lst = (void *)malloc(sizeof(t_lexer));
-	if (!lst)
-		ft_error(strerror(errno), errno);
-	lst->args = args;
-	lst->token = token;
-	lst->next = NULL;
-	return (lst);
+	i = 0;
+	printf("---------ft_lexer-------------------\n #\targs\tTOKEN\n");
+	while (lexer)
+	{
+		printf(" %d %10s\t", i++, lexer->args);
+		if (lexer->token == GREAT)
+			printf("%s\n", "GREAT");
+		if (lexer->token == LESS)
+			printf("%s\n", "LESS");
+		if (lexer->token == GREATGREAT)
+			printf("%s\n", "GREATGREAT");
+		if (lexer->token == LESSLESS)
+			printf("%s\n", "LESSLESS");
+		if (lexer->token == PIPE)
+			printf("%s\n", "PIPE");
+		if (lexer->token == WORD)
+			printf("%s\n", "WORD");
+		fflush(stdout);
+		lexer = lexer->next;
+	}
+	printf("---------ft_lexer-------------------\n");
 }
 
-void	ft_lstadd_back_lexer(t_lexer **lst, t_lexer *new)
-{
-	t_lexer	*temp;
-
-	if (!lst)
-		return ;
-	temp = *lst;
-	if (temp == NULL)
-	{
-		*lst = new;
-		return ;
-	}
-	while (temp)
-	{
-		if (temp->next == NULL)
-			break ;
-		temp = temp->next;
-	}
-	temp->next = new;
-}
 void	ft_print_cmd(t_cmd *cmd)
 {
 	int	i;
@@ -143,43 +180,4 @@ void	ft_print_cmd(t_cmd *cmd)
 		cmd = cmd->next;
 	}
 }
-t_lexer	*ft_lexer(char *cmd_line)
-{
-	t_lexer	*lexer;
-	t_lexer	*tmp;
-	void	*head;
-	char	**args;
-	
-	head = &lexer;
-	tmp = ft_lstnew_two(ft_strdup("<"), LESS);
-	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("\\$HOME"), WORD);
-	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("cat"), WORD);
-	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("ciao $USER , sei in $PWD"), WORD);
-	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("\\$PWD"), WORD);
-	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup(">"), GREAT);
-	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("file2"), WORD);
-	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("|"), PIPE);
-	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("\\$PATH"), WORD);
-	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup(">>"), GREATGREAT);
-	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("\\$SHELL"), WORD);
-	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("|"), PIPE);
-	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("cat"), WORD);
-	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("<<"), LESS);
-	ft_lstadd_back_lexer(head, tmp);
-	tmp = ft_lstnew_two(ft_strdup("5"), WORD);
-	ft_lstadd_back_lexer(head, tmp);
-	return (lexer);
-}
+
