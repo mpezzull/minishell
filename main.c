@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/28 13:58:50 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/08/02 13:05:19 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	main(int argc, char **argv, char **envp)
 		lexer = ft_lexer(cmd_line);
 		ft_print_lexer(lexer);
 		cmd = ft_parsing(lexer);
-		if (ft_strstr(cmd_line, "exit") != NULL)
+		if (ft_strcmp(cmd_line, "exit") == 0)
 			break ;
 		ft_expander(cmd, our_env);
 //		ft_executer(cmd);

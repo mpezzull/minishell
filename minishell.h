@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/29 18:44:27 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/08/02 11:51:34 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,22 +70,22 @@ struct	s_lexer
 	t_lexer	*next;
 };
 
-t_lexer		*ft_lexer(char *str);
-void		ft_lstadd_back_lexer(t_lexer **lst, t_lexer *new);
-t_lexer		*ft_lstnew_two(char*args, int token);
-void		ft_split_lexer(char *cmd_line, t_lexer **lexer);
-int			ft_is_space(char c);
-int			ft_is_token(char *str, int index);
-char		*ft_token(char *cmd_line, int *i);
-char		*ft_token_arg(char *cmd_line, int i, int token);
-int			ft_token_lenght(int token, int i);
-int			ft_token_witch(char *cmd_line, int i);
-char		*ft_create_word(char *cmd_line, int *i);
-char		*ft_save_word(char *cmd_line, int *start, int lenght);
-int			ft_check_closed(char *cmd_line, int i);
-int			ft_word_lenght(char *cmd_line, int *index, int lenght);
-void		ft_word_str(char *cmd_line, int *index, int *start, char *word);
-void		ft_print_lexer(t_lexer *lexer);
+t_lexer	*ft_lexer(char *str);
+void	ft_lstadd_back_lexer(t_lexer **lst, t_lexer *new);
+t_lexer	*ft_lstnew_two(char*args, int token);
+void	ft_split_lexer(char *cmd_line, t_lexer **lexer);
+int		ft_is_space(char c);
+int		ft_is_token(char *str, int index);
+char	*ft_token(char *cmd_line, int *i);
+char	*ft_token_arg(char *cmd_line, int i, int token);
+int		ft_token_lenght(int token, int i);
+int		ft_token_witch(char *cmd_line, int i);
+char	*ft_create_word(char *cmd_line, int *i);
+char	*ft_save_word(char *cmd_line, int *start, int lenght);
+int		ft_check_closed(char *cmd_line, int i);
+int		ft_word_lenght(char *cmd_line, int *index, int lenght);
+void	ft_word_str(char *cmd_line, int *index, int *start, char *word);
+void	ft_print_lexer(t_lexer *lexer);
 
 t_cmd	*ft_parsing(t_lexer *lexer);
 void	ft_error(char *strerror, int nbr);
@@ -112,7 +112,7 @@ void	ft_expander(t_cmd *cmd, char **our_env);
 char	*ft_getenv(char *name, char **env);
 char	*ft_realloc_str(char	*ptr, int cur_size, int new_size);
 char	*ft_find_and_expand(char *to_replace, char **our_env);
-void	ft_free(t_cmd *cmd, t_lexer *lexer);
+void	ft_free(t_cmd *cmd);
 void	ft_free_word(char **word);
 void	ft_expand_env(char	*env, char *value, int len_word);
 

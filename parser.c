@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:42:27 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/07/26 16:26:02 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/08/02 11:48:32 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,9 @@ void	ft_heredoc_shell(t_lexer *lexer, t_cmd *temp, int *i)
 }
 
 //per ora non deve fare nulla (non viene nemmeno chiamata)
-void	ft_signal_handler_heredoc(int sig_num)
-{
-}
+// void	ft_signal_handler_heredoc(int sig_num)
+// {
+// }
 
 void	ft_heredoc_child(t_lexer *lexer, int *fd)
 {
