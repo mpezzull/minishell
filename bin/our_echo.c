@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   our_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 11:54:05 by assokenay         #+#    #+#             */
-/*   Updated: 2021/07/15 00:58:53 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/08/03 18:08:34 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <unistd.h>
 
-
-//ritorna il numero di caratteri letti, (1 se trova solo il '-'), 0 se la stringa non contiene opzioni!
+//ritorna il num di caratteri letti, (1 se solo '-'), 0 se non contiene opzioni!
 int	check_options(char *str, char option)
 {
-	int index;
+	int	index;
 
 	index = 0;
 	if (!str)
@@ -30,7 +29,7 @@ int	check_options(char *str, char option)
 		index++;
 	if (!(str[index] == '\0'))
 		return (0);
-	return(index);
+	return (index);
 }
 
 int	main(int argc, char **argv)

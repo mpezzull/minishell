@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+         #
+#    By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/08/03 15:07:21 by mde-rosa         ###   ########.fr        #
+#    Updated: 2021/08/03 18:01:14 by mde-rosa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,14 +18,13 @@ OBJ_PATH 		= 	./obj/
 
 #LINUX LIBS			=	-L./libft -L/readline-6.3 -lft -lreadline -lhistory -ltinfo
 
-LIBS 			=	-L /Users/$(USER)/.brew/opt/readline/lib ./libft/libft.a -lreadline
+LIBS 			=	-L /Users/$(USER)/.brew/opt/readline/lib ./libft/libft.a -lreadline #-static-libsan
 
 INCLUDE			=	-I /Users/$(USER)/.brew/opt/readline/include
 
 CC				=	gcc
 
 CFLAGS			=	-Wall -Wextra -Werror
-
 OTHER_MAKE_1	=	./libft/
 
 OTHER_MAKE_2	=	./bin/

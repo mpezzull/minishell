@@ -3,41 +3,48 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+         #
+#    By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/08/03 00:39:38 by mde-rosa         ###   ########.fr        #
+#    Updated: 2021/08/03 18:24:17 by mde-rosa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC 			= 	gcc
-FLAGS 		=	-Wall -Wextra -Werror
+CC 				=	gcc
+CFLAGS 			=	-Wall -Wextra -Werror
 
-FT_ECHO 		=	ft_echo
-SRC_FT_ECHO		=	ft_echo.c
-OBJCS_FT_ECHO 	= $(SRC_FT_ECHO:%.c=%.o)
+OUR_ECHO 		=	our_echo
+SRC_OUR_ECHO	=	our_echo.c
+OBJCS_OUR_ECHO 	=	$(SRC_OUR_ECHO:%.c=%.o)
 
-FT_HELLO_WORLD			=	our_pwd
-SRC_FT_HELLO_WORLD		=	our_pwd.c
-OBJCS_FT_HELLO_WORLD 	= $(SRC_FT_HELLO_WORLD:%.c=%.o)
+OUR_ENV			=	our_pwd
+SRC_OUR_ENV		=	our_pwd.c
+OBJCS_OUR_ENV 	=	$(SRC_OUR_ENV:%.c=%.o)
 
-%.o			:	%.c
-				@$(CC) $(FLAGS) -o $@ -c $<
+OUR_CD			=	our_cd
+SRC_OUR_CD		=	our_cd.c
+OBJCS_OUR_CD 	=	$(SRC_OUR_CD:%.c=%.o)
 
-all			:	$(FT_ECHO) $(FT_HELLO_WORLD)
+%.o				:	%.c
+					@$(CC) $(CFLAGS) -o $@ -c $<
 
-$(FT_ECHO)	: $(OBJCS_FT_ECHO)
-				@$(CC) $(FLAGS) $(SRC_FT_ECHO) -o $(FT_ECHO)
+all				:	$(OUR_ECHO) $(OUR_ENV) $(OUR_CD)
 
-$(FT_HELLO_WORLD)	: $(OBJCS_FT_HELLO_WORLD)
-				@$(CC) $(FLAGS) $(SRC_FT_HELLO_WORLD) -o $(FT_HELLO_WORLD)
+$(OUR_ECHO)		:	$(OBJCS_OUR_ECHO)
+					@$(CC) $(CFLAGS) $(SRC_OUR_ECHO) -o $(OUR_ECHO)
 
-clean		:
-				@rm -f *.o
+$(OUR_ENV)		:	$(OBJCS_OUR_ENV)
+					@$(CC) $(CFLAGS) $(SRC_OUR_ENV) -o $(OUR_ENV)
 
-fclean		:	clean
-				@rm -f $(FT_ECHO) $(FT_HELLO_WORLD)
+$(OUR_CD)		:	$(OBJCS_OUR_CD)
+					@$(CC) $(CFLAGS) $(SRC_OUR_CD) -o $(OUR_CD)
 
-re			:	fclean all
+clean			:
+					@rm -f *.o
 
-.PHONY		:	clean fclean
+fclean			:	clean
+					@rm -f $(OUR_ECHO) $(OUR_ENV) $(OUR_CD)
+
+re				:	fclean all
+
+.PHONY			:	all clean fclean re
