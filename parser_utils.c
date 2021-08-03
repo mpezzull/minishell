@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 16:00:52 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/07/26 17:45:25 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/08/03 14:31:47 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@ t_cmd	*ft_cmd_new(int n_args)
 {
 	t_cmd	*cmd;
 
-	cmd = (void *)malloc(sizeof(t_cmd));
+	cmd = (void *)ft_calloc(1, sizeof(t_cmd));
 	if (!cmd)
 		ft_error(strerror(errno), errno);
-	cmd->args = (char **)malloc(sizeof(char *) * (n_args + 1));
+	cmd->args = (char **)ft_calloc((n_args + 1), sizeof(char *));
 	if (!cmd->args)
 		ft_error(strerror(errno), errno);
 	cmd->next = NULL;
+	cmd->flag = NULL;
 	cmd->in = DEFAULT;
 	cmd->out = DEFAULT;
 	return (cmd);

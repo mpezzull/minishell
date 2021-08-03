@@ -6,15 +6,15 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/08/02 11:51:34 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/08/02 14:10:52 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H 
 # include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+# include "readline/readline.h"
+# include "readline/history.h"
 # include <errno.h>
 # include <unistd.h>
 # include <string.h>
@@ -99,7 +99,7 @@ t_cmd	*ft_echo(char *token, char **splitted);
 t_cmd	*ft_cmd_new(int n_args);
 void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new);
 char	**ft_realloc(char	**ptr, int cur_size, int new_size);
-int		rl_replace_line(char *line, int clear_undo);
+//extern void rl_replace_line (const char *a, int b);
 void	ft_print_cmd(t_cmd *cmd);
 void	ft_check_double_token(t_lexer *lexer);
 void	ft_heredoc_shell(t_lexer *lexer, t_cmd *temp, int *i);

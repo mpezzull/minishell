@@ -3,28 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 16:59:23 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/01/18 13:18:00 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/08/02 18:45:00 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		stringsize(const char *str)
+static char	*ft_strcpy(char *dest, const char *src)
 {
 	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
-
-char	*stringcopy(char *dest, const char *src)
-{
-	int i;
 
 	i = 0;
 	while (src[i] != '\0')
@@ -36,12 +26,15 @@ char	*stringcopy(char *dest, const char *src)
 	return (dest);
 }
 
-char	*ft_strdup(const char *s1)
+char	*ft_strdup(const char *src)
 {
-	char *p;
+	char	*copy;
+	int		len;
 
-	p = (char *)malloc(stringsize(s1) + 1);
-	if (p != NULL)
-		stringcopy(p, s1);
-	return (p);
+	len = ft_strlen(src);
+	copy = ((char *)malloc(sizeof(char) * (len + 1)));
+	if (copy == NULL)
+		return (0);
+	ft_strcpy(copy, src);
+	return (copy);
 }

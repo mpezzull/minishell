@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 20:07:16 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/29 17:47:30 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/08/02 18:23:52 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	ft_is_token(char *str, int index)
 {
 	if (str[index] == '<' || str[index] == '>' || str[index] == '|')
 		return (1);
-	if ((str[index + 1] == '?') || (str[index]
-			== '<' && str[index + 1] == '<') || (str[index] == '>'
+	if ((str[index] == '<' && str[index + 1] == '<')
+		|| (str[index] == '>'
 			&& str[index + 1] == '>'))
 		return (2);
 	return (0);

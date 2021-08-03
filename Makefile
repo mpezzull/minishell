@@ -6,7 +6,7 @@
 #    By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/08/02 11:53:16 by mpezzull         ###   ########.fr        #
+#    Updated: 2021/08/02 16:01:36 by mpezzull         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,9 @@ SRCS = main.c echo.c init.c counters.c parser.c parser_utils.c get_next_line.c \
 
 NAME	=	minishell
 
-LIBS = -I /Users/$(USER)/.brew/opt/readline/include ./libft/libft.a -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
+LIBS =  -L /Users/$(USER)/.brew/opt/readline/lib ./libft/libft.a  -lreadline
+
+INCLUDE = -I /Users/$(USER)/.brew/opt/readline/include
 
 OBJCS	=	$(SRCS:.c=.o)
 
@@ -25,14 +27,14 @@ CC		=	gcc
 FLAGS	=	-Wall -Wextra -Werror
 
 %.o		:	%.c
-			@$(CC) $(FLAGS) -c $<
+			@$(CC) $(FLAGS) $(INCLUDE) -c $< #-fsanitize=address -static-libsan
 
 all		:	$(NAME)
 			
 $(NAME)		:	$(OBJCS)
 				@(make --no-print-directory -C libft/)
 				@(make --no-print-directory -C bin/)
-				@$(CC) $(FLAGS) -o $(NAME) $(LIBS) $(OBJCS)
+				@$(CC) $(FLAGS) $(OBJCS) -o $(NAME) $(LIBS) #-fsanitize=address
 				@echo "\033[1;32m$@ successfully build\033[0m"
 
 clean		:
@@ -51,7 +53,7 @@ fclean		:	clean
 re			:	fclean all
 
 debug	:	re
-			  @$(CC) -g $(OBJCS) $(LIBS) -o debug
+			@$(CC) -g $(FLAGS) $(INCLUDE) $(SRCS) $(LIBS) -o debug
 		  	@echo "\033[1;31mper aprire il debug: \033[1;32mlancia \"lldb debug\"\033[0m"
 
 .PHONY		:	all clean fclean re

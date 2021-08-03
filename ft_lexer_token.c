@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer_token.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 01:08:16 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/29 17:45:28 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/08/02 18:10:27 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_token_arg(char *cmd_line, int i, int token)
 		lenght = 2;
 	else
 		lenght = 1;
-	arg = (char *)malloc((lenght * sizeof(char) + 1));
+	arg = (char *)malloc((lenght + 1) * sizeof(char));
 	arg[0] = cmd_line[i];
 	if (token == GREATGREAT || token == LESSLESS)
 	{

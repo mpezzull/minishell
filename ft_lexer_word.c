@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer_word.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 15:55:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/29 17:44:28 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/08/02 18:39:20 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,13 @@ char	*ft_save_word(char *cmd_line, int *start, int lenght)
 	int		index;
 
 	index = 0;
-	word = (char *)malloc((lenght * sizeof(char) + 1));
+	word = (char *)malloc((lenght + 1) * sizeof(char));
 	if (!word)
 		ft_error(strerror(errno), errno);
 	while (cmd_line[*start] && ft_is_space(cmd_line[*start]) == 0
 		&& ft_is_token(cmd_line, *start) == 0)
 		ft_word_str(cmd_line, &index, start, word);
+	printf("%d\n", index);
 	word[index] = '\0';
 	return (word);
 }

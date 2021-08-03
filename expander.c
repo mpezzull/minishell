@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:48:21 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/07/28 14:57:42 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/08/03 14:37:22 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,13 @@ void	ft_expand_env(char	*env, char *value, int len_word)
 	while (*value)
 		*(env++) = *(value++);
 	while (*cpy_env)
+	{
 		*(env++) = *(cpy_env++);
+		len_word--;
+	}
+	while (len_word-- > 0)
+		*(env++) = ' ';
+	*(env++) = '\0';
 }
 
 void	ft_expander(t_cmd *cmd, char **our_env)
@@ -60,13 +66,16 @@ char	*ft_find_and_expand(char *to_replace, char **our_env)
 
 //	printf("before: %s \n", to_replace);
 	pos_dollar = ft_strchr(to_replace, '$');
+	pos_backslash = NULL;
 	while (pos_dollar != NULL)
 	{
-		pos_backslash = ft_strchr(to_replace, '\\');
-		if (pos_dollar && (pos_backslash == NULL
-				|| (pos_backslash + 1 != pos_dollar)) && pos_dollar + 1)
+		if (pos_dollar != to_replace && *(pos_dollar - 1) == '\\')
+			pos_backslash = pos_dollar - 1;
+		if (pos_dollar && pos_backslash == NULL && *(pos_dollar + 1))
 		{
-			word = *ft_split(pos_dollar + 1, ' ');
+			word = *ft_split(pos_dollar, ' ');
+			if (*(word + 1))
+				word++;
 			env_value = ft_getenv(word, our_env);
 			len_cmd = ft_strlen(to_replace);
 			to_replace = ft_realloc_str(to_replace,

@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:42:27 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/08/02 11:48:32 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/08/02 17:16:19 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_cmd	*ft_parsing(t_lexer *lexer)
 	t_parser	data;
 	int			i;
 
-	data.token_found = FIRST;
+	data.token_found = PIPE;
 	head = NULL;
 	i = 0;
 	temp = NULL;
@@ -30,13 +30,10 @@ t_cmd	*ft_parsing(t_lexer *lexer)
 		{
 			temp = ft_cmd_new(0);
 			ft_cmdadd_back(&head, temp);
-			if (data.token_found == FIRST && lexer->token == WORD)
-				temp->cmd = ft_strdup(lexer->args);
 		}
-		if (data.token_found == PIPE)
+		if (data.token_found == PIPE && lexer->token == WORD)
 		{
-			if (lexer->token == WORD)
-				temp->cmd = ft_strdup(lexer->args);
+			temp->cmd = ft_strdup(lexer->args);
 			data.token_found = 0;
 		}
 		else if ((data.token_found == GREAT || data.token_found == GREATGREAT)
@@ -60,10 +57,15 @@ t_cmd	*ft_parsing(t_lexer *lexer)
 		}
 		else
 		{
-			if (lexer->token == WORD)
+			if (lexer->token == WORD && data.token_found != PIPE)
 			{
-				temp->args = ft_realloc(temp->args, i, i + 1);
-				temp->args[i++] = ft_strdup(lexer->args);
+				if (!temp->cmd)
+					temp->cmd = ft_strdup(lexer->args);
+				else
+				{
+					temp->args = ft_realloc(temp->args, i, i + 1);
+					temp->args[i++] = ft_strdup(lexer->args);
+				}
 			}
 			if (lexer->token == GREAT || lexer->token == GREATGREAT)
 			{
@@ -101,20 +103,18 @@ void	ft_heredoc_shell(t_lexer *lexer, t_cmd *temp, int *i)
 	else
 	{
 		wait(NULL);
+		close(fd[1]);
 		write(fd[1], "\0", 1);
 		ft_heredoc_parent(temp, fd, *i);
+		close(fd[0]);
 	}
 }
-
-//per ora non deve fare nulla (non viene nemmeno chiamata)
-// void	ft_signal_handler_heredoc(int sig_num)
-// {
-// }
 
 void	ft_heredoc_child(t_lexer *lexer, int *fd)
 {
 	t_parser	data;
 
+	close(fd[0]);
 	while (TRUE)
 	{
 		signal(SIGINT, SIG_DFL);
@@ -125,6 +125,7 @@ void	ft_heredoc_child(t_lexer *lexer, int *fd)
 		write(fd[1], "\n", 1);
 	}
 	write(fd[1], "\0", 1);
+	close(fd[1]);
 	exit(0);
 }
 

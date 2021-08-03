@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/08/02 13:05:19 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/08/03 13:37:48 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,72 +26,25 @@ void	ft_signal_handler(int sig_num)
 		rl_replace_line("", 1);
 		rl_redisplay();
 	}
-	else if (sig_num == SIGQUIT)
-	{
-		rl_on_new_line();
-		rl_replace_line("", 1);
-		rl_redisplay();
-	}
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	char	*cmd_line;
 	char	*prompt;
-	char	*temp;
 	char	**our_env;
 	t_cmd	*cmd;
 	t_lexer	*lexer;
 
-	char deleteme = argv[0][0];
-	if (!deleteme)
-		deleteme = argv[0][0];
+	argv = &(*argv);
 	our_env = envp;
 	if (!our_env)
 		our_env = envp;
 	if (argc != 1)
 		ft_error("Launch with \"./minishell\"", 1);
-
-/*	printf("\n");
-	printf("\t\t\t──────────────────────────────────\n");
-	printf("\t\t\t────────────██████████────────────\n");
-	printf("\t\t\t────────███████████████████───────\n");
-	printf("\t\t\t──────███████████████████████─────\n");
-	printf("\t\t\t────██████████████████████████────\n");
-	printf("\t\t\t───█████████████▀──────────▀███───\n");
-	printf("\t\t\t──█████████████──────────────███──\n");
-	printf("\t\t\t─████████████────────────────████─\n");
-	printf("\t\t\t─██████████───────────────────███─\n");
-	printf("\t\t\t██████████▀───────────────────████\n");
-	printf("\t\t\t████████▀─────────────────────████\n");
-	printf("\t\t\t██████▀────────────────────────███\n");
-	printf("\t\t\t█████──▄▀▀▀▀▀▀▀▄────▄▀▀▀▀▀▀▀▄──███\n");
-	printf("\t\t\t█████────▄▄▄▄▄────────▄▄▄▄▄────███\n");
-	printf("\t\t\t█████──▄▀───▄██▄────▄▀───▄██▄──███\n");
-	printf("\t\t\t█████──▀▄───▀▀█▀────▀▄───▀▀█▀──███\n");
-	printf("\t\t\t█▀──█────▀▀▀▀▀────────▀▀▀▀▀────███\n");
-	printf("\t\t\t█───█──────────────────────────█─█\n");
-	printf("\t\t\t█────────────────────▄───────────█\n");
-	printf("\t\t\t█───────────▄▀────────▀▄─────────█\n");
-	printf("\t\t\t▀█─▄█───────▀▄─▀██──██───────────█\n");
-	printf("\t\t\t─▀██────────────────────────────██\n");
-	printf("\t\t\t──██────▄▀▀──────█─█──────▀▀▄──██─\n");
-	printf("\t\t\t───█──────█▀▄────▀─▀────▄▀█────█──\n");
-	printf("\t\t\t───█──────▀──▀▀▄▄▄▄▄▄▄▀▀──▀────█──\n");
-	printf("\t\t\t───▀█─────────────────────────█▀──\n");
-	printf("\t\t\t────▀█───────────────────────█▀───\n");
-	printf("\t\t\t─────▀█─────────────────────█▀────\n");
-	printf("\t\t\t──────▀█───────────────────█▀─────\n");
-	printf("\t\t\t───────▀█─────────────────█▀──────\n");
-	printf("\t\t\t────────▀█───▄───────▄───█▀───────\n");
-	printf("\t\t\t─────────▀█▄──▀▄▄▄▄▄▀──▄█▀────────\n");
-	printf("\t\t\t───────────▀▀█▄▄▄▄▄▄▄█▀▀──────────\n");
-	printf("\n");
-*/	printf("\n\t\t\033[1mWelcome in the worst minishell of the world!\n\n\033[0m");
-	temp = ft_strdup("@minishell:~$ ");
-	prompt = ft_strjoin(getenv("USER"), temp);
-	free(temp);
 	our_env = cp_str_array(envp);
+	printf("\n\t\t\033[1mWelcome in the worst minishell of the world!\n\n\033[0m");
+	prompt = ft_strjoin(ft_getenv("USER", our_env), "@minishell:~$ ");
 	while (TRUE)
 	{
 		signal(SIGINT, ft_signal_handler);
@@ -105,7 +58,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		add_history(cmd_line);
 		lexer = ft_lexer(cmd_line);
-		ft_print_lexer(lexer);
+//		ft_print_lexer(lexer);
 		cmd = ft_parsing(lexer);
 		if (ft_strcmp(cmd_line, "exit") == 0)
 			break ;
@@ -122,7 +75,8 @@ int	main(int argc, char **argv, char **envp)
 void	ft_error(char *strerror, int nbr)
 {
 	printf("%s\n", strerror);
-	exit(nbr);
+	nbr = 2;
+	kill(getpid(), SIGINT);
 }
 
 void	ft_print_lexer(t_lexer *lexer)
@@ -176,7 +130,7 @@ void	ft_print_cmd(t_cmd *cmd)
 			printf("in: %d\n", cmd->in);
 		if (cmd->file_in)
 			printf("file_in: %s\n", cmd->file_in);
-		printf("cmd_next:  %x\n", (unsigned int)cmd->next);
+		printf("cmd_next:  %lx\n", (unsigned long)cmd->next);
 		cmd = cmd->next;
 	}
 }
