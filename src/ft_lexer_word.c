@@ -6,11 +6,11 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 15:55:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/08/02 18:39:20 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/08/03 15:05:53 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 // returns the word starting from the index up to the next space/token
 // increment the index to the end of the word

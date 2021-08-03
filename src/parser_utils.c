@@ -6,11 +6,11 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 16:00:52 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/08/03 14:31:47 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/08/03 15:05:53 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 t_cmd	*ft_cmd_new(int n_args)
 {

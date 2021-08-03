@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/08/02 14:10:52 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/08/03 15:06:44 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@
 # include <errno.h>
 # include <unistd.h>
 # include <string.h>
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <string.h>
 # include <signal.h>
 # include <fcntl.h>
-# include "get_next_line.h"
 
 # define DEFAULT	0
 # define GREAT		1
@@ -70,6 +69,15 @@ struct	s_lexer
 	t_lexer	*next;
 };
 
+typedef struct s_line
+{
+	char	buffer;
+	char	ret;
+	char	*str;
+	char	temp[4096];
+	int		len;
+}			t_line;
+
 t_lexer	*ft_lexer(char *str);
 void	ft_lstadd_back_lexer(t_lexer **lst, t_lexer *new);
 t_lexer	*ft_lstnew_two(char*args, int token);
@@ -115,5 +123,6 @@ char	*ft_find_and_expand(char *to_replace, char **our_env);
 void	ft_free(t_cmd *cmd);
 void	ft_free_word(char **word);
 void	ft_expand_env(char	*env, char *value, int len_word);
+int		get_next_line(int fd, char **line);
 
 #endif

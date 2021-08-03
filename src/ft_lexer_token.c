@@ -6,11 +6,11 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 01:08:16 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/08/02 18:10:27 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/08/03 15:05:53 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 // returns the token as a string
 // increment the index to the end of the word

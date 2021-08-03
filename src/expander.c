@@ -6,11 +6,11 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:48:21 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/08/03 14:37:22 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/08/03 15:05:53 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 void	ft_expand_env(char	*env, char *value, int len_word)
 {
@@ -29,7 +29,7 @@ void	ft_expand_env(char	*env, char *value, int len_word)
 		len_word--;
 	}
 	while (len_word-- > 0)
-		*(env++) = ' ';
+		*(env++) = 0;
 	*(env++) = '\0';
 }
 

@@ -6,12 +6,11 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 17:38:58 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/07/25 17:14:57 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/08/03 15:13:12 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include "minishell.h"
+#include "../include/minishell.h"
 
 int	get_next_line(int fd, char **line)
 {
