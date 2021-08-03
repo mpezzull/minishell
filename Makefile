@@ -6,43 +6,56 @@
 #    By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/07/29 18:51:21 by mde-rosa         ###   ########.fr        #
+#    Updated: 2021/08/03 02:43:11 by mde-rosa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS	=	main.c echo.c init.c counters.c \
-			ft_lexer.c ft_lexer_word.c ft_lexer_token.c ft_lexer_utils.c \
+NAME			=	minishell
 
-NAME	=	minishell
+SRCS_PATH		=	./src/
 
-LIBS	=	-L./libft -L/usr/local/lib -lft -lreadline -lhistory -ltinfo
+OBJ_PATH 		= 	./obj/
 
-OBJCS	=	$(SRCS:.c=.o)
+LIBS			=	-L./libft -L/readline-6.3 -lft -lreadline -lhistory -ltinfo
 
-CC		=	gcc
+CC				=	gcc
 
-FLAGS	=	-Wall -Wextra -Werror
+FLAGS			=	-Wall -Wextra -Werror
 
-%.o		:	%.c
-			@$(CC) $(FLAGS) -c $<
+OTHER_MAKE_1	=	./libft/
 
+OTHER_MAKE_2	=	./bin/
+
+OTHER_MAKE_3	=	./readline-6.3/
+					
+SRCS			=	main.c echo.c init.c counters.c \
+					ft_lexer.c ft_lexer_word.c ft_lexer_token.c \
+					ft_lexer_utils.c 
+
+OBJCS 			= 	$(patsubst %,$(OBJ_PATH)%,$(SRCS:.c=.o))
+
+$(OBJ_PATH)%.o	:	$(SRCS_PATH)%.c
+					@$(CC) $(FLAGS) -o $@ -c $<
+	
 all		:	$(NAME)
 			
 $(NAME)	:	$(OBJCS)
-			@(make --no-print-directory -C libft/)
-			@(make --no-print-directory -C bin/)
+			@(make -s -C $(OTHER_MAKE_1))
+			@(make -s -C $(OTHER_MAKE_2))
+			@(make -s -C $(OTHER_MAKE_3))
 			@$(CC) $(FLAGS) -o $(NAME) $(OBJCS) $(LIBS)
-			@echo "\033[1;32m$@ successfully build\033[0m"
+			@echo "\033[1;32m\"./$@\" successfully build\033[0m"
 
 clean	:
-			@(make clean --no-print-directory -C ./libft/)
-			@(make clean --no-print-directory -C ./bin/)
+			@(make clean -s -C  $(OTHER_MAKE_1))
+			@(make clean -s -C  $(OTHER_MAKE_2))
+			@(make clean -s -C  $(OTHER_MAKE_3))
 			@rm -f $(OBJCS)
 			@echo "\033[1;31m.o files deleted\033[0m"
 
 fclean	:	clean
-			@(make fclean --no-print-directory -C ./libft/)
-			@(make fclean --no-print-directory -C ./bin/)
+			@(make fclean -s -C  $(OTHER_MAKE_1))
+			@(make fclean -s -C  $(OTHER_MAKE_2))
 			@rm -f $(NAME)
 			@rm -rf debug*
 			@echo "\033[1;31mbinaries deleted\033[0m"
@@ -50,7 +63,7 @@ fclean	:	clean
 re		:	fclean all
 
 debug	:	re
-			@$(CC) -g $(OBJCS) $(LIBS) -o debug
-			@echo "\033[1;31mper aprire il debug: \033[1;32mlancia \"lldb debug\"\033[0m"
+			@$(CC) $(FLAGS) -g -o $@ $(OBJCS) $(LIBS)
+			@echo " \033[1;32m\"lldb $@\" \033[0mper aprire il debug"
 
 .PHONY	:	all clean fclean re debug
