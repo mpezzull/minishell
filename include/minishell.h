@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/08/03 14:33:38 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/08/03 19:11:21 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <string.h>
 # include <signal.h>
 # include <fcntl.h>
-
+# include <sys/wait.h>
 
 # define DEFAULT	0
 # define GREAT		1
