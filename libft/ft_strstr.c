@@ -1,40 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/15 16:59:23 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/08/02 18:45:00 by mpezzull         ###   ########.fr       */
+/*   Created: 2021/07/27 12:24:32 by mpezzull          #+#    #+#             */
+/*   Updated: 2021/07/27 12:25:14 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-static char	*ft_strcpy(char *dest, const char *src)
+char	*ft_strstr(const char *str, const char *to_find)
 {
-	int	i;
+	unsigned int	pos;
+	unsigned int	i;
 
-	i = 0;
-	while (src[i] != '\0')
+	if (!*to_find)
+		return ((char *)str);
+	pos = 0;
+	while (str[pos] != '\0')
 	{
-		dest[i] = src[i];
-		i++;
+		if (str[pos] == to_find[0])
+		{
+			i = 1;
+			while (to_find[i] != '\0' && str[pos + i] == to_find[i])
+				++i;
+			if (to_find[i] == '\0')
+				return ((char *)&str[pos]);
+		}
+		++pos;
 	}
-	dest[i] = '\0';
-	return (dest);
-}
-
-char	*ft_strdup(const char *src)
-{
-	char	*copy;
-	int		len;
-
-	len = ft_strlen(src);
-	copy = ((char *)malloc(sizeof(char) * (len + 1)));
-	if (copy == NULL)
-		return (0);
-	ft_strcpy(copy, src);
-	return (copy);
+	return (0);
 }

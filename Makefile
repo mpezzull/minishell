@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+         #
+#    By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
 #    Updated: 2021/08/03 15:07:21 by mde-rosa         ###   ########.fr        #
@@ -18,7 +18,10 @@ OBJ_PATH 		= 	./obj/
 
 #LINUX LIBS			=	-L./libft -L/readline-6.3 -lft -lreadline -lhistory -ltinfo
 
-LIBS			=	-I /Users/$(USER)/.brew/opt/readline/include ./libft/libft.a -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
+LIBS 			=	-L /Users/$(USER)/.brew/opt/readline/lib ./libft/libft.a -lreadline
+
+INCLUDE			=	-I /Users/$(USER)/.brew/opt/readline/include
+
 CC				=	gcc
 
 CFLAGS			=	-Wall -Wextra -Werror
@@ -28,13 +31,15 @@ OTHER_MAKE_1	=	./libft/
 OTHER_MAKE_2	=	./bin/
 					
 SRCS			=	main.c \
-					ft_lexer.c ft_lexer_word.c ft_lexer_token.c ft_lexer_utils.c 
+					init.c free.c get_next_line.c minishell_utils.c parser.c \
+					ft_lexer.c ft_lexer_word.c ft_lexer_token.c parser_utils.c \
+					ft_lexer_utils.c expander.c env.c
 
 OBJCS 			= 	$(patsubst %,$(OBJ_PATH)%,$(SRCS:.c=.o))
 
 $(OBJ_PATH)%.o	:	$(SRCS_PATH)%.c
 					@(mkdir -p $(OBJ_PATH))
-					@$(CC) $(CFLAGS) -o $@ -c $<
+					@$(CC) $(FLAGS) $(INCLUDE) -o $@ -c $<
 	
 all		:	$(NAME)
 			
@@ -42,6 +47,7 @@ $(NAME)	:	$(OBJCS)
 			@(make -s -C $(OTHER_MAKE_1))
 			@(make -s -C $(OTHER_MAKE_2))
 			@$(CC) $(CFLAGS) -o $(NAME) $(OBJCS) $(LIBS)
+
 			@echo "\033[1;32m\"./$@\" successfully build\033[0m"
 
 clean	:
@@ -61,7 +67,7 @@ fclean	:	clean
 re		:	fclean all
 
 debug	:	re
-			@$(CC) $(CFLAGS) -g -o $@ $(OBJCS) $(LIBS)
+			@$(CC) $(CFLAGS) -g $(INCLUDE) -o $@ $(patsubst %,$(SRCS_PATH)%,$(SRCS)) $(LIBS)
 			@echo " \033[1;32m\"lldb $@\" \033[0mper aprire il debug"
 
 .PHONY	:	all clean fclean re debug

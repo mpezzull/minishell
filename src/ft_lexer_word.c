@@ -63,7 +63,7 @@ char	*ft_save_word(char *cmd_line, int *start, int lenght)
 	int		index;
 
 	index = 0;
-	word = (char *)malloc((lenght * sizeof(char) + 1));
+	word = (char *)malloc((lenght + 1) * sizeof(char));
 	if (!word)
 		ft_error(strerror(errno), errno);
 	while (cmd_line[*start] && ft_is_space(cmd_line[*start]) == 0

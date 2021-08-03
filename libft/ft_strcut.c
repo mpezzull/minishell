@@ -1,40 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strcut.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/15 16:59:23 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/08/02 18:45:00 by mpezzull         ###   ########.fr       */
+/*   Created: 2021/07/27 18:09:35 by mpezzull          #+#    #+#             */
+/*   Updated: 2021/07/27 18:20:30 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*ft_strcpy(char *dest, const char *src)
+int	ft_strcut(char *str, int begin, int len)
 {
-	int	i;
+	int	l;
 
-	i = 0;
-	while (src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
-char	*ft_strdup(const char *src)
-{
-	char	*copy;
-	int		len;
-
-	len = ft_strlen(src);
-	copy = ((char *)malloc(sizeof(char) * (len + 1)));
-	if (copy == NULL)
-		return (0);
-	ft_strcpy(copy, src);
-	return (copy);
+	l = ft_strlen(str);
+	if (len < 0)
+		len = l - begin;
+	if (begin + len > l)
+		len = l - begin;
+	ft_memmove(str + begin, str + begin + len, l - len + 1);
+	return (len);
 }

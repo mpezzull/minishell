@@ -1,40 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/15 16:59:23 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/08/02 18:45:00 by mpezzull         ###   ########.fr       */
+/*   Created: 2021/06/26 19:09:05 by assokenay         #+#    #+#             */
+/*   Updated: 2021/08/03 15:11:02 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/minishell.h"
 
-static char	*ft_strcpy(char *dest, const char *src)
+t_cmd	*init_cmd(void)
 {
-	int	i;
+	t_cmd	*instr;
 
-	i = 0;
-	while (src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+	instr = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
+	if (!instr)
+		ft_error(strerror(errno), errno);
+	instr->flag = NULL;
+	return (instr);
 }
 
-char	*ft_strdup(const char *src)
+void	ft_init_args(t_cmd *instr, int num_args)
 {
-	char	*copy;
-	int		len;
-
-	len = ft_strlen(src);
-	copy = ((char *)malloc(sizeof(char) * (len + 1)));
-	if (copy == NULL)
-		return (0);
-	ft_strcpy(copy, src);
-	return (copy);
+	instr->args = (char **)ft_calloc(num_args + 2, sizeof(char *));
+	if (!instr->args)
+		ft_error(strerror(errno), errno);
 }
