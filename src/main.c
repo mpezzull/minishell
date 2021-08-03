@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/08/03 15:05:53 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/08/03 18:17:26 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strcmp(cmd_line, "exit") == 0)
 			break ;
 		ft_expander(cmd, our_env);
-//		ft_executer(cmd);
-		ft_print_cmd(cmd);
+		ft_executer(cmd, our_env);
+//		ft_print_cmd(cmd);
 		free(cmd_line);
 	}
 //	ft_free(cmd, lexer);
@@ -75,8 +75,7 @@ int	main(int argc, char **argv, char **envp)
 void	ft_error(char *strerror, int nbr)
 {
 	printf("%s\n", strerror);
-	nbr = 2;
-	kill(getpid(), SIGINT);
+	exit(nbr);
 }
 
 void	ft_print_lexer(t_lexer *lexer)

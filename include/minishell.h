@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/08/03 15:06:44 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/08/03 17:34:18 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,15 @@ typedef struct s_line
 	int		len;
 }			t_line;
 
+typedef struct s_data
+{
+	int			fd_out;
+	int			fd_in;
+	int			fd_pipe[2];
+	char		*path;
+	char		**com_matrix;
+}				t_data;
+
 t_lexer	*ft_lexer(char *str);
 void	ft_lstadd_back_lexer(t_lexer **lst, t_lexer *new);
 t_lexer	*ft_lstnew_two(char*args, int token);
@@ -124,5 +133,17 @@ void	ft_free(t_cmd *cmd);
 void	ft_free_word(char **word);
 void	ft_expand_env(char	*env, char *value, int len_word);
 int		get_next_line(int fd, char **line);
+char	**ft_data_paths(char **env);
+int		ft_matr_del_and_free(char ***matrix);
+int		ft_is_a_system_command(char **env, t_data *data);
+int		ft_is_a_local_command(char **env, t_data *data);
+void	ft_do_execve(char *command, t_data *data, char **env);
+char	*ft_get_str_from_env(char *to_find, char **env);
+void	ft_executer(t_cmd *cmd, char **our_env);
+int		ft_strchr_int(char *str, char c);
+
+
+
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 15:55:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/08/03 15:05:53 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/08/03 17:03:31 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ char	*ft_save_word(char *cmd_line, int *start, int lenght)
 	while (cmd_line[*start] && ft_is_space(cmd_line[*start]) == 0
 		&& ft_is_token(cmd_line, *start) == 0)
 		ft_word_str(cmd_line, &index, start, word);
-	printf("%d\n", index);
 	word[index] = '\0';
 	return (word);
 }

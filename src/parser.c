@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:42:27 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/08/03 15:05:53 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/08/03 18:16:56 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ t_cmd	*ft_parsing(t_lexer *lexer)
 		}
 		if (data.token_found == PIPE && lexer->token == WORD)
 		{
-			temp->cmd = ft_strdup(lexer->args);
+			if (!temp->cmd)
+				temp->cmd = ft_strdup(lexer->args);
+			temp->args = ft_realloc(temp->args, i, i + 1);
+			temp->args[i++] = ft_strdup(lexer->args);
 			data.token_found = 0;
 		}
 		else if ((data.token_found == GREAT || data.token_found == GREATGREAT)
@@ -61,11 +64,8 @@ t_cmd	*ft_parsing(t_lexer *lexer)
 			{
 				if (!temp->cmd)
 					temp->cmd = ft_strdup(lexer->args);
-				else
-				{
-					temp->args = ft_realloc(temp->args, i, i + 1);
-					temp->args[i++] = ft_strdup(lexer->args);
-				}
+				temp->args = ft_realloc(temp->args, i, i + 1);
+				temp->args[i++] = ft_strdup(lexer->args);
 			}
 			if (lexer->token == GREAT || lexer->token == GREATGREAT)
 			{
