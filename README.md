@@ -1,12 +1,8 @@
-# @minishell:~$
-
->This project was done by:
-> - [mde-rosa](https://github.com/mde-rosa)
-> - [mpezzull](https://github.com/mpezzull)
+# ([mde-rosa](https://github.com/mde-rosa)&[mpezzull](https://github.com/mpezzull))@minishell:~$ _
  
- The objective is to create a simple shell, as beautiful as a shell
->With Minishell, you’ll be able to travel through time and come back to problems
-people faced when Windows didn’t exist.
+ The objective is to create a simple shell: as beautiful as a shell.
+>"...with Minishell, you’ll be able to travel through time and come back to problems
+people faced when Windows didn’t exist..."
 ### How to use it
 
 Using ``make`` will create the ``minishell`` executable.
@@ -37,20 +33,14 @@ A few of the functions are "built-in", meaning we don't call the executable, we 
 - ``env with no options or arguments``
 - ``exit with no options``
 
-### Some Instructions
+### Some other Instructions
 
-- Your project must be written in accordance with the Norm.
-- Your functions should not quit unexpectedly.
-- No leaks.
-- Your Makefile compile with the flags -Wall, -Wextra and -Werror, and not relink.
+- The project must be written in accordance with the Norm.
+- The functions should not quit unexpectedly.
+- No Memory-leaks.
+- Makefile compile with the flags -Wall, -Wextra and -Werror, and not relink.
+- Only a small group of functions are allowed.
 - ecc.
 
-### Functions allowed:
-readline, rl_on_new_line, rl_replace_line, rl_redisplay, add_history, printf, malloc,
-free, write, open, read, close, fork, wait, waitpid, wait3, wait4, signal, kill,
-exit, getcwd, chdir, stat, lstat, fstat, unlink, execve, dup, dup2, pipe, opendir,
-readdir, closedir, strerror, errno, isatty, ttyname, ttyslot, ioctl, getenv, tcsetattr,
-tcgetattr, tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
-
-for other information read en.subject.pdf
+## for other information please read en.subject.pdf
 
