@@ -6,7 +6,7 @@
 #    By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/08/03 15:22:38 by mpezzull         ###   ########.fr        #
+#    Updated: 2021/08/03 15:07:21 by mde-rosa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,15 @@ SRCS_PATH		=	./src/
 
 OBJ_PATH 		= 	./obj/
 
+#LINUX LIBS			=	-L./libft -L/readline-6.3 -lft -lreadline -lhistory -ltinfo
+
 LIBS 			=	-L /Users/$(USER)/.brew/opt/readline/lib ./libft/libft.a -lreadline
 
 INCLUDE			=	-I /Users/$(USER)/.brew/opt/readline/include
 
 CC				=	gcc
 
-FLAGS			=	-Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror
 
 OTHER_MAKE_1	=	./libft/
 
@@ -44,7 +46,8 @@ all		:	$(NAME)
 $(NAME)	:	$(OBJCS)
 			@(make -s -C $(OTHER_MAKE_1))
 			@(make -s -C $(OTHER_MAKE_2))
-			@$(CC) $(FLAGS) -o $(NAME) $(OBJCS) $(LIBS)
+			@$(CC) $(CFLAGS) -o $(NAME) $(OBJCS) $(LIBS)
+
 			@echo "\033[1;32m\"./$@\" successfully build\033[0m"
 
 clean	:
@@ -64,7 +67,7 @@ fclean	:	clean
 re		:	fclean all
 
 debug	:	re
-			@$(CC) $(FLAGS) -g $(INCLUDE) -o $@ $(patsubst %,$(SRCS_PATH)%,$(SRCS)) $(LIBS)
+			@$(CC) $(CFLAGS) -g $(INCLUDE) -o $@ $(patsubst %,$(SRCS_PATH)%,$(SRCS)) $(LIBS)
 			@echo " \033[1;32m\"lldb $@\" \033[0mper aprire il debug"
 
 .PHONY	:	all clean fclean re debug

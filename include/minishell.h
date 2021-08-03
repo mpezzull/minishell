@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/08/03 15:06:44 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/08/03 14:33:38 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H 
 # include <stdio.h>
-# include "readline/readline.h"
-# include "readline/history.h"
+# include <readline/readline.h>
+# include <readline/history.h>
 # include <errno.h>
 # include <unistd.h>
 # include <string.h>
@@ -22,6 +22,7 @@
 # include <string.h>
 # include <signal.h>
 # include <fcntl.h>
+
 
 # define DEFAULT	0
 # define GREAT		1
@@ -94,7 +95,6 @@ int		ft_check_closed(char *cmd_line, int i);
 int		ft_word_lenght(char *cmd_line, int *index, int lenght);
 void	ft_word_str(char *cmd_line, int *index, int *start, char *word);
 void	ft_print_lexer(t_lexer *lexer);
-
 t_cmd	*ft_parsing(t_lexer *lexer);
 void	ft_error(char *strerror, int nbr);
 t_cmd	*init_cmd(void);
@@ -103,11 +103,9 @@ int		ft_count_chr(char *str, char c);
 int		ft_count_words(char **splitted);
 void	ft_zero_dquotes(t_cmd *instr, char **splitted);
 t_cmd	*ft_echo(char *token, char **splitted);
-
 t_cmd	*ft_cmd_new(int n_args);
 void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new);
 char	**ft_realloc(char	**ptr, int cur_size, int new_size);
-//extern void rl_replace_line (const char *a, int b);
 void	ft_print_cmd(t_cmd *cmd);
 void	ft_check_double_token(t_lexer *lexer);
 void	ft_heredoc_shell(t_lexer *lexer, t_cmd *temp, int *i);
