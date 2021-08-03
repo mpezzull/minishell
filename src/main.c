@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/08/03 02:43:01 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/08/03 15:00:12 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,42 +29,7 @@ int	main(int argc, char **argv, char **envp)
 		our_env = envp;
 	if (argc != 1)
 		ft_error("Launch with \"./minishell\"", 1);
-/*	printf("\n");
-	printf("\t\t\t──────────────────────────────────\n");
-	printf("\t\t\t────────────██████████────────────\n");
-	printf("\t\t\t────────███████████████████───────\n");
-	printf("\t\t\t──────███████████████████████─────\n");
-	printf("\t\t\t────██████████████████████████────\n");
-	printf("\t\t\t───█████████████▀──────────▀███───\n");
-	printf("\t\t\t──█████████████──────────────███──\n");
-	printf("\t\t\t─████████████────────────────████─\n");
-	printf("\t\t\t─██████████───────────────────███─\n");
-	printf("\t\t\t██████████▀───────────────────████\n");
-	printf("\t\t\t████████▀─────────────────────████\n");
-	printf("\t\t\t██████▀────────────────────────███\n");
-	printf("\t\t\t█████──▄▀▀▀▀▀▀▀▄────▄▀▀▀▀▀▀▀▄──███\n");
-	printf("\t\t\t█████────▄▄▄▄▄────────▄▄▄▄▄────███\n");
-	printf("\t\t\t█████──▄▀───▄██▄────▄▀───▄██▄──███\n");
-	printf("\t\t\t█████──▀▄───▀▀█▀────▀▄───▀▀█▀──███\n");
-	printf("\t\t\t█▀──█────▀▀▀▀▀────────▀▀▀▀▀────███\n");
-	printf("\t\t\t█───█──────────────────────────█─█\n");
-	printf("\t\t\t█────────────────────▄───────────█\n");
-	printf("\t\t\t█───────────▄▀────────▀▄─────────█\n");
-	printf("\t\t\t▀█─▄█───────▀▄─▀██──██───────────█\n");
-	printf("\t\t\t─▀██────────────────────────────██\n");
-	printf("\t\t\t──██────▄▀▀──────█─█──────▀▀▄──██─\n");
-	printf("\t\t\t───█──────█▀▄────▀─▀────▄▀█────█──\n");
-	printf("\t\t\t───█──────▀──▀▀▄▄▄▄▄▄▄▀▀──▀────█──\n");
-	printf("\t\t\t───▀█─────────────────────────█▀──\n");
-	printf("\t\t\t────▀█───────────────────────█▀───\n");
-	printf("\t\t\t─────▀█─────────────────────█▀────\n");
-	printf("\t\t\t──────▀█───────────────────█▀─────\n");
-	printf("\t\t\t───────▀█─────────────────█▀──────\n");
-	printf("\t\t\t────────▀█───▄───────▄───█▀───────\n");
-	printf("\t\t\t─────────▀█▄──▀▄▄▄▄▄▀──▄█▀────────\n");
-	printf("\t\t\t───────────▀▀█▄▄▄▄▄▄▄█▀▀──────────\n");
-	printf("\n");
-*/	printf("\n\t\t\033[1mWelcome in the worst minishell of the world!\n\n\033[0m");
+	printf("\n\t\t\033[1mWelcome in the worst minishell of the world!\n\n\033[0m");
 	temp = ft_strdup("@minishell:~$ ");
 	prompt = ft_strjoin(getenv("USER"), temp);
 	free(temp);
@@ -83,19 +48,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	free(prompt);
 	return (0);
-}
-
-t_cmd	*ft_parsing(char *cmd_line)
-{
-	t_cmd	*instr;
-	char	**splitted;
-
-	if (!cmd_line)
-		ft_error("invalid cmd_line", 1);
-	splitted = ft_split(cmd_line, ' ');
-	if (!ft_strcmp(splitted[0], "echo"))
-		instr = ft_echo(cmd_line, splitted);
-	return (instr);
 }
 
 void	ft_error(char *strerror, int nbr)

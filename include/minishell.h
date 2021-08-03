@@ -6,15 +6,15 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/08/03 02:42:21 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/08/03 14:33:38 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H 
 # include <stdio.h>
-# include "../readline-6.3/readline.h"
-# include "../readline-6.3/history.h"
+# include <readline/readline.h>
+# include <readline/history.h>
 # include <errno.h>
 # include <unistd.h>
 # include <string.h>
