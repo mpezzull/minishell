@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 16:31:46 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/08/03 20:07:44 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/08/04 18:21:07 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,6 @@ void	ft_do_execve(char *command, t_data *data, char **env)
 {
 	int	fd;
 
-	close(data->fd_pipe[0]);
-	if (dup2(data->fd_pipe[1], 1) < 0)
-		ft_error("Error file descriptor", 1);
-	close(data->fd_pipe[1]);
 	if (ft_strchr_int(command, '/') == 0)
 	{
 		fd = open(data->com_matrix[0], O_RDONLY);
@@ -122,11 +118,16 @@ void	ft_executer(t_cmd *cmd, char **our_env)
 	t_data	data;
 	int		pid;
 	char	*line;
-	int 	fd;
+	int		fd;
+	int		fd_in;
+	int		fd_next;
+	int		save_stdout;
+	int		save_stdin;
 
 	line = NULL;
 	data.com_matrix = NULL;
 	data.path = NULL;
+	fd_next = 0;
 	while (cmd)
 	{
 		data.com_matrix = cp_str_array(cmd->args);
@@ -136,7 +137,40 @@ void	ft_executer(t_cmd *cmd, char **our_env)
 		if (pid == -1)
 			ft_error("Error fork", 1);
 		else if (pid == 0)
+		{
+			if (cmd->out != DEFAULT)
+			{
+				close(data.fd_pipe[0]);
+				if (dup2(data.fd_pipe[1], 1) < 0)
+					ft_error("Error file descriptor", 1);
+				close(data.fd_pipe[1]);
+			}
+			if (cmd->in == LESS)
+			{
+				close(data.fd_pipe[0]);
+				fd_in = open(cmd->file_in, O_RDONLY);
+				if (fd_in < 0)
+					ft_error("Error file descriptor", 1);
+				save_stdin = dup(0);
+				if (dup2(fd_in, 0) < 0)
+					ft_error("Error file descriptor", 1);
+				close(fd_in);
+			}
+			else if (fd_next != 0)
+			{
+				fd_in = fd_next;
+				fd_next = 0;
+				if (fd_in < 0)
+					ft_error("Error file descriptor", 1);
+				save_stdin = dup(0);
+				if (dup2(fd_in, 0) < 0)
+					ft_error("Error file descriptor", 1);
+				close(fd_in);
+			}
 			ft_do_execve(cmd->cmd, &data, our_env);
+			if (save_stdin != 0)
+				dup2(save_stdin, 0);
+		}
 		else
 		{
 			wait(NULL);
@@ -144,22 +178,27 @@ void	ft_executer(t_cmd *cmd, char **our_env)
 			close(data.fd_pipe[1]);
 			if (cmd->out == GREAT || cmd->out == GREATGREAT)
 			{
-				fd = open(cmd->file_out, O_CREAT | O_WRONLY | O_APPEND);
+				if (cmd->out == GREAT)
+					fd = open(cmd->file_out, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+				else
+					fd = open(cmd->file_out, O_WRONLY | O_APPEND | O_CREAT, 0644);
 				if (fd < 0)
 					ft_error("Error file descriptor", 1);
+				save_stdout = dup(1);
 				if (dup2(fd, 1) < 0)
 					ft_error("Error file descriptor", 1);
 				while (get_next_line(data.fd_pipe[0], &line) != -5)
 					printf("%s\n", line);
+				dup2(save_stdout, 1);
 			}
 			else if (cmd->out == PIPE)
-				fd = data.fd_pipe[0];
+				fd_next = data.fd_pipe[0];
 			else
 			{
 				while (get_next_line(data.fd_pipe[0], &line) != -5)
 					printf("%s\n", line);
 			}
-			close(data.fd_pipe[0]);
+//			close(data.fd_pipe[0]);
 		}
 		cmd = cmd->next;
 	}
