@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/08/03 15:00:12 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/08/04 14:11:06 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,6 @@ int	main(int argc, char **argv, char **envp)
 	t_lexer	*lexer;
 
 	argv = &(*argv);
-	our_env = envp;
-	if (!our_env)
-		our_env = envp;
 	if (argc != 1)
 		ft_error("Launch with \"./minishell\"", 1);
 	our_env = cp_str_array(envp);
@@ -54,16 +51,17 @@ int	main(int argc, char **argv, char **envp)
 			rl_redisplay();
 			break ;
 		}
-		add_history(cmd_line);
-		lexer = ft_lexer(cmd_line);
-//		ft_print_lexer(lexer);
-		cmd = ft_parsing(lexer);
 		if (ft_strcmp(cmd_line, "exit") == 0)
 			break ;
+		add_history(cmd_line);
+		lexer = ft_lexer(cmd_line);
+		free(cmd_line);
+		cmd = ft_parsing(lexer);
 		ft_expander(cmd, our_env);
+//		ft_print_lexer(lexer);
 //		ft_executer(cmd);
 		ft_print_cmd(cmd);
-		free(cmd_line);
+		
 	}
 //	ft_free(cmd, lexer);
 	free(prompt);

@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 11:54:05 by assokenay         #+#    #+#             */
-/*   Updated: 2021/08/04 01:48:10 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/08/04 13:45:10 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	ft_our_cd(char **args)
 			printf("minishell: cd: %s: No such file or directory\n", args[0]);
 }
 
+// return 0 if the string is only spaces, otherwise return 1
 int	ft_str_isspace(char *str)
 {
 	int	i;
@@ -98,6 +99,8 @@ int	ft_str_isspace(char *str)
 	return (0);
 }
 
+//return how many strings there is in the array (args[?])
+// -1 if there is not strings.
 int	ft_count_args(char **args)
 {
 	int	i;
