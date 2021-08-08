@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:54:54 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/08/08 15:35:19 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/08/08 15:53:06 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	**ft_our_export(char **args, char **envp)
 			envp[position] = ft_strdup(args[i++]);
 		}
 		else
-			return (NULL);
+			return (envp);
 	}
 	return (envp);
 }
