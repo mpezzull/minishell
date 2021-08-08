@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/08/03 19:11:21 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/08/04 18:31:41 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ t_cmd	*ft_parsing(t_lexer *lexer);
 void	ft_error(char *strerror, int nbr);
 t_cmd	*init_cmd(void);
 void	ft_init_args(t_cmd *instr, int num_args);
-int		ft_count_chr(char *str, char c);
 int		ft_count_words(char **splitted);
 void	ft_zero_dquotes(t_cmd *instr, char **splitted);
 t_cmd	*ft_echo(char *token, char **splitted);
@@ -122,5 +121,9 @@ void	ft_free(t_cmd *cmd);
 void	ft_free_word(char **word);
 void	ft_expand_env(char	*env, char *value, int len_word);
 int		get_next_line(int fd, char **line);
+
+int		ft_str_isspace(char *str);
+int		ft_count_args(char **args);
+void	ft_our_cd(char **args);
 
 #endif

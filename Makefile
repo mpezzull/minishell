@@ -6,7 +6,7 @@
 #    By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/08/04 14:07:24 by mde-rosa         ###   ########.fr        #
+#    Updated: 2021/08/08 14:58:15 by mde-rosa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ OTHER_MAKE_2	=	./bin/
 SRCS			=	main.c \
 					init.c free.c get_next_line.c minishell_utils.c parser.c \
 					ft_lexer.c ft_lexer_word.c ft_lexer_token.c parser_utils.c \
-					ft_lexer_utils.c expander.c 
+					ft_lexer_utils.c expander.c our_cd.c our_export.c
 
 OBJCS 			= 	$(patsubst %,$(OBJ_PATH)%,$(SRCS:.c=.o))
 
@@ -68,5 +68,14 @@ re		:	fclean all
 debug	:	re
 			@$(CC) $(CFLAGS) -g $(INCLUDE) -o $@ $(patsubst %,$(SRCS_PATH)%,$(SRCS)) $(LIBS)
 			@echo " \033[1;32m\"lldb $@\" \033[0mper aprire il debug"
+
+
+our_export	:	$(OBJCS)
+				@make -s fclean
+				@(make -s -C $(OTHER_MAKE_1))
+				@(make -s -C $(OTHER_MAKE_2))
+#				$(CC) $(CFLAGS) -o our_export $(OBJCS) $(LIBS)
+				@$(CC) $(CFLAGS) -g $(INCLUDE) -o $@ $(patsubst %,$(SRCS_PATH)%,$(SRCS)) $(LIBS)
+				@echo "\033[1;32m\"./$@\" successfully build\033[0m"
 
 .PHONY	:	all clean fclean re debug

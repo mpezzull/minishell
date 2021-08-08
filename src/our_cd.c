@@ -6,67 +6,11 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 11:54:05 by assokenay         #+#    #+#             */
-/*   Updated: 2021/08/04 13:45:10 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/08/04 18:57:18 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-
-int		ft_str_isspace(char *str);
-int		ft_count_args(char **args);
-void	ft_our_cd(char **args);
-// ELIMINARE DA QUI...
-void	ft_print_pwd(char *msg);
-
-int	main(int argc, char **argv)
-{
-	if (argc > 2)
-		printf("lancia ./our_cd pathname\n");
-	char *a[1];
-	a[0] = 	argv[1];
-	ft_print_pwd("before: pwd= ");
-	ft_our_cd(a);
-	ft_print_pwd("after : pwd= ");
-	return (0);
-}
-
-void	ft_print_pwd(char *msg)
-{
-	char	*current;
-	size_t	size;
-
-	current = NULL;
-	size = 100;
-	current = getcwd(current, size);
-	printf("%s%s\n", msg, current);
-	free (current);
-}
-
-//....................FINO A QUI!
-
-static int	ft_strcmp(char *s1, char *s2)
-{
-	int				c;
-	int				n1;
-	int				n2;
-
-	c = 0;
-	while (s1[c] != '\0' || s2[c] != '\0')
-	{
-		if (s1[c] != s2[c])
-		{
-			n1 = s1[c];
-			n2 = s2[c];
-			if (n1 > n2 || n1 < n2)
-				return (n1 - n2);
-		}
-		if (s1[c] == s2[c])
-			c++;
-	}
-	return (0);
-}
+#include "../include/minishell.h"
 
 void	ft_our_cd(char **args)
 {
@@ -108,5 +52,5 @@ int	ft_count_args(char **args)
 	i = 0;
 	while (args[i])
 		i++;
-	return (i - 1);
+	return (i);
 }
