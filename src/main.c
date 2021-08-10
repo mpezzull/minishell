@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/08/04 17:39:04 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/08/10 12:53:48 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_signal_handler(int sig_num)
 		rl_redisplay();
 	}
 }
-/*
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*cmd_line;
@@ -67,7 +67,7 @@ int	main(int argc, char **argv, char **envp)
 	free(prompt);
 	return (0);
 }
-*/
+
 void	ft_error(char *strerror, int nbr)
 {
 	printf("%s\n", strerror);

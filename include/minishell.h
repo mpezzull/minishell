@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/08/04 18:31:41 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/08/10 12:50:19 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,15 @@ int		get_next_line(int fd, char **line);
 int		ft_str_isspace(char *str);
 int		ft_count_args(char **args);
 void	ft_our_cd(char **args);
+
+//export
+char	**ft_our_export(char **args, char **envp);
+int		ft_there_is_chr(char *str, char c);
+char	*ft_check_if_exists(char *str, char **envp);
+int		ft_search_in_array(char *search, char **array);
+//unset
+char	**ft_our_unset(char **args, char **envp);
+int		ft_check_if_exists_unset(char *str, char **envp);
+char	**ft_realloc_unset(char	**ptr, int cur_size, char	*args);
 
 #endif

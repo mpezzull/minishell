@@ -6,18 +6,14 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:54:54 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/08/08 15:53:06 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/08/10 12:57:06 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*
 void	ft_print_array(char **str);
-char	**ft_our_export(char **args, char **envp);
-int		ft_there_is_chr(char *str, char c);
-char	*ft_check_if_exists(char *str, char **envp);
-int		ft_search_in_array(char *search, char **array);
-
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -37,6 +33,20 @@ int	main(int argc, char **argv, char **envp)
 	ft_print_array(our_envp);
 	return (0);
 }
+
+void	ft_print_array(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		printf("%s\n", str[i++]);
+		fflush(stdout);
+	}
+}
+
+*/
 
 char	**ft_our_export(char **args, char **envp)
 {
@@ -63,8 +73,6 @@ char	**ft_our_export(char **args, char **envp)
 			position = ft_search_in_array(variable[0], envp);
 			envp[position] = ft_strdup(args[i++]);
 		}
-		else
-			return (envp);
 	}
 	return (envp);
 }
@@ -115,16 +123,4 @@ int	ft_there_is_chr(char *str, char c)
 			return (1);
 	}
 	return (0);
-}
-
-void	ft_print_array(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		printf("%s\n", str[i++]);
-		fflush(stdout);
-	}
 }

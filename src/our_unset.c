@@ -6,17 +6,14 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:54:54 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/08/08 16:54:16 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/08/10 12:57:07 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*
 void	ft_print_array(char **str);
-char	**ft_our_unset(char **args, char **envp);
-int		ft_check_if_exists_unset(char *str, char **envp);
-char	**ft_realloc_unset(char	**ptr, int cur_size, char	*args);
-
 int	main(int argc, char **argv, char **envp)
 {
 	char	**our_envp;
@@ -34,6 +31,19 @@ int	main(int argc, char **argv, char **envp)
 	ft_print_array(our_envp);
 	return (0);
 }
+
+void	ft_print_array(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		printf("%s\n", str[i++]);
+		fflush(stdout);
+	}
+}
+*/
 
 char	**ft_our_unset(char **args, char **envp)
 {
@@ -96,16 +106,4 @@ int	ft_check_if_exists_unset(char *str, char **envp)
 		i++;
 	}
 	return (0);
-}
-
-void	ft_print_array(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		printf("%s\n", str[i++]);
-		fflush(stdout);
-	}
 }

@@ -6,12 +6,12 @@
 #    By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/08/04 16:53:48 by mde-rosa         ###   ########.fr        #
+#    Updated: 2021/08/10 12:58:19 by mde-rosa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC 				=	gcc
-CFLAGS 			=	-Wall -Wextra -Werror -g
+CFLAGS 			=	-Wall -Wextra -Werror
 
 OUR_ECHO 		=	our_echo
 SRC_OUR_ECHO	=	our_echo.c

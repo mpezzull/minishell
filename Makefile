@@ -6,7 +6,7 @@
 #    By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/08/08 16:10:58 by mde-rosa         ###   ########.fr        #
+#    Updated: 2021/08/10 12:51:48 by mde-rosa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ INCLUDE			=	-I /Users/$(USER)/.brew/opt/readline/include
 CC				=	gcc
 
 CFLAGS			=	-Wall -Wextra -Werror
+
 OTHER_MAKE_1	=	./libft/
 
 OTHER_MAKE_2	=	./bin/
@@ -32,7 +33,7 @@ OTHER_MAKE_2	=	./bin/
 SRCS			=	main.c \
 					init.c free.c get_next_line.c minishell_utils.c parser.c \
 					ft_lexer.c ft_lexer_word.c ft_lexer_token.c parser_utils.c \
-					ft_lexer_utils.c expander.c our_cd.c our_unset.c
+					ft_lexer_utils.c expander.c our_cd.c our_export.c our_unset.c
 
 OBJCS 			= 	$(patsubst %,$(OBJ_PATH)%,$(SRCS:.c=.o))
 
@@ -70,20 +71,20 @@ debug	:	re
 			@echo " \033[1;32m\"lldb $@\" \033[0mper aprire il debug"
 
 
-our_export	:	$(OBJCS)
-				@make -s fclean
-				@(make -s -C $(OTHER_MAKE_1))
-				@(make -s -C $(OTHER_MAKE_2))
-#				$(CC) $(CFLAGS) -o our_export $(OBJCS) $(LIBS)
-				@$(CC) $(CFLAGS) -g $(INCLUDE) -o $@ $(patsubst %,$(SRCS_PATH)%,$(SRCS)) $(LIBS)
-				@echo "\033[1;32m\"./$@\" successfully build\033[0m"
-
-our_unset	:	$(OBJCS)
-				@make -s fclean
-				@(make -s -C $(OTHER_MAKE_1))
-				@(make -s -C $(OTHER_MAKE_2))
-#				$(CC) $(CFLAGS) -o our_export $(OBJCS) $(LIBS)
-				@$(CC) $(CFLAGS) -g $(INCLUDE) -o $@ $(patsubst %,$(SRCS_PATH)%,$(SRCS)) $(LIBS)
-				@echo "\033[1;32m\"./$@\" successfully build\033[0m"
+#our_export	:	$(OBJCS)
+#				@make -s fclean
+#				@(make -s -C $(OTHER_MAKE_1))
+#				@(make -s -C $(OTHER_MAKE_2))
+##				$(CC) $(CFLAGS) -o our_export $(OBJCS) $(LIBS)
+#				@$(CC) $(CFLAGS) -g $(INCLUDE) -o $@ $(patsubst %,$(SRCS_PATH)%,$(SRCS)) $(LIBS)
+#				@echo "\033[1;32m\"./$@\" successfully build\033[0m"
+#
+#our_unset	:	$(OBJCS)
+#				@make -s fclean
+#				@(make -s -C $(OTHER_MAKE_1))
+#				@(make -s -C $(OTHER_MAKE_2))
+##				$(CC) $(CFLAGS) -o our_export $(OBJCS) $(LIBS)
+#				@$(CC) $(CFLAGS) -g $(INCLUDE) -o $@ $(patsubst %,$(SRCS_PATH)%,$(SRCS)) $(LIBS)
+#				@echo "\033[1;32m\"./$@\" successfully build\033[0m"
 
 .PHONY	:	all clean fclean re debug
