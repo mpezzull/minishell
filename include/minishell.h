@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/08/03 17:34:18 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/06 18:36:26 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ struct	s_cmd
 	char	*cmd;
 	char	*flag;
 	char	**args;
+	char	**heredoc;
 	int		in;
 	int		out;
 	char	*file_in;
@@ -119,11 +120,11 @@ char	**ft_realloc(char	**ptr, int cur_size, int new_size);
 //extern void rl_replace_line (const char *a, int b);
 void	ft_print_cmd(t_cmd *cmd);
 void	ft_check_double_token(t_lexer *lexer);
-void	ft_heredoc_shell(t_lexer *lexer, t_cmd *temp, int *i);
+void	ft_heredoc_shell(t_lexer *lexer, t_cmd *temp);
 void	ft_signal_handler_heredoc(int sig_num);
 void	ft_signal_handler(int sig_num);
 void	ft_heredoc_child(t_lexer *lexer, int *fd);
-void	ft_heredoc_parent(t_cmd	*temp, int *fd, int i);
+void	ft_heredoc_parent(t_cmd	*temp, int *fd);
 char	**cp_str_array(char **envp);
 void	ft_expander(t_cmd *cmd, char **our_env);
 char	*ft_getenv(char *name, char **env);
@@ -141,9 +142,9 @@ void	ft_do_execve(char *command, t_data *data, char **env);
 char	*ft_get_str_from_env(char *to_find, char **env);
 void	ft_executer(t_cmd *cmd, char **our_env);
 int		ft_strchr_int(char *str, char c);
-
-
-
+t_cmd	*ft_parsing_token(t_lexer *lexer, t_cmd *temp, t_parser *data, int *i);
+void	ft_parsing_pipe(t_lexer *lexer, t_cmd *temp, t_parser *data, int *i);
+void	ft_parsing_greats(t_lexer *lexer, t_cmd *temp, t_parser *data);
 
 
 #endif

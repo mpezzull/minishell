@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/08/04 13:37:32 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/06 17:36:40 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ int	main(int argc, char **argv, char **envp)
 		cmd = ft_parsing(lexer);
 		if (ft_strcmp(cmd_line, "exit") == 0)
 			break ;
-		ft_expander(cmd, our_env);
-		ft_executer(cmd, our_env);
-//		ft_print_cmd(cmd);
+//		ft_expander(cmd, our_env);
+//		ft_executer(cmd, our_env);
+		ft_print_cmd(cmd);
 		free(cmd_line);
 	}
 //	ft_free(cmd, lexer);
@@ -121,12 +121,16 @@ void	ft_print_cmd(t_cmd *cmd)
 			printf("args[%i]: %s\n", j, cmd->args[j]);
 			j++;
 		}
-		if (cmd->out)
-			printf("out: %d\n", cmd->out);
+		j = 0;
+		while (cmd->heredoc && cmd->heredoc[j])
+		{
+			printf("heredoc[%i]: %s\n", j, cmd->heredoc[j]);
+			j++;
+		}
+		printf("out: %d\n", cmd->out);
 		if (cmd->file_out)
 			printf("file_out: %s\n", cmd->file_out);
-		if (cmd->in)
-			printf("in: %d\n", cmd->in);
+		printf("in: %d\n", cmd->in);
 		if (cmd->file_in)
 			printf("file_in: %s\n", cmd->file_in);
 		printf("cmd_next:  %lx\n", (unsigned long)cmd->next);
