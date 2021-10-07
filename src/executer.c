@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 16:31:46 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/08/04 18:21:07 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/07 20:05:58 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,8 +168,8 @@ void	ft_executer(t_cmd *cmd, char **our_env)
 				close(fd_in);
 			}
 			ft_do_execve(cmd->cmd, &data, our_env);
-			if (save_stdin != 0)
-				dup2(save_stdin, 0);
+//			if (save_stdin != 0)
+//				dup2(save_stdin, 0);
 		}
 		else
 		{
