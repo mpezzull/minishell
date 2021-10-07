@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/10/06 18:36:26 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/07 18:14:54 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,6 @@ int		ft_strchr_int(char *str, char c);
 t_cmd	*ft_parsing_token(t_lexer *lexer, t_cmd *temp, t_parser *data, int *i);
 void	ft_parsing_pipe(t_lexer *lexer, t_cmd *temp, t_parser *data, int *i);
 void	ft_parsing_greats(t_lexer *lexer, t_cmd *temp, t_parser *data);
-
+char	*ft_extract_alnum(char *str);
 
 #endif
