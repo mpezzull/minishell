@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 16:31:46 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/07 20:05:58 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/07 23:16:32 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,8 @@ void	ft_executer(t_cmd *cmd, char **our_env)
 				while (get_next_line(data.fd_pipe[0], &line) != -5)
 					printf("%s\n", line);
 				dup2(save_stdout, 1);
+				if (cmd->next)
+					fd_next = data.fd_pipe[0];
 			}
 			else if (cmd->out == PIPE)
 				fd_next = data.fd_pipe[0];
