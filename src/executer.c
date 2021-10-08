@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 16:31:46 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/07 23:16:32 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/08 19:07:03 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,11 +123,13 @@ void	ft_executer(t_cmd *cmd, char **our_env)
 	int		fd_next;
 	int		save_stdout;
 	int		save_stdin;
+	int		i;
 
 	line = NULL;
 	data.com_matrix = NULL;
 	data.path = NULL;
 	fd_next = 0;
+	i = 0;
 	while (cmd)
 	{
 		data.com_matrix = cp_str_array(cmd->args);
@@ -155,6 +157,22 @@ void	ft_executer(t_cmd *cmd, char **our_env)
 				if (dup2(fd_in, 0) < 0)
 					ft_error("Error file descriptor", 1);
 				close(fd_in);
+			}
+			else if (cmd->in == LESSLESS)
+			{
+				close(data.fd_pipe[0]);
+				while (cmd->heredoc && cmd->heredoc[i])
+				{
+					write(data.fd_pipe[1], cmd->heredoc[i], ft_strlen(cmd->heredoc[i]));
+					write(data.fd_pipe[1], cmd->heredoc[i], ft_strlen(cmd->heredoc[i]));
+					i++;
+				}
+				write(data.fd_pipe[1], "\0", 1);
+				close(data.fd_pipe[1]);
+				save_stdin = dup(0);
+				if (dup2(data.fd_pipe[0], 0) < 0)
+					ft_error("Error file descriptor", 1);
+				close(data.fd_pipe[0]);
 			}
 			else if (fd_next != 0)
 			{
@@ -190,8 +208,6 @@ void	ft_executer(t_cmd *cmd, char **our_env)
 				while (get_next_line(data.fd_pipe[0], &line) != -5)
 					printf("%s\n", line);
 				dup2(save_stdout, 1);
-				if (cmd->next)
-					fd_next = data.fd_pipe[0];
 			}
 			else if (cmd->out == PIPE)
 				fd_next = data.fd_pipe[0];
