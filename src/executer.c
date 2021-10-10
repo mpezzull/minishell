@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 16:31:46 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/08 19:07:03 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/10 19:41:49 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,8 @@ void	ft_executer(t_cmd *cmd, char **our_env)
 		data.com_matrix = cp_str_array(cmd->args);
 		if (pipe(data.fd_pipe) == -1)
 			ft_error("Error pipe", 1);
+		data.fd_pipe[1] = open("rova.txt", O_WRONLY | O_TRUNC | O_CREAT, 0644);
+		data.fd_pipe[0] = open("rova.txt", O_RDONLY);
 		pid = fork();
 		if (pid == -1)
 			ft_error("Error fork", 1);
@@ -160,14 +162,13 @@ void	ft_executer(t_cmd *cmd, char **our_env)
 			}
 			else if (cmd->in == LESSLESS)
 			{
-				close(data.fd_pipe[0]);
 				while (cmd->heredoc && cmd->heredoc[i])
 				{
 					write(data.fd_pipe[1], cmd->heredoc[i], ft_strlen(cmd->heredoc[i]));
-					write(data.fd_pipe[1], cmd->heredoc[i], ft_strlen(cmd->heredoc[i]));
+					write(data.fd_pipe[1], "\n", 1);
 					i++;
 				}
-				write(data.fd_pipe[1], "\0", 1);
+//				write(data.fd_pipe[1], "\0", 1);
 				close(data.fd_pipe[1]);
 				save_stdin = dup(0);
 				if (dup2(data.fd_pipe[0], 0) < 0)
@@ -186,13 +187,14 @@ void	ft_executer(t_cmd *cmd, char **our_env)
 				close(fd_in);
 			}
 			ft_do_execve(cmd->cmd, &data, our_env);
+			printf("Error excve\n");
 //			if (save_stdin != 0)
 //				dup2(save_stdin, 0);
 		}
 		else
 		{
 			wait(NULL);
-			write(data.fd_pipe[1], "\0", 1);
+//			write(data.fd_pipe[1], "\0", 1);
 			close(data.fd_pipe[1]);
 			if (cmd->out == GREAT || cmd->out == GREATGREAT)
 			{
@@ -213,8 +215,11 @@ void	ft_executer(t_cmd *cmd, char **our_env)
 				fd_next = data.fd_pipe[0];
 			else
 			{
-				while (get_next_line(data.fd_pipe[0], &line) != -5)
-					printf("%s\n", line);
+				if (cmd->in != LESSLESS)
+				{
+					while (get_next_line(data.fd_pipe[0], &line) >= 0)
+						printf("%s\n", line);
+				}
 			}
 //			close(data.fd_pipe[0]);
 		}

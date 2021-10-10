@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:42:27 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/06 18:42:59 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/10 19:04:11 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,5 +142,6 @@ void	ft_heredoc_parent(t_cmd *temp, int *fd)
 			temp->heredoc = ft_realloc(temp->heredoc, i, i + 1);
 			temp->heredoc[i++] = ft_strdup(line);
 		}
+		temp->heredoc = ft_realloc(temp->heredoc, i, i + 1);
 	}
 }
