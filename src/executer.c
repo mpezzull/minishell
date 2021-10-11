@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 16:31:46 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/10 19:41:49 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/11 19:08:09 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,8 +135,6 @@ void	ft_executer(t_cmd *cmd, char **our_env)
 		data.com_matrix = cp_str_array(cmd->args);
 		if (pipe(data.fd_pipe) == -1)
 			ft_error("Error pipe", 1);
-		data.fd_pipe[1] = open("rova.txt", O_WRONLY | O_TRUNC | O_CREAT, 0644);
-		data.fd_pipe[0] = open("rova.txt", O_RDONLY);
 		pid = fork();
 		if (pid == -1)
 			ft_error("Error fork", 1);
@@ -168,9 +166,7 @@ void	ft_executer(t_cmd *cmd, char **our_env)
 					write(data.fd_pipe[1], "\n", 1);
 					i++;
 				}
-//				write(data.fd_pipe[1], "\0", 1);
 				close(data.fd_pipe[1]);
-				save_stdin = dup(0);
 				if (dup2(data.fd_pipe[0], 0) < 0)
 					ft_error("Error file descriptor", 1);
 				close(data.fd_pipe[0]);
@@ -193,9 +189,8 @@ void	ft_executer(t_cmd *cmd, char **our_env)
 		}
 		else
 		{
-			wait(NULL);
-//			write(data.fd_pipe[1], "\0", 1);
 			close(data.fd_pipe[1]);
+			wait(NULL);
 			if (cmd->out == GREAT || cmd->out == GREATGREAT)
 			{
 				if (cmd->out == GREAT)
@@ -207,9 +202,10 @@ void	ft_executer(t_cmd *cmd, char **our_env)
 				save_stdout = dup(1);
 				if (dup2(fd, 1) < 0)
 					ft_error("Error file descriptor", 1);
-				while (get_next_line(data.fd_pipe[0], &line) != -5)
+				while (get_next_line(data.fd_pipe[0], &line) > 0)
 					printf("%s\n", line);
 				dup2(save_stdout, 1);
+				close(data.fd_pipe[0]);
 			}
 			else if (cmd->out == PIPE)
 				fd_next = data.fd_pipe[0];
@@ -217,11 +213,11 @@ void	ft_executer(t_cmd *cmd, char **our_env)
 			{
 				if (cmd->in != LESSLESS)
 				{
-					while (get_next_line(data.fd_pipe[0], &line) >= 0)
+					while (get_next_line(data.fd_pipe[0], &line) > 0)
 						printf("%s\n", line);
 				}
+				close(data.fd_pipe[0]);
 			}
-//			close(data.fd_pipe[0]);
 		}
 		cmd = cmd->next;
 	}

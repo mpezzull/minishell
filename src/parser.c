@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:42:27 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/10 19:04:11 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/11 18:59:07 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,8 @@ void	ft_heredoc_shell(t_lexer *lexer, t_cmd *temp)
 		ft_heredoc_child(lexer, fd);
 	else
 	{
-		wait(NULL);
 		close(fd[1]);
-		write(fd[1], "\0", 1);
+		wait(NULL);
 		ft_heredoc_parent(temp, fd);
 		close(fd[0]);
 	}
@@ -119,29 +118,25 @@ void	ft_heredoc_child(t_lexer *lexer, int *fd)
 		write(fd[1], data.lessless, ft_strlen(data.lessless));
 		write(fd[1], "\n", 1);
 	}
-	write(fd[1], "\0", 1);
 	close(fd[1]);
 	exit(0);
 }
 
 void	ft_heredoc_parent(t_cmd *temp, int *fd)
 {
-	int		j;
 	int		i;
 	char	*line;
 
 	line = NULL;
-	j = 0;
 	i = 0;
-	while (j != -5)
+	while (get_next_line(fd[0], &line) > 0)
 	{
-		line = NULL;
-		j = get_next_line(fd[0], &line);
 		if (line)
 		{
 			temp->heredoc = ft_realloc(temp->heredoc, i, i + 1);
 			temp->heredoc[i++] = ft_strdup(line);
 		}
 		temp->heredoc = ft_realloc(temp->heredoc, i, i + 1);
+		line = NULL;
 	}
 }
