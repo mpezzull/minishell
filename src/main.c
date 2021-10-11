@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/10/07 22:39:42 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/11 20:42:33 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strcmp(cmd_line, "exit") == 0)
 			break ;
 		ft_expander(cmd, our_env);
+		ft_print_cmd(cmd);
 		ft_executer(cmd, our_env);
-//		ft_print_cmd(cmd);
 		free(cmd_line);
 	}
 //	ft_free(cmd, lexer);

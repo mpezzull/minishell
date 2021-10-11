@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 16:31:46 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/11 19:08:09 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/11 20:41:35 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,15 +124,18 @@ void	ft_executer(t_cmd *cmd, char **our_env)
 	int		save_stdout;
 	int		save_stdin;
 	int		i;
+	int		pipe_lessless[2];
 
 	line = NULL;
 	data.com_matrix = NULL;
 	data.path = NULL;
 	fd_next = 0;
 	i = 0;
+	save_stdout = 1;
 	while (cmd)
 	{
 		data.com_matrix = cp_str_array(cmd->args);
+		write(save_stdout, data.com_matrix[1], ft_strlen(data.com_matrix[1]));
 		if (pipe(data.fd_pipe) == -1)
 			ft_error("Error pipe", 1);
 		pid = fork();
@@ -143,6 +146,7 @@ void	ft_executer(t_cmd *cmd, char **our_env)
 			if (cmd->out != DEFAULT)
 			{
 				close(data.fd_pipe[0]);
+				save_stdout = dup(1);
 				if (dup2(data.fd_pipe[1], 1) < 0)
 					ft_error("Error file descriptor", 1);
 				close(data.fd_pipe[1]);
@@ -160,16 +164,19 @@ void	ft_executer(t_cmd *cmd, char **our_env)
 			}
 			else if (cmd->in == LESSLESS)
 			{
+				write(save_stdout, "sono qui", 8);
+				pipe_lessless[1] = open("rova.txt", O_WRONLY | O_TRUNC | O_CREAT, 0644);
+				pipe_lessless[0] = open("rova.txt", O_RDONLY);
 				while (cmd->heredoc && cmd->heredoc[i])
 				{
-					write(data.fd_pipe[1], cmd->heredoc[i], ft_strlen(cmd->heredoc[i]));
-					write(data.fd_pipe[1], "\n", 1);
+					write(pipe_lessless[1], cmd->heredoc[i], ft_strlen(cmd->heredoc[i]));
+					write(pipe_lessless[1], "\n", 1);
 					i++;
 				}
-				close(data.fd_pipe[1]);
-				if (dup2(data.fd_pipe[0], 0) < 0)
+				close(pipe_lessless[1]);
+				if (dup2(pipe_lessless[0], 0) < 0)
 					ft_error("Error file descriptor", 1);
-				close(data.fd_pipe[0]);
+				close(pipe_lessless[0]);
 			}
 			else if (fd_next != 0)
 			{
