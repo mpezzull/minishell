@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 16:31:46 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/11 20:41:35 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/12 17:16:18 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,6 @@ void	ft_executer(t_cmd *cmd, char **our_env)
 	while (cmd)
 	{
 		data.com_matrix = cp_str_array(cmd->args);
-		write(save_stdout, data.com_matrix[1], ft_strlen(data.com_matrix[1]));
 		if (pipe(data.fd_pipe) == -1)
 			ft_error("Error pipe", 1);
 		pid = fork();
@@ -164,9 +163,9 @@ void	ft_executer(t_cmd *cmd, char **our_env)
 			}
 			else if (cmd->in == LESSLESS)
 			{
-				write(save_stdout, "sono qui", 8);
-				pipe_lessless[1] = open("rova.txt", O_WRONLY | O_TRUNC | O_CREAT, 0644);
-				pipe_lessless[0] = open("rova.txt", O_RDONLY);
+				if (pipe(pipe_lessless) == -1)
+					ft_error("Error pipe", 1);
+				i = 0;
 				while (cmd->heredoc && cmd->heredoc[i])
 				{
 					write(pipe_lessless[1], cmd->heredoc[i], ft_strlen(cmd->heredoc[i]));

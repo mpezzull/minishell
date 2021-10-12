@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:48:21 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/07 19:10:37 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/12 17:11:41 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	ft_expander(t_cmd *cmd, char **our_env)
 {
 	int		i;
 
-	i = 0;
 	while (cmd)
 	{
 		if (cmd->cmd)
@@ -46,6 +45,7 @@ void	ft_expander(t_cmd *cmd, char **our_env)
 			cmd->file_in = ft_find_and_expand(cmd->file_in, our_env);
 		if (cmd->file_out)
 			cmd->file_out = ft_find_and_expand(cmd->file_out, our_env);
+		i = 0;
 		while (cmd->args && cmd->args[i])
 		{
 			cmd->args[i] = ft_find_and_expand(cmd->args[i], our_env);
