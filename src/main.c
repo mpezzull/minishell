@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/10/14 19:33:00 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/14 19:54:01 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ int	main(int argc, char **argv, char **envp)
 	t_lexer	*lexer;
 
 	argv = &(*argv);
+	our_env = envp;
+	if (!our_env)
+		our_env = envp;
 	if (argc != 1)
 		ft_error("Launch with \"./minishell\"", 1);
 	our_env = cp_str_array(envp);
@@ -52,17 +55,16 @@ int	main(int argc, char **argv, char **envp)
 			rl_redisplay();
 			break ;
 		}
-		if (ft_strcmp(cmd_line, "exit") == 0)
-			break ;
 		add_history(cmd_line);
 		lexer = ft_lexer(cmd_line);
-		free(cmd_line);
-		cmd = ft_parsing(lexer);
-		ft_expander(cmd, our_env);
 //		ft_print_lexer(lexer);
-//		ft_executer(cmd);
-		ft_print_cmd(cmd);
-		
+		cmd = ft_parsing(lexer);
+		if (ft_strcmp(cmd_line, "exit") == 0)
+			break ;
+		ft_expander(cmd, our_env);
+//		ft_print_cmd(cmd);
+		ft_executer(cmd, our_env);
+		free(cmd_line);
 	}
 //	ft_free(cmd, lexer);
 	free(prompt);
