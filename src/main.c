@@ -6,7 +6,11 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/08/10 12:53:48 by mde-rosa         ###   ########.fr       */
+=======
+/*   Updated: 2021/10/14 17:29:45 by mpezzull         ###   ########.fr       */
+>>>>>>> d5f0455486ca4709c9885625bdb69ba5d4082b34
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +44,7 @@ int	main(int argc, char **argv, char **envp)
 	our_env = cp_str_array(envp);
 	printf("\n\t\t\033[1mWelcome in the worst minishell of the world!\n\n\033[0m");
 	prompt = ft_strjoin(ft_getenv("USER", our_env), "@minishell:~$ ");
+	ft_error("init fd", 0);
 	while (TRUE)
 	{
 		signal(SIGINT, ft_signal_handler);
@@ -58,10 +63,16 @@ int	main(int argc, char **argv, char **envp)
 		free(cmd_line);
 		cmd = ft_parsing(lexer);
 		ft_expander(cmd, our_env);
+<<<<<<< HEAD
 //		ft_print_lexer(lexer);
 //		ft_executer(cmd);
 		ft_print_cmd(cmd);
 		
+=======
+//		ft_print_cmd(cmd);
+		ft_executer(cmd, our_env);
+		free(cmd_line);
+>>>>>>> d5f0455486ca4709c9885625bdb69ba5d4082b34
 	}
 //	ft_free(cmd, lexer);
 	free(prompt);
@@ -70,8 +81,16 @@ int	main(int argc, char **argv, char **envp)
 
 void	ft_error(char *strerror, int nbr)
 {
-	printf("%s\n", strerror);
-	exit(nbr);
+	static int	fd;
+
+	if (nbr == 0 && fd == 0)
+		fd = dup(1);
+	else
+	{
+		dup2(fd, 1);
+		printf("%s\n", strerror);
+		exit(nbr);
+	}
 }
 
 void	ft_print_lexer(t_lexer *lexer)
@@ -117,12 +136,16 @@ void	ft_print_cmd(t_cmd *cmd)
 			printf("args[%i]: %s\n", j, cmd->args[j]);
 			j++;
 		}
-		if (cmd->out)
-			printf("out: %d\n", cmd->out);
+		j = 0;
+		while (cmd->heredoc && cmd->heredoc[j])
+		{
+			printf("heredoc[%i]: %s\n", j, cmd->heredoc[j]);
+			j++;
+		}
+		printf("out: %d\n", cmd->out);
 		if (cmd->file_out)
 			printf("file_out: %s\n", cmd->file_out);
-		if (cmd->in)
-			printf("in: %d\n", cmd->in);
+		printf("in: %d\n", cmd->in);
 		if (cmd->file_in)
 			printf("file_in: %s\n", cmd->file_in);
 		printf("cmd_next:  %lx\n", (unsigned long)cmd->next);
