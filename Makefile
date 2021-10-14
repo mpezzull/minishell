@@ -6,7 +6,7 @@
 #    By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/08/03 15:07:21 by mde-rosa         ###   ########.fr        #
+#    Updated: 2021/10/14 19:09:30 by mpezzull         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ OTHER_MAKE_2	=	./bin/
 SRCS			=	main.c \
 					init.c free.c get_next_line.c minishell_utils.c parser.c \
 					ft_lexer.c ft_lexer_word.c ft_lexer_token.c parser_utils.c \
-					ft_lexer_utils.c expander.c env.c
+					ft_lexer_utils.c expander.c env.c executer.c parser_utils_2.c\
+					executer_utils.c executer_utils_2.c
 
 OBJCS 			= 	$(patsubst %,$(OBJ_PATH)%,$(SRCS:.c=.o))
 

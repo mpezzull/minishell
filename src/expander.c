@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:48:21 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/08/03 15:05:53 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/14 19:03:59 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	ft_expander(t_cmd *cmd, char **our_env)
 {
 	int		i;
 
-	i = 0;
 	while (cmd)
 	{
 		if (cmd->cmd)
@@ -46,16 +45,22 @@ void	ft_expander(t_cmd *cmd, char **our_env)
 			cmd->file_in = ft_find_and_expand(cmd->file_in, our_env);
 		if (cmd->file_out)
 			cmd->file_out = ft_find_and_expand(cmd->file_out, our_env);
+		i = 0;
 		while (cmd->args && cmd->args[i])
 		{
 			cmd->args[i] = ft_find_and_expand(cmd->args[i], our_env);
+			i++;
+		}
+		i = 0;
+		while (cmd->heredoc && cmd->heredoc[i])
+		{
+			cmd->heredoc[i] = ft_find_and_expand(cmd->heredoc[i], our_env);
 			i++;
 		}
 		cmd = cmd->next;
 	}
 }
 
-//per ora splitta solo sugli spazi, andrebbe fatto per ogni carattere non alfanumerico
 char	*ft_find_and_expand(char *to_replace, char **our_env)
 {
 	char	*pos_dollar;
@@ -64,7 +69,6 @@ char	*ft_find_and_expand(char *to_replace, char **our_env)
 	char	*word;
 	int		len_cmd;
 
-//	printf("before: %s \n", to_replace);
 	pos_dollar = ft_strchr(to_replace, '$');
 	pos_backslash = NULL;
 	while (pos_dollar != NULL)
@@ -73,22 +77,26 @@ char	*ft_find_and_expand(char *to_replace, char **our_env)
 			pos_backslash = pos_dollar - 1;
 		if (pos_dollar && pos_backslash == NULL && *(pos_dollar + 1))
 		{
-			word = *ft_split(pos_dollar, ' ');
+			word = ft_extract_alnum(pos_dollar);
 			if (*(word + 1))
 				word++;
 			env_value = ft_getenv(word, our_env);
 			len_cmd = ft_strlen(to_replace);
 			to_replace = ft_realloc_str(to_replace,
-					len_cmd, len_cmd + ft_strlen(env_value));
+					len_cmd, len_cmd + ft_strlen(env_value) - ft_strlen(word));
 			ft_expand_env(ft_strchr(to_replace, '$'), env_value,
 				ft_strlen(word));
-//			ft_free_word(word);
+			--word;
+			ft_free_str(&word);
+			ft_free_str(&env_value);
 			pos_dollar = ft_strchr(to_replace, '$');
 		}
 		else
 			pos_dollar = NULL;
 	}
-//	printf("after: %s \n", to_replace);
+/*	ft_delete_backslash() eventualmente gestire il backslash.
+ *  Esempio echo "$PATH ciao \\$USER"
+*/
 	return (to_replace);
 }
 
@@ -99,8 +107,6 @@ char	*ft_getenv(char *name, char **env)
 	char	*np;
 	char	*cp;
 
-	if (name == NULL || env == NULL)
-		return (NULL);
 	np = name;
 	while (*np && *np != '=')
 		++np;
@@ -117,7 +123,7 @@ char	*ft_getenv(char *name, char **env)
 			i--;
 		}
 		if (i == 0 && *cp++ == '=')
-			return (cp);
+			return (ft_strdup(cp));
 		cp = *(++env);
 	}
 	return (ft_strdup(""));

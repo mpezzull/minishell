@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 16:00:52 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/08/03 15:05:53 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/14 17:07:33 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ t_cmd	*ft_cmd_new(int n_args)
 		ft_error(strerror(errno), errno);
 	cmd->args = (char **)ft_calloc((n_args + 1), sizeof(char *));
 	if (!cmd->args)
+		ft_error(strerror(errno), errno);
+	cmd->heredoc = (char **)ft_calloc(1, sizeof(char *));
+	if (!cmd->heredoc)
 		ft_error(strerror(errno), errno);
 	cmd->next = NULL;
 	cmd->flag = NULL;
