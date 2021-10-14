@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:41:43 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/07 18:17:19 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/14 17:09:01 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*ft_realloc_str(char	*ptr, int cur_size, int new_size)
 // scorre la stringa fino a che non trova un carattere alfanumerico.
 char	*ft_extract_alnum(char *str)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (str[i])

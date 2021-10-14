@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 17:32:31 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/08/03 17:33:33 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/14 19:07:30 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	**ft_data_paths(char **env)
 	char	*get_str;
 	char	**path_matrix;
 
-	get_str = ft_get_str_from_env("PATH", env);
+	get_str = ft_getenv("PATH", env);
 	if (!get_str)
 		return (0);
 	path_matrix = ft_split(get_str, ':');

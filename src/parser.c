@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:42:27 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/11 18:59:07 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/14 17:08:26 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	ft_heredoc_child(t_lexer *lexer, int *fd)
 		signal(SIGINT, SIG_DFL);
 		data.lessless = readline("> ");
 		if (ft_strcmp(data.lessless, lexer->args) == 0)
-			break;
+			break ;
 		write(fd[1], data.lessless, ft_strlen(data.lessless));
 		write(fd[1], "\n", 1);
 	}

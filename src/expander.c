@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:48:21 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/12 17:11:41 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/14 19:03:59 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ void	ft_expander(t_cmd *cmd, char **our_env)
 	}
 }
 
-//per ora splitta solo sugli spazi, andrebbe fatto per ogni carattere non alfanumerico
-// risolto con la funzione *ft_extract_alnum(char *str)
 char	*ft_find_and_expand(char *to_replace, char **our_env)
 {
 	char	*pos_dollar;
@@ -71,7 +69,6 @@ char	*ft_find_and_expand(char *to_replace, char **our_env)
 	char	*word;
 	int		len_cmd;
 
-//	printf("before: %s \n", to_replace);
 	pos_dollar = ft_strchr(to_replace, '$');
 	pos_backslash = NULL;
 	while (pos_dollar != NULL)
@@ -90,14 +87,16 @@ char	*ft_find_and_expand(char *to_replace, char **our_env)
 			ft_expand_env(ft_strchr(to_replace, '$'), env_value,
 				ft_strlen(word));
 			--word;
-			ft_free_word(&word);
+			ft_free_str(&word);
+			ft_free_str(&env_value);
 			pos_dollar = ft_strchr(to_replace, '$');
 		}
 		else
 			pos_dollar = NULL;
 	}
-//	ft_delete_backslash() eventualmente gestire il backslash. Esempio echo "$PATH ciao \\$USER"
-//	printf("after: %s \n", to_replace);
+/*	ft_delete_backslash() eventualmente gestire il backslash.
+ *  Esempio echo "$PATH ciao \\$USER"
+*/
 	return (to_replace);
 }
 
@@ -108,8 +107,6 @@ char	*ft_getenv(char *name, char **env)
 	char	*np;
 	char	*cp;
 
-	if (name == NULL || env == NULL)
-		return (NULL);
 	np = name;
 	while (*np && *np != '=')
 		++np;
@@ -126,7 +123,7 @@ char	*ft_getenv(char *name, char **env)
 			i--;
 		}
 		if (i == 0 && *cp++ == '=')
-			return (cp);
+			return (ft_strdup(cp));
 		cp = *(++env);
 	}
 	return (ft_strdup(""));

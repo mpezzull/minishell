@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 19:34:05 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/07 19:07:36 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/14 19:00:39 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void	ft_free(t_cmd *cmd/*, t_lexer *lexer*/)
 		free(*(cmd->args++));
 }
 
-void	ft_free_word(char **word)
+void	ft_free_str(char **str)
 {
-	if (*word)
+	if (*str)
 	{
-		free(*word);
-		*word = NULL;
+		free(*str);
+		*str = NULL;
 	}
 }

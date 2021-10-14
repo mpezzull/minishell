@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/10/07 18:14:54 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/14 19:00:38 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,14 @@ typedef struct s_line
 
 typedef struct s_data
 {
-	int			fd_out;
-	int			fd_in;
-	int			fd_pipe[2];
-	char		*path;
-	char		**com_matrix;
+	int		fd_out;
+	int		fd_in;
+	int		fd_pipe[2];
+	char	*path;
+	char	**com_matrix;
+	int		save_stdout;
+	int		save_stdin;
+	int		pipe_lessless[2];	
 }				t_data;
 
 t_lexer	*ft_lexer(char *str);
@@ -131,7 +134,7 @@ char	*ft_getenv(char *name, char **env);
 char	*ft_realloc_str(char	*ptr, int cur_size, int new_size);
 char	*ft_find_and_expand(char *to_replace, char **our_env);
 void	ft_free(t_cmd *cmd);
-void	ft_free_word(char **word);
+void	ft_free_str(char **str);
 void	ft_expand_env(char	*env, char *value, int len_word);
 int		get_next_line(int fd, char **line);
 char	**ft_data_paths(char **env);
@@ -146,5 +149,11 @@ t_cmd	*ft_parsing_token(t_lexer *lexer, t_cmd *temp, t_parser *data, int *i);
 void	ft_parsing_pipe(t_lexer *lexer, t_cmd *temp, t_parser *data, int *i);
 void	ft_parsing_greats(t_lexer *lexer, t_cmd *temp, t_parser *data);
 char	*ft_extract_alnum(char *str);
+void	ft_lessless(t_cmd *cmd, t_data *data);
+void	ft_less(t_cmd *cmd, t_data *data);
+void	ft_greats(t_cmd *cmd, t_data *data);
+void	ft_executer_child(t_cmd *cmd, t_data *data, char **our_env);
+void	ft_execute_parent(t_cmd *cmd, t_data *data);
+
 
 #endif
