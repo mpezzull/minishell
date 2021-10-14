@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:41:43 by mpezzull          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/08/10 13:02:00 by mde-rosa         ###   ########.fr       */
-=======
-/*   Updated: 2021/10/14 17:09:01 by mpezzull         ###   ########.fr       */
->>>>>>> d5f0455486ca4709c9885625bdb69ba5d4082b34
+/*   Updated: 2021/10/14 19:37:53 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,23 +69,3 @@ char	*ft_realloc_str(char	*ptr, int cur_size, int new_size)
 	free(ptr);
 	return (new_ptr);
 }
-<<<<<<< HEAD
-=======
-
-// scorre la stringa fino a che non trova un carattere alfanumerico.
-char	*ft_extract_alnum(char *str)
-{
-	int	i;
-
-	i = 1;
-	while (str[i])
-	{
-		if ((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z')
-			|| (str[i] >= '0' && str[i] <= '9'))
-			i++;
-		else
-			break ;
-	}
-	return (ft_substr(str, 0, i));
-}
->>>>>>> d5f0455486ca4709c9885625bdb69ba5d4082b34

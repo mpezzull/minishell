@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/08/10 12:53:48 by mde-rosa         ###   ########.fr       */
-=======
-/*   Updated: 2021/10/14 17:29:45 by mpezzull         ###   ########.fr       */
->>>>>>> d5f0455486ca4709c9885625bdb69ba5d4082b34
+/*   Updated: 2021/10/14 19:33:00 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +59,10 @@ int	main(int argc, char **argv, char **envp)
 		free(cmd_line);
 		cmd = ft_parsing(lexer);
 		ft_expander(cmd, our_env);
-<<<<<<< HEAD
 //		ft_print_lexer(lexer);
 //		ft_executer(cmd);
 		ft_print_cmd(cmd);
 		
-=======
-//		ft_print_cmd(cmd);
-		ft_executer(cmd, our_env);
-		free(cmd_line);
->>>>>>> d5f0455486ca4709c9885625bdb69ba5d4082b34
 	}
 //	ft_free(cmd, lexer);
 	free(prompt);
