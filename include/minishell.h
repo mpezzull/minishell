@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/08/03 14:33:38 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/08/10 12:50:19 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <string.h>
 # include <signal.h>
 # include <fcntl.h>
-
+# include <sys/wait.h>
 
 # define DEFAULT	0
 # define GREAT		1
@@ -99,7 +99,6 @@ t_cmd	*ft_parsing(t_lexer *lexer);
 void	ft_error(char *strerror, int nbr);
 t_cmd	*init_cmd(void);
 void	ft_init_args(t_cmd *instr, int num_args);
-int		ft_count_chr(char *str, char c);
 int		ft_count_words(char **splitted);
 void	ft_zero_dquotes(t_cmd *instr, char **splitted);
 t_cmd	*ft_echo(char *token, char **splitted);
@@ -122,5 +121,19 @@ void	ft_free(t_cmd *cmd);
 void	ft_free_word(char **word);
 void	ft_expand_env(char	*env, char *value, int len_word);
 int		get_next_line(int fd, char **line);
+
+int		ft_str_isspace(char *str);
+int		ft_count_args(char **args);
+void	ft_our_cd(char **args);
+
+//export
+char	**ft_our_export(char **args, char **envp);
+int		ft_there_is_chr(char *str, char c);
+char	*ft_check_if_exists(char *str, char **envp);
+int		ft_search_in_array(char *search, char **array);
+//unset
+char	**ft_our_unset(char **args, char **envp);
+int		ft_check_if_exists_unset(char *str, char **envp);
+char	**ft_realloc_unset(char	**ptr, int cur_size, char	*args);
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   our_pwd.c                                          :+:      :+:    :+:   */
+/*   our_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/28 11:54:05 by assokenay         #+#    #+#             */
-/*   Updated: 2021/08/04 01:34:37 by mde-rosa         ###   ########.fr       */
+/*   Created: 2021/08/04 01:49:53 by mde-rosa          #+#    #+#             */
+/*   Updated: 2021/08/04 02:56:18 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,19 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-int	main(void)
+void	ft_print_array(char **str)
 {
-	char	*buffer;
-	size_t	size;
+	int	i;
 
-	buffer = NULL;
-	size = 100;
-	buffer = getcwd(buffer, size);
-	printf("%s\n", buffer);
-	free (buffer);
-	return (0);
+	i = 0;
+	while (str[i])
+		printf("%s\n", str[i++]);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	if (argc == 1)
+		ft_print_array(envp);
+	else
+		printf("our_env: ‘%s’: No such file or directory\n", argv[1]);
 }
