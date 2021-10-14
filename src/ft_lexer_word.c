@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer_word.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 15:55:48 by mde-rosa          #+#    #+#             */
 /*   Updated: 2021/08/03 17:03:31 by mpezzull         ###   ########.fr       */

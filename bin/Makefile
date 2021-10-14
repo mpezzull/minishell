@@ -6,7 +6,7 @@
 #    By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/08/03 15:14:45 by mpezzull         ###   ########.fr        #
+#    Updated: 2021/08/03 00:39:38 by mde-rosa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC_FT_HELLO_WORLD		=	our_pwd.c
 OBJCS_FT_HELLO_WORLD 	= $(SRC_FT_HELLO_WORLD:%.c=%.o)
 
 %.o			:	%.c
-				@$(CC) -c $<
+				@$(CC) $(FLAGS) -o $@ -c $<
 
 all			:	$(FT_ECHO) $(FT_HELLO_WORLD)
 
