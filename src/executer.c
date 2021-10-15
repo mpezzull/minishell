@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 16:31:46 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/14 19:07:25 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/15 20:12:11 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	ft_do_execve(char *command, t_data *data, char **env)
 	}
 	else if (ft_strchr_int(command, '.') == 0)
 	{
+		printf("%s\n", command);
+
 		if (!ft_is_a_local_command(env, data))
 			ft_error("Error 2", 1);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/10/14 19:33:13 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/15 20:02:36 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ void	ft_greats(t_cmd *cmd, t_data *data);
 void	ft_executer_child(t_cmd *cmd, t_data *data, char **our_env);
 void	ft_execute_parent(t_cmd *cmd, t_data *data);
 
+char	*ft_expand_builtin(char *cmd);
 
 int		ft_str_isspace(char *str);
 int		ft_count_args(char **args);

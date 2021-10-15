@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:48:21 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/14 19:03:59 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/15 20:28:35 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ void	ft_expander(t_cmd *cmd, char **our_env)
 	while (cmd)
 	{
 		if (cmd->cmd)
+		{
 			cmd->cmd = ft_find_and_expand(cmd->cmd, our_env);
+			cmd->cmd = ft_expand_builtin(cmd->cmd);
+		}
 		if (cmd->file_in)
 			cmd->file_in = ft_find_and_expand(cmd->file_in, our_env);
 		if (cmd->file_out)
@@ -49,6 +52,8 @@ void	ft_expander(t_cmd *cmd, char **our_env)
 		while (cmd->args && cmd->args[i])
 		{
 			cmd->args[i] = ft_find_and_expand(cmd->args[i], our_env);
+			if (i == 0)
+				cmd->args[i] = ft_expand_builtin(cmd->args[i]);
 			i++;
 		}
 		i = 0;
@@ -59,6 +64,26 @@ void	ft_expander(t_cmd *cmd, char **our_env)
 		}
 		cmd = cmd->next;
 	}
+}
+
+char	*ft_expand_builtin(char *cmd)
+{
+	if (!ft_strcmp(cmd, "echo"))
+	{
+		cmd = ft_realloc_str(cmd, 4, 14);
+		cmd = ft_strcpy(cmd, "./bin/our_echo");
+	}
+	else if (!ft_strcmp(cmd, "env"))
+	{
+		cmd = ft_realloc_str(cmd, 3, 13);
+		cmd = ft_strcpy(cmd, "./bin/our_env");
+	}
+	else if (!ft_strcmp(cmd, "pwd"))
+	{
+		cmd = ft_realloc_str(cmd, 3, 13);
+		cmd = ft_strcpy(cmd, "./bin/our_pwd");
+	}
+	return (cmd);
 }
 
 char	*ft_find_and_expand(char *to_replace, char **our_env)
