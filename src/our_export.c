@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:54:54 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/08/10 12:57:06 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/15 20:48:56 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	**ft_our_export(char **args, char **envp)
 	char	**variable;
 	int		position;
 
-	i = 0;
+	i = 1;
 	argc = ft_count_args(args);
 	size_envp = ft_count_args(envp);
 	while (i < argc)

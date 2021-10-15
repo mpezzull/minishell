@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 11:54:05 by assokenay         #+#    #+#             */
-/*   Updated: 2021/08/10 12:53:59 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/15 21:15:07 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ void	ft_our_cd(char **args)
 	int	argc;
 
 	argc = ft_count_args(args);
-	if (argc > 1)
+	if (argc > 2)
 		printf("minishell: cd: too many arguments\n");
-	else if ((argc == -1) || (ft_strcmp(args[0], "~") == 0)
-		|| (ft_str_isspace(args[0]) == 0))
+	else if ((argc == 1) || (ft_strcmp(args[1], "~") == 0)
+		|| (ft_str_isspace(args[1]) == 0))
 		chdir(getenv("HOME"));
 	else
-		if (chdir(args[0]) == -1)
-			printf("minishell: cd: %s: No such file or directory\n", args[0]);
+		if (chdir(args[1]) == -1)
+			printf("minishell: cd: %s: No such file or directory\n", args[1]);
 }
 
 // return 0 if the string is only spaces, otherwise return 1

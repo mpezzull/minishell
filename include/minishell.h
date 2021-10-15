@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/10/15 20:02:36 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/15 21:07:51 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ int		ft_is_a_system_command(char **env, t_data *data);
 int		ft_is_a_local_command(char **env, t_data *data);
 void	ft_do_execve(char *command, t_data *data, char **env);
 char	*ft_get_str_from_env(char *to_find, char **env);
-void	ft_executer(t_cmd *cmd, char **our_env);
+char	**ft_executer(t_cmd *cmd, char **our_env);
 int		ft_strchr_int(char *str, char c);
 t_cmd	*ft_parsing_token(t_lexer *lexer, t_cmd *temp, t_parser *data, int *i);
 void	ft_parsing_pipe(t_lexer *lexer, t_cmd *temp, t_parser *data, int *i);
@@ -153,6 +153,7 @@ void	ft_executer_child(t_cmd *cmd, t_data *data, char **our_env);
 void	ft_execute_parent(t_cmd *cmd, t_data *data);
 
 char	*ft_expand_builtin(char *cmd);
+char	**ft_our_builtin(t_cmd *cmd, char **our_env);
 
 int		ft_str_isspace(char *str);
 int		ft_count_args(char **args);

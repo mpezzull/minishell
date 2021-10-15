@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 16:31:46 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/15 20:12:11 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/15 21:08:59 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ void	ft_do_execve(char *command, t_data *data, char **env)
 	}
 	else if (ft_strchr_int(command, '.') == 0)
 	{
-		printf("%s\n", command);
-
 		if (!ft_is_a_local_command(env, data))
 			ft_error("Error 2", 1);
 	}
@@ -40,10 +38,11 @@ void	ft_do_execve(char *command, t_data *data, char **env)
 	ft_error("Error exec command", 1);
 }
 
-void	ft_executer(t_cmd *cmd, char **our_env)
+char	**ft_executer(t_cmd *cmd, char **our_env)
 {
 	t_data		data;
 	int			pid;
+	char		**our_builtin;
 
 	data.com_matrix = NULL;
 	data.path = NULL;
@@ -51,20 +50,39 @@ void	ft_executer(t_cmd *cmd, char **our_env)
 	data.save_stdout = 1;
 	while (cmd)
 	{
-		data.com_matrix = cp_str_array(cmd->args);
-		if (pipe(data.fd_pipe) == -1)
-			ft_error("Error pipe", 1);
-		pid = fork();
-		if (pid == -1)
-			ft_error("Error fork", 1);
-		else if (pid == 0)
-			ft_executer_child(cmd, &data, our_env);
+		our_builtin = ft_our_builtin(cmd, our_env);
+		if (!our_builtin)
+		{
+			data.com_matrix = cp_str_array(cmd->args);
+			if (pipe(data.fd_pipe) == -1)
+				ft_error("Error pipe", 1);
+			pid = fork();
+			if (pid == -1)
+				ft_error("Error fork", 1);
+			else if (pid == 0)
+				ft_executer_child(cmd, &data, our_env);
+			else
+				ft_execute_parent(cmd, &data);
+		}
 		else
-			ft_execute_parent(cmd, &data);
+			our_env = our_builtin;
 		cmd = cmd->next;
 	}
+	return (our_env);
 }
 
+char	**ft_our_builtin(t_cmd *cmd, char **our_env)
+{
+	if (!ft_strcmp(cmd->cmd, "cd"))
+		ft_our_cd(cmd->args);
+	else if (!ft_strcmp(cmd->cmd, "export"))
+		our_env = ft_our_export(cmd->args, our_env);
+	else if (!ft_strcmp(cmd->cmd, "unset"))
+		our_env = ft_our_unset(cmd->args, our_env);
+	else
+		return (NULL);
+	return (our_env);
+}
 void	ft_lessless(t_cmd *cmd, t_data *data)
 {
 	int	i;
