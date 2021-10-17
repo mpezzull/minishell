@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/10/15 21:08:01 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/17 23:37:53 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_expander(cmd, our_env);
 //		ft_print_cmd(cmd);
 		our_env = ft_executer(cmd, our_env);
+		printf("exit stauts:%d\n", ft_pipestatus(GET, 0));
 		free(cmd_line);
 	}
 //	ft_free(cmd, lexer);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executer_utlis_2.c                                 :+:      :+:    :+:   */
+/*   executer_utils_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 19:04:49 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/14 19:06:07 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/17 23:36:13 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,13 @@ void	ft_greats(t_cmd *cmd, t_data *data)
 		printf("%s\n", line);
 	dup2(data->save_stdout, 1);
 	close(data->fd_pipe[0]);
+}
+
+int	ft_pipestatus(int mode, int status)
+{
+	static int pipe_status;
+
+	if (mode == SET)
+		pipe_status = status;
+	return (pipe_status);
 }

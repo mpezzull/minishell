@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/10/15 21:07:51 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/17 23:36:25 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@
 # define FIRST		8
 
 # define TRUE		1
+
+# define SET		1
+# define GET		0
 
 //Errors
 # define SYNTAX_ERROR 3
@@ -151,6 +154,8 @@ void	ft_less(t_cmd *cmd, t_data *data);
 void	ft_greats(t_cmd *cmd, t_data *data);
 void	ft_executer_child(t_cmd *cmd, t_data *data, char **our_env);
 void	ft_execute_parent(t_cmd *cmd, t_data *data);
+int		ft_pipestatus(int mode, int status);
+
 
 char	*ft_expand_builtin(char *cmd);
 char	**ft_our_builtin(t_cmd *cmd, char **our_env);

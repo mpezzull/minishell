@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 16:31:46 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/15 21:08:59 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/17 23:41:11 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@ void	ft_do_execve(char *command, t_data *data, char **env)
 			ft_error("Error 2", 1);
 	}
 	else if (!ft_is_a_system_command(env, data))
-		ft_error("minishell: command not found", 1);
+		ft_error("minishell: command not found", 127);
 	execve(data->path, data->com_matrix, env);
-	ft_error("Error exec command", 1);
 }
 
 char	**ft_executer(t_cmd *cmd, char **our_env)
@@ -129,16 +128,21 @@ void	ft_executer_child(t_cmd *cmd, t_data *data, char **our_env)
 		close(data->fd_in);
 	}
 	ft_do_execve(cmd->cmd, data, our_env);
-	printf("Error excve\n");
 }
 
 void	ft_execute_parent(t_cmd *cmd, t_data *data)
 {
 	char	*line;
+	int		status;
 
 	line = NULL;
+	status = 0;
 	close(data->fd_pipe[1]);
-	wait(NULL);
+	wait(&status);
+	if (WIFEXITED(status))	/* process exited normally */
+		ft_pipestatus(SET, WEXITSTATUS(status));
+	else
+		ft_pipestatus(SET, 0);
 	if (cmd->out == GREAT || cmd->out == GREATGREAT)
 		ft_greats(cmd, data);
 	else if (cmd->out == PIPE)
