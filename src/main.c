@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/10/18 17:41:11 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/18 20:32:54 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,19 @@
 
 void	ft_signal_handler(int sig_num)
 {
+	char 	*str;
+	char	*prompt;
+	char	*new_cmd_line;
+	char	*new_line_buffer;
+	
 	if (sig_num == SIGINT)
 	{
+		str = rl_line_buffer;
+		prompt = rl_prompt;
+		new_line_buffer = ft_strjoin(str, "  ");
+		new_cmd_line = ft_strjoin(prompt, new_line_buffer);
 		rl_on_new_line();
-		rl_replace_line("  ", 1);
+		rl_replace_line(new_line_buffer, 1);
 		rl_redisplay();
 		write(1, "\n", 1);
 		rl_on_new_line();
@@ -61,9 +70,8 @@ int	main(int argc, char **argv, char **envp)
 		cmd = ft_parsing(lexer);
 		if (ft_strcmp(cmd_line, "exit") == 0)
 			break ;
-		ft_print_cmd(cmd);
 		ft_expander(cmd, our_env);
-		ft_print_cmd(cmd);
+//		ft_print_cmd(cmd);
 		our_env = ft_executer(cmd, our_env);
 		free(cmd_line);
 	}
