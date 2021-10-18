@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/10/18 20:32:54 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/18 20:59:53 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,20 @@ int	main(int argc, char **argv, char **envp)
 		cmd_line = readline(prompt);
 		if (cmd_line == NULL)
 		{
-			rl_replace_line("exit ", 1);
-			rl_redisplay();
-			break ;
+			cmd_line = ft_strdup("exit");
+			write(1, "exit\n", 5);
+		//	rl_on_new_line();
+		//	rl_line_buffer = ft_strdup("exit ");
+		//	rl_replace_line("exit   dfgdfgdfgg    dtgfdfgdfgdfgdfgh ", 1);
+		//	rl_redisplay();
+//			break ;
 		}
 		add_history(cmd_line);
 		lexer = ft_lexer(cmd_line);
 //		ft_print_lexer(lexer);
 		cmd = ft_parsing(lexer);
-		if (ft_strcmp(cmd_line, "exit") == 0)
-			break ;
+//		if (ft_strcmp(cmd_line, "exit") == 0)
+//			break ;
 		ft_expander(cmd, our_env);
 //		ft_print_cmd(cmd);
 		our_env = ft_executer(cmd, our_env);

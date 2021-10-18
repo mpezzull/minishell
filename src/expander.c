@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:48:21 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/18 19:21:38 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/18 20:36:09 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ char	*ft_find_and_expand(char *to_replace, char **our_env)
 			else
 			{
 				word = ft_extract_alnum(pos_dollar);
-				printf("ft_strcmp(word, \"$\")%d\n", ft_strcmp(word, "$"));
 				if (!ft_strcmp(word, "$"))
 				{
 					env_value = ft_strdup("\\$");
