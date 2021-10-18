@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:48:21 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/17 20:44:39 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/18 17:33:53 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,19 @@ char	*ft_find_and_expand(char *to_replace, char **our_env)
 			pos_backslash = pos_dollar - 1;
 		if (pos_dollar && pos_backslash == NULL && *(pos_dollar + 1))
 		{
-			word = ft_extract_alnum(pos_dollar);
-			if (*(word + 1))
+			if (!ft_strncmp(pos_dollar, "$?", 2))
+			{
+				env_value = ft_pipestatus(GET, 0);
+				word = ft_strdup("$?");
 				word++;
-			env_value = ft_getenv(word, our_env);
+			}
+			else
+			{
+				word = ft_extract_alnum(pos_dollar);
+				if (*(word + 1))
+					word++;
+				env_value = ft_getenv(word, our_env);
+			}
 			len_cmd = ft_strlen(to_replace);
 			to_replace = ft_realloc_str(to_replace,
 					len_cmd, len_cmd + ft_strlen(env_value) - ft_strlen(word));

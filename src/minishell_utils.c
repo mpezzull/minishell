@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:41:43 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/15 20:08:40 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/18 17:58:21 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ char	**ft_realloc(char	**ptr, int cur_size, int new_size)
 		ft_error(strerror(errno), errno);
 	ft_memcpy(new_ptr, ptr, cur_size * sizeof(char *));
 	free(ptr);
+	ptr = NULL;
 	return (new_ptr);
 }
 
@@ -67,6 +68,7 @@ char	*ft_realloc_str(char	*ptr, int cur_size, int new_size)
 		ft_error(strerror(errno), errno);
 	ft_memcpy(new_ptr, ptr, cur_size * sizeof(char));
 	free(ptr);
+	ptr = NULL;
 	return (new_ptr);
 }
 

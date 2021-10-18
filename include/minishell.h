@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/10/17 23:36:25 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/18 17:30:20 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ void	ft_less(t_cmd *cmd, t_data *data);
 void	ft_greats(t_cmd *cmd, t_data *data);
 void	ft_executer_child(t_cmd *cmd, t_data *data, char **our_env);
 void	ft_execute_parent(t_cmd *cmd, t_data *data);
-int		ft_pipestatus(int mode, int status);
+char	*ft_pipestatus(int mode, int status);
 
 
 char	*ft_expand_builtin(char *cmd);
