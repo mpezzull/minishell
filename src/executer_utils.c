@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 17:32:31 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/14 19:07:30 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/19 18:10:49 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,9 @@ char	**ft_data_paths(char **env)
 	path_matrix = ft_split(get_str, ':');
 	free(get_str);
 	return (path_matrix);
+}
+
+void	ft_signal_handler_executer(int sig)
+{
+	write(1, "\n", 1);
 }

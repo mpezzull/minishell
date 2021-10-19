@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/10/18 20:59:53 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/19 18:09:20 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,17 @@
 void	ft_signal_handler(int sig_num)
 {
 	char 	*str;
-	char	*prompt;
-	char	*new_cmd_line;
+//	char	*prompt;
+//	char	*new_cmd_line;
 	char	*new_line_buffer;
-	
+
+//	write(1, "ciao\n", 5);
 	if (sig_num == SIGINT)
 	{
 		str = rl_line_buffer;
-		prompt = rl_prompt;
+//		prompt = rl_prompt;
 		new_line_buffer = ft_strjoin(str, "  ");
-		new_cmd_line = ft_strjoin(prompt, new_line_buffer);
+//		new_cmd_line = ft_strjoin(prompt, new_line_buffer);
 		rl_on_new_line();
 		rl_replace_line(new_line_buffer, 1);
 		rl_redisplay();
@@ -66,7 +67,7 @@ int	main(int argc, char **argv, char **envp)
 		//	rl_line_buffer = ft_strdup("exit ");
 		//	rl_replace_line("exit   dfgdfgdfgg    dtgfdfgdfgdfgdfgh ", 1);
 		//	rl_redisplay();
-//			break ;
+			break ;
 		}
 		add_history(cmd_line);
 		lexer = ft_lexer(cmd_line);

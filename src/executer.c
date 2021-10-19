@@ -3,14 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 16:31:46 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/17 23:41:11 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/19 18:15:14 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+char	**ft_executer(t_cmd *cmd, char **our_env)
+{
+	t_data		data;
+	int			pid;
+	char		**our_builtin;
+
+	data.com_matrix = NULL;
+	data.path = NULL;
+	data.fd_out = 0;
+	data.save_stdout = 1;
+	signal(SIGINT, ft_signal_handler_executer);
+	signal(SIGQUIT, SIG_IGN);
+	while (cmd)
+	{
+		our_builtin = ft_our_builtin(cmd, our_env);
+		if (!our_builtin)
+		{
+			data.com_matrix = cp_str_array(cmd->args);
+			if (pipe(data.fd_pipe) == -1)
+				ft_error("Error pipe", 1);
+			pid = fork();
+			if (pid == -1)
+				ft_error("Error fork", 1);
+			else if (pid == 0)
+				ft_executer_child(cmd, &data, our_env);
+			else
+				ft_execute_parent(cmd, &data);
+		}
+		else
+			our_env = our_builtin;
+		cmd = cmd->next;
+	}
+	return (our_env);
+}
 
 void	ft_do_execve(char *command, t_data *data, char **env)
 {
@@ -34,40 +69,8 @@ void	ft_do_execve(char *command, t_data *data, char **env)
 	}
 	else if (!ft_is_a_system_command(env, data))
 		ft_error("minishell: command not found", 127);
+	signal(SIGINT, SIG_DFL);
 	execve(data->path, data->com_matrix, env);
-}
-
-char	**ft_executer(t_cmd *cmd, char **our_env)
-{
-	t_data		data;
-	int			pid;
-	char		**our_builtin;
-
-	data.com_matrix = NULL;
-	data.path = NULL;
-	data.fd_out = 0;
-	data.save_stdout = 1;
-	while (cmd)
-	{
-		our_builtin = ft_our_builtin(cmd, our_env);
-		if (!our_builtin)
-		{
-			data.com_matrix = cp_str_array(cmd->args);
-			if (pipe(data.fd_pipe) == -1)
-				ft_error("Error pipe", 1);
-			pid = fork();
-			if (pid == -1)
-				ft_error("Error fork", 1);
-			else if (pid == 0)
-				ft_executer_child(cmd, &data, our_env);
-			else
-				ft_execute_parent(cmd, &data);
-		}
-		else
-			our_env = our_builtin;
-		cmd = cmd->next;
-	}
-	return (our_env);
 }
 
 char	**ft_our_builtin(t_cmd *cmd, char **our_env)
