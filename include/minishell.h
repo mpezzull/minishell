@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/10/19 19:36:10 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/19 20:04:53 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ void	ft_execute_parent(t_cmd *cmd, t_data *data);
 char	*ft_pipestatus(int mode, int status);
 void	ft_signal_handler_executer(int sig);
 void	ft_signal_handler_heredoc(int sig_num);
+void	ft_delete_backslash(char *to_replace);
 
 
 char	*ft_expand_builtin(char *cmd);

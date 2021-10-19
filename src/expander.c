@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:48:21 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/18 20:36:09 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/19 20:23:40 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	*ft_find_and_expand(char *to_replace, char **our_env)
 	pos_backslash = NULL;
 	while (pos_dollar != NULL)
 	{
-		if (pos_dollar != to_replace && *(pos_dollar - 1) == '\\')
+		if (pos_dollar != to_replace && *(pos_dollar - 1) == 21)
 			pos_backslash = pos_dollar - 1;
 		if (pos_dollar && pos_backslash == NULL && *(pos_dollar + 1))
 		{
@@ -132,9 +132,7 @@ char	*ft_find_and_expand(char *to_replace, char **our_env)
 		else
 			pos_dollar = NULL;
 	}
-/*	ft_delete_backslash() eventualmente gestire il backslash.
- *  Esempio echo "$PATH ciao \\$USER"
-*/
+	ft_delete_backslash(to_replace);
 	return (to_replace);
 }
 

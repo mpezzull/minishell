@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer_word.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 15:55:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/10/17 23:16:57 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/19 20:22:05 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	ft_word_str(char *cmd_line, int *index, int *start, char *word)
 		while (cmd_line[*start] != type)
 		{
 			if (type == '\'' && cmd_line[*start] == '$')
-				word[(*index)++] = '\\';
+				word[(*index)++] = 21;
 			word[(*index)++] = cmd_line[(*start)++];
 		}
 		if (cmd_line[*start] == type)

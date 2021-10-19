@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/10/19 19:15:22 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/19 20:18:03 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,12 @@
 void	ft_signal_handler(int sig_num)
 {
 	char 	*str;
-//	char	*prompt;
-//	char	*new_cmd_line;
 	char	*new_line_buffer;
 
-//	write(1, "ciao\n", 5);
 	if (sig_num == SIGINT)
 	{
 		str = rl_line_buffer;
-//		prompt = rl_prompt;
 		new_line_buffer = ft_strjoin(str, "  ");
-//		new_cmd_line = ft_strjoin(prompt, new_line_buffer);
 		rl_on_new_line();
 		rl_replace_line(new_line_buffer, 1);
 		rl_redisplay();
@@ -71,7 +66,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		add_history(cmd_line);
 		lexer = ft_lexer(cmd_line);
-//		ft_print_lexer(lexer);
+		ft_print_lexer(lexer);
 		cmd = ft_parsing(lexer);
 //		if (ft_strcmp(cmd_line, "exit") == 0)
 //			break ;

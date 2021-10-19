@@ -6,7 +6,7 @@
 #    By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/10/14 19:34:51 by mpezzull         ###   ########.fr        #
+#    Updated: 2021/10/19 19:51:09 by mpezzull         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRCS			=	main.c \
 					ft_lexer.c ft_lexer_word.c ft_lexer_token.c parser_utils.c \
 					our_cd.c our_export.c our_unset.c \
 					ft_lexer_utils.c expander.c executer.c parser_utils_2.c\
-					executer_utils.c executer_utils_2.c
+					executer_utils.c executer_utils_2.c expander_utils.c
 
 OBJCS 			= 	$(patsubst %,$(OBJ_PATH)%,$(SRCS:.c=.o))
 
