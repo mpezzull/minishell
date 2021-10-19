@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:48:21 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/19 20:23:40 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/19 20:30:18 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,8 @@ char	*ft_find_and_expand(char *to_replace, char **our_env)
 				word = ft_extract_alnum(pos_dollar);
 				if (!ft_strcmp(word, "$"))
 				{
-					env_value = ft_strdup("\\$");
+					env_value = ft_strdup("$$");
+					env_value[0] = 21;
 					word++;
 				}
 				else

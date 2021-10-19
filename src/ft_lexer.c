@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:40:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/10/17 23:14:38 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/19 20:34:45 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ void	ft_split_lexer(char *cmd_line, t_lexer **lexer)
 			}
 			else
 				word = ft_create_word(cmd_line, &i);
+			if (word == NULL)
+			{
+				lexer = NULL;
+				break ;
+			}
 			tmp = ft_lstnew_two(word, token);
 			ft_lstadd_back_lexer(lexer, tmp);
 		}

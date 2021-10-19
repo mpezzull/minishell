@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/10/19 20:18:03 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/19 20:37:31 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		add_history(cmd_line);
 		lexer = ft_lexer(cmd_line);
-		ft_print_lexer(lexer);
+//		ft_print_lexer(lexer);
 		cmd = ft_parsing(lexer);
 //		if (ft_strcmp(cmd_line, "exit") == 0)
 //			break ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 20:07:16 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/10/17 23:18:52 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/19 20:41:37 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_check_closed(char *cmd_line, int i)
 			return (1);
 		i++;
 	}
-	ft_error("Quote not closed", 1);
+	write(1, "Please don't use unclosed quotes", 32);
 	return (0);
 }
 

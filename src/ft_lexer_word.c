@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 15:55:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/10/19 20:22:05 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/19 20:37:00 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,11 @@ char	*ft_create_word(char *cmd_line, int *index)
 	lenght = 0;
 	while (cmd_line[*index] && ft_is_space(cmd_line[*index]) == 0
 		&& ft_is_token(cmd_line, *index) == 0)
+	{
 		lenght = ft_word_lenght(cmd_line, index, lenght);
+		if (lenght == -1)
+			return (NULL);
+	}
 	word = ft_save_word(cmd_line, &start, lenght);
 	return (word);
 }
@@ -38,7 +42,8 @@ int	ft_word_lenght(char *cmd_line, int *index, int lenght)
 	if (cmd_line[*index] == '\'' || cmd_line[*index] == '\"')
 	{
 		type = cmd_line[*index];
-		ft_check_closed(cmd_line, (*index)++);
+		if (!ft_check_closed(cmd_line, (*index)++))
+			return (-1);
 		while (cmd_line[*index] != type)
 		{
 			if (type == '\'' && cmd_line[*index] == '$')
