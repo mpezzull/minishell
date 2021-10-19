@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/10/19 17:56:22 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/19 19:36:10 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new);
 char	**ft_realloc(char	**ptr, int cur_size, int new_size);
 void	ft_print_cmd(t_cmd *cmd);
 void	ft_check_double_token(t_lexer *lexer);
-void	ft_heredoc_shell(t_lexer *lexer, t_cmd *temp);
+int		ft_heredoc_shell(t_lexer *lexer, t_cmd *temp);
 void	ft_signal_handler_heredoc(int sig_num);
 void	ft_signal_handler(int sig_num);
 void	ft_heredoc_child(t_lexer *lexer, int *fd);
@@ -156,6 +156,7 @@ void	ft_executer_child(t_cmd *cmd, t_data *data, char **our_env);
 void	ft_execute_parent(t_cmd *cmd, t_data *data);
 char	*ft_pipestatus(int mode, int status);
 void	ft_signal_handler_executer(int sig);
+void	ft_signal_handler_heredoc(int sig_num);
 
 
 char	*ft_expand_builtin(char *cmd);

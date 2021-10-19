@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:42:27 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/14 17:08:26 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/19 19:35:55 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ t_cmd	*ft_parsing(t_lexer *lexer)
 		{
 			temp->in = data.token_found;
 			data.token_found = 0;
-			ft_heredoc_shell(lexer, temp);
+			if (ft_heredoc_shell(lexer, temp))
+				return (NULL);
 		}
 		else
 			temp = ft_parsing_token(lexer, temp, &data, &i);
@@ -85,11 +86,13 @@ t_cmd	*ft_parsing_token(t_lexer *lexer, t_cmd *temp, t_parser *data, int *i)
 	return (temp);
 }
 
-void	ft_heredoc_shell(t_lexer *lexer, t_cmd *temp)
+int	ft_heredoc_shell(t_lexer *lexer, t_cmd *temp)
 {
 	int	pid;
 	int	fd[2];
+	int	status;
 
+	status = 0;
 	signal(SIGINT, SIG_IGN);
 	pipe(fd);
 	pid = fork();
@@ -98,10 +101,13 @@ void	ft_heredoc_shell(t_lexer *lexer, t_cmd *temp)
 	else
 	{
 		close(fd[1]);
-		wait(NULL);
+		wait(&status);
+		if (status != 0)
+			return (status);
 		ft_heredoc_parent(temp, fd);
 		close(fd[0]);
 	}
+	return (status);
 }
 
 void	ft_heredoc_child(t_lexer *lexer, int *fd)
@@ -111,8 +117,10 @@ void	ft_heredoc_child(t_lexer *lexer, int *fd)
 	close(fd[0]);
 	while (TRUE)
 	{
-		signal(SIGINT, SIG_DFL);
+		signal(SIGINT, ft_signal_handler_heredoc);
 		data.lessless = readline("> ");
+		if (data.lessless == NULL)
+			break ;
 		if (ft_strcmp(data.lessless, lexer->args) == 0)
 			break ;
 		write(fd[1], data.lessless, ft_strlen(data.lessless));

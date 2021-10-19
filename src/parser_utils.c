@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 16:00:52 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/14 17:07:33 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/19 19:39:06 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,21 @@ void	ft_check_double_token(t_lexer *lexer)
 		ft_error(ft_strjoin("minishell: syntax error near unexpected token ",
 				lexer->args), SYNTAX_ERROR);
 	prev = curr;
+}
+
+void	ft_signal_handler_heredoc(int sig_num)
+{
+	char	*str;
+	char	*new_line_buffer;
+
+	if (sig_num == SIGINT)
+	{
+		str = rl_line_buffer;
+		new_line_buffer = ft_strjoin(str, "  ");
+		rl_on_new_line();
+		rl_replace_line(new_line_buffer, 1);
+		rl_redisplay();
+		write(1, "\n", 1);
+		exit(SIGINT);
+	}
 }

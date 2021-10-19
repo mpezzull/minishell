@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/10/19 18:09:20 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/19 19:15:22 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(int argc, char **argv, char **envp)
 		signal(SIGQUIT, SIG_IGN);
 		cmd_line = readline(prompt);
 		if (cmd_line == NULL)
-		{
+		{ 
 			cmd_line = ft_strdup("exit");
 			write(1, "exit\n", 5);
 		//	rl_on_new_line();
