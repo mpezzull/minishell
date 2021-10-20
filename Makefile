@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+         #
+#    By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/10/19 19:51:09 by mpezzull         ###   ########.fr        #
+#    Updated: 2021/10/20 20:50:17 by mde-rosa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	minishell
 
-SRCS_PATH		=	./src/
+SRCS_PATH		=	./srcs/
 
 OBJ_PATH 		= 	./obj/
 
@@ -31,7 +31,7 @@ OTHER_MAKE_1	=	./libft/
 OTHER_MAKE_2	=	./bin/
 					
 SRCS			=	main.c \
-					init.c free.c get_next_line.c minishell_utils.c parser.c \
+					free.c get_next_line.c minishell_utils.c parser.c \
 					ft_lexer.c ft_lexer_word.c ft_lexer_token.c parser_utils.c \
 					our_cd.c our_export.c our_unset.c \
 					ft_lexer_utils.c expander.c executer.c parser_utils_2.c\
@@ -41,7 +41,7 @@ OBJCS 			= 	$(patsubst %,$(OBJ_PATH)%,$(SRCS:.c=.o))
 
 $(OBJ_PATH)%.o	:	$(SRCS_PATH)%.c
 					@(mkdir -p $(OBJ_PATH))
-					@$(CC) $(FLAGS) $(INCLUDE) -o $@ -c $<
+					@$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
 	
 all		:	$(NAME)
 			

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 16:00:52 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/19 19:39:06 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/20 20:50:29 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ t_cmd	*ft_cmd_new(int n_args)
 	if (!cmd->heredoc)
 		ft_error(strerror(errno), errno);
 	cmd->next = NULL;
-	cmd->flag = NULL;
 	cmd->in = DEFAULT;
 	cmd->out = DEFAULT;
 	return (cmd);

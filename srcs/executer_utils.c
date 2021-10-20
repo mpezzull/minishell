@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 17:32:31 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/19 18:10:49 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/20 16:45:35 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ char	**ft_data_paths(char **env)
 
 void	ft_signal_handler_executer(int sig)
 {
-	write(1, "\n", 1);
+	if (sig == SIGINT)
+		write(1, "\n", 1);
 }

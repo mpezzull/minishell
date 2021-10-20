@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:48:21 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/19 20:30:18 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/20 22:22:34 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,16 @@ void	ft_expand_env(char	*env, char *value, int len_word)
 {
 	int		i;
 	char	*cpy_env;
+	char	*to_free;
 
 	i = 0;
 	cpy_env = ft_strdup(env);
+	to_free = cpy_env;
 	while (i++ < len_word + 1)
 		cpy_env++;
 	while (*value)
 		*(env++) = *(value++);
-	while (*cpy_env)
+	while (*cpy_env) // provare len word > 0 come condizione
 	{
 		*(env++) = *(cpy_env++);
 		len_word--;
@@ -31,6 +33,8 @@ void	ft_expand_env(char	*env, char *value, int len_word)
 	while (len_word-- > 0)
 		*(env++) = 0;
 	*(env++) = '\0';
+	if (to_free)
+		free(to_free);
 }
 
 void	ft_expander(t_cmd *cmd, char **our_env)
@@ -42,7 +46,7 @@ void	ft_expander(t_cmd *cmd, char **our_env)
 		if (cmd->cmd)
 		{
 			cmd->cmd = ft_find_and_expand(cmd->cmd, our_env);
-			cmd->cmd = ft_expand_builtin(cmd->cmd);
+			ft_expand_builtin(cmd);
 		}
 		if (cmd->file_in)
 			cmd->file_in = ft_find_and_expand(cmd->file_in, our_env);
@@ -52,8 +56,6 @@ void	ft_expander(t_cmd *cmd, char **our_env)
 		while (cmd->args && cmd->args[i])
 		{
 			cmd->args[i] = ft_find_and_expand(cmd->args[i], our_env);
-			if (i == 0)
-				cmd->args[i] = ft_expand_builtin(cmd->args[i]);
 			i++;
 		}
 		i = 0;
@@ -66,24 +68,26 @@ void	ft_expander(t_cmd *cmd, char **our_env)
 	}
 }
 
-char	*ft_expand_builtin(char *cmd)
+void	ft_expand_builtin(t_cmd *cmd)
 {
-	if (!ft_strcmp(cmd, "echo"))
+	if (!ft_strcmp(cmd->cmd, "echo"))
 	{
-		cmd = ft_realloc_str(cmd, 4, 14);
-		cmd = ft_strcpy(cmd, "./bin/our_echo");
+		cmd->cmd = ft_realloc_str(cmd->cmd, 4, 14);
+		cmd->cmd = ft_strcpy(cmd->cmd, "./bin/our_echo");
+		cmd->args[0] = ft_strcpy(cmd->args[0], "./bin/our_echo");
 	}
-	else if (!ft_strcmp(cmd, "env"))
+	else if (!ft_strcmp(cmd->cmd, "env"))
 	{
-		cmd = ft_realloc_str(cmd, 3, 13);
-		cmd = ft_strcpy(cmd, "./bin/our_env");
+		cmd->cmd = ft_realloc_str(cmd->cmd, 3, 13);
+		cmd->cmd = ft_strcpy(cmd->cmd, "./bin/our_env");
+		cmd->args[0] = ft_strcpy(cmd->args[0], "./bin/our_env");
 	}
-	else if (!ft_strcmp(cmd, "pwd"))
+	else if (!ft_strcmp(cmd->cmd, "pwd"))
 	{
-		cmd = ft_realloc_str(cmd, 3, 13);
-		cmd = ft_strcpy(cmd, "./bin/our_pwd");
+		cmd->cmd = ft_realloc_str(cmd->cmd, 3, 13);
+		cmd->cmd = ft_strcpy(cmd->cmd, "./bin/our_pwd");
+		cmd->args[0] = ft_strcpy(cmd->args[0], "./bin/our_pwd");
 	}
-	return (cmd);
 }
 
 char	*ft_find_and_expand(char *to_replace, char **our_env)

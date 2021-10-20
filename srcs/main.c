@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/10/19 20:37:31 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/20 21:17:07 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_signal_handler(int sig_num)
 		rl_on_new_line();
 		rl_replace_line("", 1);
 		rl_redisplay();
+		free(new_line_buffer);
 	}
 }
 
@@ -35,6 +36,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*cmd_line;
 	char	*prompt;
+	char	*user;
 	char	**our_env;
 	t_cmd	*cmd;
 	t_lexer	*lexer;
@@ -47,36 +49,36 @@ int	main(int argc, char **argv, char **envp)
 		ft_error("Launch with \"./minishell\"", 1);
 	our_env = cp_str_array(envp);
 	printf("\n\t\t\033[1mWelcome in the worst minishell of the world!\n\n\033[0m");
-	prompt = ft_strjoin(ft_getenv("USER", our_env), "@minishell:~$ ");
+	user = ft_getenv("USER", our_env);
+	prompt = ft_strjoin(user, "@minishell:~$ ");
 	ft_error("init fd", 0);
 	while (TRUE)
 	{
 		signal(SIGINT, ft_signal_handler);
 		signal(SIGQUIT, SIG_IGN);
 		cmd_line = readline(prompt);
-		if (cmd_line == NULL)
-		{ 
-			cmd_line = ft_strdup("exit");
+		if (cmd_line == NULL) // ctrl + D
+		{
+			free(user);
+			free(prompt);
+			ft_free_env(our_env);
+			free(our_env);
 			write(1, "exit\n", 5);
-		//	rl_on_new_line();
-		//	rl_line_buffer = ft_strdup("exit ");
-		//	rl_replace_line("exit   dfgdfgdfgg    dtgfdfgdfgdfgdfgh ", 1);
-		//	rl_redisplay();
+			sleep (60);
 			break ;
 		}
 		add_history(cmd_line);
 		lexer = ft_lexer(cmd_line);
 //		ft_print_lexer(lexer);
 		cmd = ft_parsing(lexer);
-//		if (ft_strcmp(cmd_line, "exit") == 0)
-//			break ;
+		ft_lexerclear(&lexer);
 		ft_expander(cmd, our_env);
 //		ft_print_cmd(cmd);
 		our_env = ft_executer(cmd, our_env);
+		ft_cmdclear(&cmd);
+		cmd = NULL;
 		free(cmd_line);
 	}
-//	ft_free(cmd, lexer);
-	free(prompt);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 19:04:49 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/18 17:30:01 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/10/20 21:38:25 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,12 @@ void	ft_greats(t_cmd *cmd, t_data *data)
 	if (dup2(fd, 1) < 0)
 		ft_error("Error file descriptor", 1);
 	while (get_next_line(data->fd_pipe[0], &line) > 0)
+	{
 		printf("%s\n", line);
+		if (line)
+			free(line);
+		line = NULL;
+	}
 	dup2(data->save_stdout, 1);
 	close(data->fd_pipe[0]);
 }
@@ -103,6 +108,9 @@ char	*ft_pipestatus(int mode, int status)
 	static int pipe_status;
 
 	if (mode == SET)
+	{
 		pipe_status = status;
+		return (NULL);
+	}
 	return (ft_itoa(pipe_status));
 }

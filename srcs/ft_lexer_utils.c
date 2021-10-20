@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/19 20:07:16 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/10/19 20:41:37 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/20 20:30:12 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ft_check_closed(char *cmd_line, int i)
 	return (0);
 }
 
-t_lexer	*ft_lstnew_two(char*args, int token)
+t_lexer	*ft_lstnew_two(char *args, int token)
 {
 	t_lexer	*lst;
 

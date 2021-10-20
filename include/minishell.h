@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/10/19 20:04:53 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/20 20:49:44 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ struct s_parser
 struct	s_cmd
 {
 	char	*cmd;
-	char	*flag;
 	char	**args;
 	char	**heredoc;
 	int		in;
@@ -133,8 +132,6 @@ void	ft_expander(t_cmd *cmd, char **our_env);
 char	*ft_getenv(char *name, char **env);
 char	*ft_realloc_str(char	*ptr, int cur_size, int new_size);
 char	*ft_find_and_expand(char *to_replace, char **our_env);
-void	ft_free(t_cmd *cmd);
-void	ft_free_str(char **str);
 void	ft_expand_env(char	*env, char *value, int len_word);
 int		get_next_line(int fd, char **line);
 char	**ft_data_paths(char **env);
@@ -160,7 +157,7 @@ void	ft_signal_handler_heredoc(int sig_num);
 void	ft_delete_backslash(char *to_replace);
 
 
-char	*ft_expand_builtin(char *cmd);
+void	ft_expand_builtin(t_cmd *cmd);
 char	**ft_our_builtin(t_cmd *cmd, char **our_env);
 
 int		ft_str_isspace(char *str);
@@ -176,5 +173,11 @@ int		ft_search_in_array(char *search, char **array);
 char	**ft_our_unset(char **args, char **envp);
 int		ft_check_if_exists_unset(char *str, char **envp);
 char	**ft_realloc_unset(char	**ptr, int cur_size, char	*args);
+
+//free
+void	ft_free_env(char **our_env);
+void	ft_free_str(char **str);
+void	ft_lexerclear(t_lexer **lexer);
+void	ft_cmdclear(t_cmd **cmd);
 
 #endif

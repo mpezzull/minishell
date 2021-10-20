@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 16:31:46 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/19 18:15:14 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/10/20 21:56:00 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ char	**ft_executer(t_cmd *cmd, char **our_env)
 				ft_executer_child(cmd, &data, our_env);
 			else
 				ft_execute_parent(cmd, &data);
+			ft_free_env(data.com_matrix);
+			free(data.com_matrix);
 		}
 		else
 			our_env = our_builtin;
@@ -110,7 +112,7 @@ void	ft_executer_child(t_cmd *cmd, t_data *data, char **our_env)
 	if (cmd->out != DEFAULT)
 	{
 		close(data->fd_pipe[0]);
-		data->save_stdout = dup(1);
+//		data->save_stdout = dup(1);
 		if (dup2(data->fd_pipe[1], 1) < 0)
 			ft_error("Error file descriptor", 1);
 		close(data->fd_pipe[1]);
@@ -125,7 +127,7 @@ void	ft_executer_child(t_cmd *cmd, t_data *data, char **our_env)
 		data->fd_out = 0;
 		if (data->fd_in < 0)
 			ft_error("Error file descriptor", 1);
-		data->save_stdin = dup(0);
+//		data->save_stdin = dup(0);
 		if (dup2(data->fd_in, 0) < 0)
 			ft_error("Error file descriptor", 1);
 		close(data->fd_in);
@@ -142,7 +144,7 @@ void	ft_execute_parent(t_cmd *cmd, t_data *data)
 	status = 0;
 	close(data->fd_pipe[1]);
 	wait(&status);
-	if (WIFEXITED(status))	/* process exited normally */
+	if (WIFEXITED(status))
 		ft_pipestatus(SET, WEXITSTATUS(status));
 	else
 		ft_pipestatus(SET, 0);
@@ -155,7 +157,15 @@ void	ft_execute_parent(t_cmd *cmd, t_data *data)
 		if (cmd->in != LESSLESS)
 		{
 			while (get_next_line(data->fd_pipe[0], &line) > 0)
+			{
 				printf("%s\n", line);
+				if (line)
+					free(line);
+				line = NULL;
+			}
+			if (line)
+				free(line);
+			line = NULL;
 		}
 		close(data->fd_pipe[0]);
 	}	
