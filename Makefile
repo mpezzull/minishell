@@ -6,7 +6,7 @@
 #    By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/10/20 20:50:17 by mde-rosa         ###   ########.fr        #
+#    Updated: 2021/11/15 20:31:09 by mde-rosa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ INCLUDE			=	-I /Users/$(USER)/.brew/opt/readline/include
 
 CC				=	gcc
 
-CFLAGS			=	-Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror #-fsanitize=address
 
 OTHER_MAKE_1	=	./libft/
 
@@ -56,6 +56,7 @@ clean	:
 			@(make clean -s -C  $(OTHER_MAKE_1))
 			@(make clean -s -C  $(OTHER_MAKE_2))
 			@rm -f $(OBJCS)
+#ciao
 			@echo "\033[1;31m.o files deleted\033[0m"
 
 fclean	:	clean

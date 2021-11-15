@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:54:54 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/10/15 20:49:08 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/15 20:13:10 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	**ft_our_unset(char **args, char **envp)
 	while (i < argc)
 	{
 		if (ft_check_if_exists_unset(args[i], envp))
-			envp = ft_realloc_unset(envp, size_envp, args[i++]);
+			envp = ft_realloc_unset(envp, size_envp--, args[i++]);
 		else
 			i++;
 	}
@@ -84,11 +84,13 @@ char	**ft_realloc_unset(char	**ptr, int cur_size, char	*args)
 	j = 0;
 	while (ptr[i])
 	{
-		if (ft_strncmp(ptr[i], args, ft_strlen(args)) == 0)
+		if (ft_strncmp(ptr[i], args, ft_strlen(args)) == 0
+			&& (ptr[i][ft_strlen(args)] == '='))
 			i++;
 		else
-			new_ptr[j++] = ptr[i++];
+			new_ptr[j++] = ft_strdup(ptr[i++]);
 	}
+	ft_free_env(ptr);
 	free(ptr);
 	return (new_ptr);
 }
@@ -100,8 +102,8 @@ int	ft_check_if_exists_unset(char *str, char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		if (ft_strncmp(envp[i], str, ft_strlen(str)) == 0
-			&& envp[i][ft_strlen(str)] == '=')
+		if ((ft_strncmp(envp[i], str, ft_strlen(str)) == 0)
+			&& (envp[i][ft_strlen(str)] == '='))
 			return (1);
 		i++;
 	}

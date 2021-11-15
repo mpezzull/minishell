@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 16:54:54 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/10/15 20:48:56 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/15 19:46:13 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,24 +55,31 @@ char	**ft_our_export(char **args, char **envp)
 	int		size_envp;
 	char	**variable;
 	int		position;
+	char	*actual_value;
 
 	i = 1;
 	argc = ft_count_args(args);
 	size_envp = ft_count_args(envp);
 	while (i < argc)
 	{
-		if (ft_check_if_exists(args[i], envp) == NULL
-			|| ft_strcmp(ft_check_if_exists(args[i], envp), "") == 0)
+		actual_value = ft_check_if_exists(args[i], envp);
+		if (actual_value == NULL
+			|| ft_strcmp(actual_value, "") == 0)
 		{
 			envp = ft_realloc(envp, size_envp, size_envp + 1);
 			envp[size_envp++] = ft_strdup(args[i++]);
 		}
-		else if (ft_check_if_exists(args[i], envp) != NULL)
+		else if (actual_value != NULL)
 		{
 			variable = ft_split(args[i], '=');
 			position = ft_search_in_array(variable[0], envp);
+			free(envp[position]);
 			envp[position] = ft_strdup(args[i++]);
+			ft_free_env(variable);
+			free(variable);
 		}
+		if (actual_value)
+			free (actual_value);
 	}
 	return (envp);
 }
@@ -100,9 +107,14 @@ char	*ft_check_if_exists(char *str, char **envp)
 	if (equal)
 	{
 		splitted = ft_split(str, '=');
-		actual_value = ft_strdup(ft_getenv(splitted[0], envp));
+		actual_value = ft_getenv(splitted[0], envp);
+		ft_free_env(splitted);
+		free(splitted);
 		if (ft_strcmp(actual_value, "") == 0)
+		{
+			free(actual_value);
 			return (NULL);
+		}
 		else
 			return (actual_value);
 	}

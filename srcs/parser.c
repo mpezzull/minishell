@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:42:27 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/19 19:35:55 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/11/15 20:17:06 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ void	ft_heredoc_child(t_lexer *lexer, int *fd)
 			break ;
 		write(fd[1], data.lessless, ft_strlen(data.lessless));
 		write(fd[1], "\n", 1);
+		free(data.lessless);
 	}
 	close(fd[1]);
 	exit(0);
@@ -143,8 +144,11 @@ void	ft_heredoc_parent(t_cmd *temp, int *fd)
 		{
 			temp->heredoc = ft_realloc(temp->heredoc, i, i + 1);
 			temp->heredoc[i++] = ft_strdup(line);
+			free(line);
 		}
 		temp->heredoc = ft_realloc(temp->heredoc, i, i + 1);
 		line = NULL;
 	}
+	if (line)
+		free(line);
 }
