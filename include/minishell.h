@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/11/15 19:42:44 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/16 02:30:27 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ struct	s_lexer
 typedef struct s_line
 {
 	char	buffer;
-	char	ret;
+	int		ret;
 	char	*str;
-	char	temp[4096];
+	char	temp[65536];
 	int		len;
 }			t_line;
 
@@ -155,7 +155,7 @@ char	*ft_pipestatus(int mode, int status);
 void	ft_signal_handler_executer(int sig);
 void	ft_signal_handler_heredoc(int sig_num);
 void	ft_delete_backslash(char *to_replace);
-
+int		get_file(int fd, char **content);
 
 void	ft_expand_builtin(t_cmd *cmd);
 char	**ft_our_builtin(t_cmd *cmd, char **our_env);

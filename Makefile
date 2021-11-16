@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+         #
+#    By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/11/15 20:31:09 by mde-rosa         ###   ########.fr        #
+#    Updated: 2021/11/16 04:50:25 by mpezzull         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,15 +62,10 @@ clean	:
 fclean	:	clean
 			@(make fclean -s -C  $(OTHER_MAKE_1))
 			@(make fclean -s -C  $(OTHER_MAKE_2))
-			@rm -f $(NAME)
 			@(rm -rf $(OBJ_PATH))
-			@rm -rf debug*
+			@rm -rf minishell*
 			@echo "\033[1;31mbinaries deleted\033[0m"
 
 re		:	fclean all
-
-debug	:	re
-			@$(CC) $(CFLAGS) -g $(INCLUDE) -o $@ $(patsubst %,$(SRCS_PATH)%,$(SRCS)) $(LIBS)
-			@echo " \033[1;32m\"lldb $@\" \033[0mper aprire il debug"
 
 .PHONY	:	all clean fclean re debug

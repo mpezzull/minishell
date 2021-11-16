@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 19:04:49 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/15 20:37:04 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/16 01:38:45 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	ft_greats(t_cmd *cmd, t_data *data)
 	if (dup2(fd, 1) < 0)
 		ft_error("Error file descriptor", 1);
 	write(data->save_stdout, "padre\n", 6);
-	if (get_next_line(data->fd_pipe[0], &line) > 0)
+	if (get_file(data->fd_pipe[0], &line) > 0)
 	{
 		printf("%s\n", line);
 		if (line)
@@ -111,6 +111,7 @@ void	ft_greats(t_cmd *cmd, t_data *data)
 //	line = NULL;
 	dup2(data->save_stdout, 1);
 	close(data->fd_pipe[0]);
+	close(fd);
 }
 
 char	*ft_pipestatus(int mode, int status)
