@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:42:27 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/15 20:17:06 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/17 21:33:02 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,11 @@ t_cmd	*ft_parsing(t_lexer *lexer)
 	temp = NULL;
 	while (lexer)
 	{
-		ft_check_double_token(lexer);
+		if (ft_check_double_token(lexer))
+		{
+			ft_cmdclear(&head);
+			return (NULL);
+		}
 		if (!temp)
 		{
 			temp = ft_cmd_new(0);

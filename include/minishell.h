@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/11/16 02:30:27 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/11/17 21:19:11 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <stdlib.h>
+# include <limits.h>
 
 # define DEFAULT	0
 # define GREAT		1
@@ -121,7 +123,7 @@ t_cmd	*ft_cmd_new(int n_args);
 void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new);
 char	**ft_realloc(char	**ptr, int cur_size, int new_size);
 void	ft_print_cmd(t_cmd *cmd);
-void	ft_check_double_token(t_lexer *lexer);
+int		ft_check_double_token(t_lexer *lexer);
 int		ft_heredoc_shell(t_lexer *lexer, t_cmd *temp);
 void	ft_signal_handler_heredoc(int sig_num);
 void	ft_signal_handler(int sig_num);
@@ -150,7 +152,7 @@ void	ft_lessless(t_cmd *cmd, t_data *data);
 void	ft_less(t_cmd *cmd, t_data *data);
 void	ft_greats(t_cmd *cmd, t_data *data);
 void	ft_executer_child(t_cmd *cmd, t_data *data, char **our_env);
-void	ft_execute_parent(t_cmd *cmd, t_data *data);
+void	ft_execute_parent(t_cmd *cmd, t_data *data, int pid);
 char	*ft_pipestatus(int mode, int status);
 void	ft_signal_handler_executer(int sig);
 void	ft_signal_handler_heredoc(int sig_num);
@@ -179,5 +181,12 @@ void	ft_free_env(char **our_env);
 void	ft_free_str(char **str);
 void	ft_lexerclear(t_lexer **lexer);
 void	ft_cmdclear(t_cmd **cmd);
+
+//get_next_line
+int		get_next_line(int fd, char **line);
+char	*ft_strdup(const char *src);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+size_t	ft_strlen(const char *str);
+char	*ft_strcpy(char *dest, const char *src);
 
 #endif

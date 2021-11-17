@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 16:00:52 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/20 20:50:29 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/17 21:32:44 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,21 @@ void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new)
 	temp->next = new;
 }
 
-void	ft_check_double_token(t_lexer *lexer)
+int		ft_check_double_token(t_lexer *lexer)
 {
 	static int		prev;
 	int				curr;
 
 	curr = lexer->token;
 	if (prev != DEFAULT && prev != WORD && prev != PIPE && curr != WORD)
-		ft_error(ft_strjoin("minishell: syntax error near unexpected token ",
-				lexer->args), SYNTAX_ERROR);
+	{
+		printf("minishell: syntax error near unexpected token %s\n",
+			lexer->args);
+		ft_pipestatus(SET, SYNTAX_ERROR);
+		return (1);
+	}
 	prev = curr;
+	return (0);
 }
 
 void	ft_signal_handler_heredoc(int sig_num)

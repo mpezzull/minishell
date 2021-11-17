@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 16:31:46 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/16 01:30:54 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/11/17 21:38:13 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**ft_executer(t_cmd *cmd, char **our_env)
 			else if (pid == 0)
 				ft_executer_child(cmd, &data, our_env);
 			else
-				ft_execute_parent(cmd, &data);
+				ft_execute_parent(cmd, &data, pid);
 			ft_free_env(data.com_matrix);
 			free(data.com_matrix);
 		}
@@ -77,14 +77,17 @@ void	ft_do_execve(char *command, t_data *data, char **env)
 
 char	**ft_our_builtin(t_cmd *cmd, char **our_env)
 {
-	if (!ft_strcmp(cmd->cmd, "cd"))
-		ft_our_cd(cmd->args);
-	else if (!ft_strcmp(cmd->cmd, "export"))
-		our_env = ft_our_export(cmd->args, our_env);
-	else if (!ft_strcmp(cmd->cmd, "unset"))
-		our_env = ft_our_unset(cmd->args, our_env);
-	else
-		return (NULL);
+	if (cmd->cmd)
+	{
+		if (!ft_strcmp(cmd->cmd, "cd"))
+			ft_our_cd(cmd->args);
+		else if (!ft_strcmp(cmd->cmd, "export"))
+			our_env = ft_our_export(cmd->args, our_env);
+		else if (!ft_strcmp(cmd->cmd, "unset"))
+			our_env = ft_our_unset(cmd->args, our_env);
+		else
+			return (NULL);
+	}
 	return (our_env);
 }
 void	ft_lessless(t_cmd *cmd, t_data *data)
@@ -135,15 +138,16 @@ void	ft_executer_child(t_cmd *cmd, t_data *data, char **our_env)
 	ft_do_execve(cmd->cmd, data, our_env);
 }
 
-void	ft_execute_parent(t_cmd *cmd, t_data *data)
+void	ft_execute_parent(t_cmd *cmd, t_data *data, int pid)
 {
 	char	*line;
 	int		status;
 
 	line = NULL;
 	status = 0;
+	
 	close(data->fd_pipe[1]);
-	wait(&status);
+	waitpid(pid, &status, WSTOPPED);
 	if (WIFEXITED(status))
 		ft_pipestatus(SET, WEXITSTATUS(status));
 	else

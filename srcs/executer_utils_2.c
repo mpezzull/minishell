@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 19:04:49 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/16 01:38:45 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/11/17 19:38:45 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,7 @@ void	ft_greats(t_cmd *cmd, t_data *data)
 	data->save_stdout = dup(1);
 	if (dup2(fd, 1) < 0)
 		ft_error("Error file descriptor", 1);
-	write(data->save_stdout, "padre\n", 6);
-	if (get_file(data->fd_pipe[0], &line) > 0)
+	while (get_next_line(data->fd_pipe[0], &line) > 0)
 	{
 		printf("%s\n", line);
 		if (line)
