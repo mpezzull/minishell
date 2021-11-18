@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/11/18 01:31:57 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/11/18 18:45:54 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 1)
 		ft_error("Launch with \"./minishell\"", 1);
 	our_env = cp_str_array(envp);
+	if (!our_env)
+		ft_error("minishell: system error", 1);
 	printf("\n\t\t\033[1mWelcome in the worst minishell of the world!\n\n\033[0m");
 	ft_error("init fd", 0);
 	while (TRUE)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 19:04:49 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/17 19:38:45 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/11/18 20:31:13 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,12 @@ int	ft_is_a_local_command(char **env, t_data *data)
 	char	*get_str;
 	int		fd;
 
-	get_str = ft_getenv("PWD", env);
+	(void)**env;
+	get_str = getenv("PWD");
 	if (!get_str)
 		return (0);
 	data->path = ft_strjoin(get_str, "/");
-	free(get_str);
+//	free(get_str);
 	get_str = data->path;
 	data->path = ft_strjoin(data->path, data->com_matrix[0]);
 	free(get_str);
@@ -115,11 +116,11 @@ void	ft_greats(t_cmd *cmd, t_data *data)
 
 char	*ft_pipestatus(int mode, int status)
 {
-	static int pipe_status;
+	static unsigned int	pipe_status;
 
 	if (mode == SET)
 	{
-		pipe_status = status;
+		pipe_status = (unsigned int)status;
 		return (NULL);
 	}
 	return (ft_itoa(pipe_status));
