@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 16:31:46 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/17 21:38:13 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/11/18 02:21:06 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,12 +142,19 @@ void	ft_execute_parent(t_cmd *cmd, t_data *data, int pid)
 {
 	char	*line;
 	int		status;
+	int		pipe_size;
+	char	buf;
 
 	line = NULL;
 	status = 0;
-	
 	close(data->fd_pipe[1]);
-	waitpid(pid, &status, WSTOPPED);
+	int fd_new = dup(data->fd_pipe[0]);
+	read(fd_new, &buf, 1);
+	ioctl(fd_new, FIONREAD, &pipe_size);
+	if (pipe_size > 65530)
+		waitpid(pid, &status, WSTOPPED);
+	else
+		waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		ft_pipestatus(SET, WEXITSTATUS(status));
 	else

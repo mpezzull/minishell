@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:41:43 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/20 17:09:24 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/18 01:20:01 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,13 @@ char	*ft_extract_alnum(char *str)
 			break ;
 	}
 	return (ft_substr(str, 0, i));
+}
+
+void	ft_sleep(int ms)
+{
+	int	i;
+
+	i = 0;
+	while (i++ < ms * 770000)
+		;
 }

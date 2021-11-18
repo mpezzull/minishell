@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/11/17 21:19:11 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/11/18 01:54:03 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # include <sys/wait.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <sys/stat.h>
+# include <sys/ioctl.h>
+
 
 # define DEFAULT	0
 # define GREAT		1
@@ -158,7 +161,7 @@ void	ft_signal_handler_executer(int sig);
 void	ft_signal_handler_heredoc(int sig_num);
 void	ft_delete_backslash(char *to_replace);
 int		get_file(int fd, char **content);
-
+void	ft_sleep(int ms);
 void	ft_expand_builtin(t_cmd *cmd);
 char	**ft_our_builtin(t_cmd *cmd, char **our_env);
 

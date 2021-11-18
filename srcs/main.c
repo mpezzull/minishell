@@ -6,7 +6,7 @@
 /*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/11/17 21:23:46 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/11/18 01:31:57 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,18 @@ int	main(int argc, char **argv, char **envp)
 		ft_error("Launch with \"./minishell\"", 1);
 	our_env = cp_str_array(envp);
 	printf("\n\t\t\033[1mWelcome in the worst minishell of the world!\n\n\033[0m");
-	user = ft_getenv("USER", our_env);
-	prompt = ft_strjoin(user, "@minishell:~$ ");
 	ft_error("init fd", 0);
 	while (TRUE)
 	{
 		signal(SIGINT, ft_signal_handler);
 		signal(SIGQUIT, SIG_IGN);
+		user = ft_getenv("USER", our_env);
+		prompt = ft_strjoin(user, "@minishell:~$ ");
+		free(user);
 		cmd_line = readline(prompt);
+		free(prompt);
 		if (cmd_line == NULL) // ctrl + D
 		{
-			free(user);
-			free(prompt);
 			ft_free_env(our_env);
 			free(our_env);
 			write(1, "exit\n", 5);
@@ -68,6 +68,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		add_history(cmd_line);
 		lexer = ft_lexer(cmd_line);
+		free(cmd_line);
 //		ft_print_lexer(lexer);
 		cmd = ft_parsing(lexer);
 		ft_lexerclear(&lexer);
@@ -76,7 +77,6 @@ int	main(int argc, char **argv, char **envp)
 		our_env = ft_executer(cmd, our_env);
 		ft_cmdclear(&cmd);
 		cmd = NULL;
-		free(cmd_line);
 	}
 	return (0);
 }
