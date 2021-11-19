@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/11/18 18:45:54 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/19 00:41:46 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	main(int argc, char **argv, char **envp)
 		add_history(cmd_line);
 		lexer = ft_lexer(cmd_line);
 		free(cmd_line);
-//		ft_print_lexer(lexer);
+		ft_print_lexer(lexer);
 		cmd = ft_parsing(lexer);
 		ft_lexerclear(&lexer);
 		ft_expander(cmd, our_env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 16:31:46 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/18 19:38:18 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/18 23:20:15 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	**ft_our_builtin(t_cmd *cmd, char **our_env)
 	if (cmd->cmd)
 	{
 		if (!ft_strcmp(cmd->cmd, "cd"))
-			ft_our_cd(cmd->args);
+			our_env = ft_our_cd(cmd->args, our_env);
 		else if (!ft_strcmp(cmd->cmd, "export"))
 			our_env = ft_our_export(cmd->args, our_env);
 		else if (!ft_strcmp(cmd->cmd, "unset"))

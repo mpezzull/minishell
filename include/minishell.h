@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/11/18 19:18:09 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/18 23:28:03 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,8 @@ char	**ft_our_builtin(t_cmd *cmd, char **our_env);
 
 int		ft_str_isspace(char *str);
 int		ft_count_args(char **args);
-void	ft_our_cd(char **args);
+char	**ft_our_cd(char **args, char **our_env);
+char	**ft_change_pwd(char **our_env, char *pwd, char *new_pwd);
 
 //export
 char	**ft_our_export(char **args, char **envp);

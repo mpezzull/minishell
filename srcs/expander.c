@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:48:21 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/20 22:22:34 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/19 01:29:24 by mpezzull         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,12 @@ char	*ft_find_and_expand(char *to_replace, char **our_env)
 	pos_backslash = NULL;
 	while (pos_dollar != NULL)
 	{
-		if (pos_dollar != to_replace && *(pos_dollar - 1) == 21)
+		if (pos_dollar != to_replace && *(pos_dollar - 1) == '\\')
+		{
+			pos_backslash = pos_dollar - 1;
+			pos_backslash[0] = 21;
+		}
+		else if (pos_dollar != to_replace && *(pos_dollar - 1) == 21)
 			pos_backslash = pos_dollar - 1;
 		if (pos_dollar && pos_backslash == NULL && *(pos_dollar + 1))
 		{
@@ -132,10 +137,16 @@ char	*ft_find_and_expand(char *to_replace, char **our_env)
 			--word;
 			ft_free_str(&word);
 			ft_free_str(&env_value);
-			pos_dollar = ft_strchr(to_replace, '$');
+			pos_dollar = ft_strchr(to_replace + (pos_dollar - to_replace) + 1, '$');
+			pos_backslash = NULL;
+
 		}
 		else
-			pos_dollar = NULL;
+		{
+//			printf("%s\n", to_replace + (pos_dollar - to_replace) + 1);
+			pos_dollar = ft_strchr( to_replace + (pos_dollar - to_replace) + 1, '$');
+			pos_backslash = NULL;
+		}
 	}
 	ft_delete_backslash(to_replace);
 	return (to_replace);
