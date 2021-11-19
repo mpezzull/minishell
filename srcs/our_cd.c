@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 11:54:05 by assokenay         #+#    #+#             */
-/*   Updated: 2021/11/19 20:08:01 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/19 20:43:13 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ char	**ft_our_cd(char **args, char **our_env)
 	int		argc;
 	char	*pwd;
 	char	*temp;
-	static  char	*oldpwd;
-	
+	char	*oldpwd;
+	int		size_envp;
+
 	pwd = NULL;
 	temp = NULL;
 	pwd = getcwd(pwd, 200);
@@ -26,6 +27,7 @@ char	**ft_our_cd(char **args, char **our_env)
 	if (argc > 2)
 	{
 		printf("minishell: cd: too many arguments\n");
+		free(pwd);
 		return (our_env);
 	}
 	else if ((argc == 1) || (ft_strcmp(args[1], "~") == 0)
@@ -36,10 +38,15 @@ char	**ft_our_cd(char **args, char **our_env)
 	{
 		oldpwd = ft_getenv("OLDPWD", our_env);
 		if (!chdir(oldpwd))
+		{
 			printf("%s\n", oldpwd);
+			free(oldpwd);
+		}
 		else
 		{
 			printf("minishell: cd: OLDPWD not set\n");
+			free(pwd);
+			free(oldpwd);
 			return (our_env);
 		}
 	}
@@ -48,15 +55,25 @@ char	**ft_our_cd(char **args, char **our_env)
 		if (chdir(args[1]) == -1)
 		{
 			printf("minishell: cd: %s: No such file or directory\n", args[1]);
+			free(pwd);
 			return (our_env);
 		}
 	}
-	oldpwd = ft_strjoin("OLDPWD=", pwd);
-	int size_envp = ft_count_args(our_env);
-	our_env = ft_realloc(our_env, size_envp, size_envp + 1);
-	our_env[size_envp++] = oldpwd;
-	our_env = ft_change_pwd(our_env, pwd, getcwd(temp, 200));
-	oldpwd = pwd;
+	oldpwd = ft_getenv("OLDPWD", our_env);
+	if (ft_strcmp(oldpwd, "") == 0)
+	{
+		free(oldpwd);
+		oldpwd = ft_strjoin("OLDPWD=", pwd);
+		size_envp = ft_count_args(our_env);
+		our_env = ft_realloc(our_env, size_envp, size_envp + 1);
+		free(our_env[size_envp]);
+		our_env[size_envp] = ft_strdup(oldpwd);
+	}
+	free(oldpwd);
+	oldpwd = getcwd(temp, 200);
+	our_env = ft_change_pwd(our_env, pwd, oldpwd);
+	free(pwd);
+	free(oldpwd);
 	return (our_env);
 }
 
