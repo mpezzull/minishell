@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   our_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 11:54:05 by assokenay         #+#    #+#             */
-/*   Updated: 2021/11/18 23:38:08 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/11/19 20:08:01 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ char	**ft_our_cd(char **args, char **our_env)
 	int		argc;
 	char	*pwd;
 	char	*temp;
-
+	static  char	*oldpwd;
+	
 	pwd = NULL;
 	temp = NULL;
 	pwd = getcwd(pwd, 200);
@@ -30,6 +31,18 @@ char	**ft_our_cd(char **args, char **our_env)
 	else if ((argc == 1) || (ft_strcmp(args[1], "~") == 0)
 		|| (ft_str_isspace(args[1]) == 0))
 		chdir(getenv("HOME"));
+	else if ((argc == 1) || (ft_strcmp(args[1], "-") == 0)
+		|| (ft_str_isspace(args[1]) == 0))
+	{
+		oldpwd = ft_getenv("OLDPWD", our_env);
+		if (!chdir(oldpwd))
+			printf("%s\n", oldpwd);
+		else
+		{
+			printf("minishell: cd: OLDPWD not set\n");
+			return (our_env);
+		}
+	}
 	else
 	{
 		if (chdir(args[1]) == -1)
@@ -38,7 +51,12 @@ char	**ft_our_cd(char **args, char **our_env)
 			return (our_env);
 		}
 	}
+	oldpwd = ft_strjoin("OLDPWD=", pwd);
+	int size_envp = ft_count_args(our_env);
+	our_env = ft_realloc(our_env, size_envp, size_envp + 1);
+	our_env[size_envp++] = oldpwd;
 	our_env = ft_change_pwd(our_env, pwd, getcwd(temp, 200));
+	oldpwd = pwd;
 	return (our_env);
 }
 

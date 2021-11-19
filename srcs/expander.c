@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:48:21 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/19 01:29:24 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/11/19 18:24:36 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,23 +70,26 @@ void	ft_expander(t_cmd *cmd, char **our_env)
 
 void	ft_expand_builtin(t_cmd *cmd)
 {
-	if (!ft_strcmp(cmd->cmd, "echo"))
+	if (cmd)
 	{
-		cmd->cmd = ft_realloc_str(cmd->cmd, 4, 14);
-		cmd->cmd = ft_strcpy(cmd->cmd, "./bin/our_echo");
-		cmd->args[0] = ft_strcpy(cmd->args[0], "./bin/our_echo");
-	}
-	else if (!ft_strcmp(cmd->cmd, "env"))
-	{
-		cmd->cmd = ft_realloc_str(cmd->cmd, 3, 13);
-		cmd->cmd = ft_strcpy(cmd->cmd, "./bin/our_env");
-		cmd->args[0] = ft_strcpy(cmd->args[0], "./bin/our_env");
-	}
-	else if (!ft_strcmp(cmd->cmd, "pwd"))
-	{
-		cmd->cmd = ft_realloc_str(cmd->cmd, 3, 13);
-		cmd->cmd = ft_strcpy(cmd->cmd, "./bin/our_pwd");
-		cmd->args[0] = ft_strcpy(cmd->args[0], "./bin/our_pwd");
+		if (!ft_strcmp(ft_strlowcase(cmd->cmd), "echo"))
+		{
+			cmd->cmd = ft_realloc_str(cmd->cmd, 4, 14);
+			cmd->cmd = ft_strcpy(cmd->cmd, "./bin/our_echo");
+			cmd->args[0] = ft_strcpy(cmd->args[0], "./bin/our_echo");
+		}
+		else if (!ft_strcmp(ft_strlowcase(cmd->cmd), "env"))
+		{
+			cmd->cmd = ft_realloc_str(cmd->cmd, 3, 13);
+			cmd->cmd = ft_strcpy(cmd->cmd, "./bin/our_env");
+			cmd->args[0] = ft_strcpy(cmd->args[0], "./bin/our_env");
+		}
+		else if (!ft_strcmp(ft_strlowcase(cmd->cmd), "pwd"))
+		{
+			cmd->cmd = ft_realloc_str(cmd->cmd, 3, 13);
+			cmd->cmd = ft_strcpy(cmd->cmd, "./bin/our_pwd");
+			cmd->args[0] = ft_strcpy(cmd->args[0], "./bin/our_pwd");
+		}
 	}
 }
 
@@ -97,6 +100,7 @@ char	*ft_find_and_expand(char *to_replace, char **our_env)
 	char	*env_value;
 	char	*word;
 	int		len_cmd;
+	int		to_skip;
 
 	pos_dollar = ft_strchr(to_replace, '$');
 	pos_backslash = NULL;
@@ -130,16 +134,16 @@ char	*ft_find_and_expand(char *to_replace, char **our_env)
 					env_value = ft_getenv(++word, our_env);
 			}
 			len_cmd = ft_strlen(to_replace);
+			to_skip = (pos_dollar - to_replace);
 			to_replace = ft_realloc_str(to_replace,
 					len_cmd, len_cmd + ft_strlen(env_value) - ft_strlen(word));
-			ft_expand_env(ft_strchr(to_replace, '$'), env_value,
-				ft_strlen(word));
+			pos_dollar = ft_strchr(to_replace + to_skip, '$');
+			ft_expand_env(pos_dollar, env_value, ft_strlen(word));
 			--word;
 			ft_free_str(&word);
 			ft_free_str(&env_value);
 			pos_dollar = ft_strchr(to_replace + (pos_dollar - to_replace) + 1, '$');
 			pos_backslash = NULL;
-
 		}
 		else
 		{

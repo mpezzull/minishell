@@ -8,17 +8,17 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "-I",
-                "/Users/mpezzull/.brew/opt/readline/include",
+                "/Users/mde-rosa/.brew/opt/readline/include",
                 "srcs/main.c","srcs/free.c","srcs/get_next_line.c","srcs/minishell_utils.c","srcs/parser.c","srcs/ft_lexer.c","srcs/ft_lexer_word.c","srcs/ft_lexer_token.c","srcs/parser_utils.c","srcs/our_cd.c","srcs/our_export.c","srcs/our_unset.c","srcs/ft_lexer_utils.c","srcs/expander.c","srcs/executer.c","srcs/parser_utils_2.c","srcs/executer_utils.c","srcs/executer_utils_2.c","srcs/expander_utils.c",
                 "-o",
                 "minishell",
                 "-L",
-                "/Users/mpezzull/.brew/opt/readline/lib",
+                "/Users/mde-rosa/.brew/opt/readline/lib",
                 "-lreadline",
-                "/Users/mpezzull/Desktop/minishell2/libft/libft.a"
+                "/Users/mde-rosa/Desktop/minishell/libft/libft.a"
             ],
             "options": {
-                "cwd": "/Users/mpezzull/Desktop/minishell2/"
+                "cwd": "/Users/mde-rosa/Desktop/minishell/"
             },
             "problemMatcher": [
                 "$gcc"

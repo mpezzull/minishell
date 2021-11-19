@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 18:15:56 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/10/15 20:08:20 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/19 18:20:16 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	**ft_split(char const *s, char c);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
+char	*ft_strlowcase(char *str);
 int		ft_isascii(int c);
 size_t	ft_strlcat(char *dest, const char *src, size_t size);
 char	*ft_strnstr(const char *str, const char *to_find, size_t len);
