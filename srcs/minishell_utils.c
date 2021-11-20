@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:41:43 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/18 01:20:01 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/11/20 03:14:15 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,26 @@ void	ft_sleep(int ms)
 	i = 0;
 	while (i++ < ms * 770000)
 		;
+}
+
+char	**ft_update_path(char **our_env)
+{
+	char	**path;
+	char	*old_path;
+	char	*new_path;
+	char	*t;
+	char	*t1;
+
+	path = NULL;
+	path = ft_realloc(path, 0, 3);
+	path[0] = ft_strdup("export");
+	old_path = ft_getenv("PATH", our_env);
+	t = ft_getenv("PWD", our_env);
+	new_path = ft_strjoin(t, "/bin");
+	t1 = ft_strjoin("PATH=", old_path);
+	free(t);
+	t = ft_strjoin(t1, ":");
+	path[1] = ft_strjoin(t, new_path);
+	ft_our_export(path, our_env);
+	return (our_env);
 }

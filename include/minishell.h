@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/11/18 23:28:03 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/11/20 03:12:39 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,5 +195,6 @@ char	*ft_strcpy(char *dest, const char *src);
 
 
 void	ft_exit(t_cmd *cmd, char **our_env, int only_one);
+char	**ft_update_path(char **our_env);
 
 #endif

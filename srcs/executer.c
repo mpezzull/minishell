@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 16:31:46 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/19 18:22:50 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/20 02:15:56 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,19 +100,28 @@ void	ft_exit(t_cmd *cmd, char **our_env, int only_one)
 {
 	static int	save_only_one;
 
-
 	if (cmd == NULL && our_env == NULL)
 		save_only_one = only_one;
 	else
 	{
 		if (cmd->args[1])
+		{
 			ft_pipestatus(SET, ft_atoi(cmd->args[1]));
+			if (save_only_one != 1 && !ft_isnum(cmd->args[1]))
+			{
+				printf("bash: exit: numeric argument required\n");
+				ft_pipestatus(SET, 255);
+			}
+		}
 		if (save_only_one == 1)
 		{
 			ft_free_env(our_env);
 			free(our_env);
-			ft_cmdclear(&cmd);
 			write(1, "exit\n", 5);
+			rl_clear_history();
+			if (!ft_isnum(cmd->args[1]))
+				ft_error("bash: exit: numeric argument required", 255);
+			ft_cmdclear(&cmd);
 			exit(ft_atoi(ft_pipestatus(GET, 0)));
 		}
 	}

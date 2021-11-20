@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by assokenay         #+#    #+#             */
-/*   Updated: 2021/11/19 18:33:18 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/20 03:14:52 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 1)
 		ft_error("Launch with \"./minishell\"", 1);
 	our_env = cp_str_array(envp);
+	our_env = ft_update_path(our_env);
 	if (!our_env)
 		ft_error("minishell: system error", 1);
 	printf("\n\t\t\033[1mWelcome in the worst minishell of the world!\n\n\033[0m");
@@ -66,6 +67,7 @@ int	main(int argc, char **argv, char **envp)
 			ft_free_env(our_env);
 			free(our_env);
 			write(1, "exit\n", 5);
+			rl_clear_history();
 			break ;
 		}
 		add_history(cmd_line);

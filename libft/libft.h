@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 18:15:56 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/19 18:20:16 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/20 01:57:18 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	*ft_memmove(void *dest, const void *src, size_t len);
 size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *s, int c);
 int		ft_isdigit(int c);
+int		ft_isnum(char *str);
 int		ft_isalpha(int c);
 void	*ft_memchr(const void *src_void, int c, size_t length);
 void	*ft_calloc(size_t n, size_t size);

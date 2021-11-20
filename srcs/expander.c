@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:48:21 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/19 18:24:36 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/20 02:39:35 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,20 +75,20 @@ void	ft_expand_builtin(t_cmd *cmd)
 		if (!ft_strcmp(ft_strlowcase(cmd->cmd), "echo"))
 		{
 			cmd->cmd = ft_realloc_str(cmd->cmd, 4, 14);
-			cmd->cmd = ft_strcpy(cmd->cmd, "./bin/our_echo");
-			cmd->args[0] = ft_strcpy(cmd->args[0], "./bin/our_echo");
+			cmd->cmd = ft_strcpy(cmd->cmd, "our_echo");
+			cmd->args[0] = ft_strcpy(cmd->args[0], "our_echo");
 		}
 		else if (!ft_strcmp(ft_strlowcase(cmd->cmd), "env"))
 		{
 			cmd->cmd = ft_realloc_str(cmd->cmd, 3, 13);
-			cmd->cmd = ft_strcpy(cmd->cmd, "./bin/our_env");
-			cmd->args[0] = ft_strcpy(cmd->args[0], "./bin/our_env");
+			cmd->cmd = ft_strcpy(cmd->cmd, "our_env");
+			cmd->args[0] = ft_strcpy(cmd->args[0], "our_env");
 		}
 		else if (!ft_strcmp(ft_strlowcase(cmd->cmd), "pwd"))
 		{
 			cmd->cmd = ft_realloc_str(cmd->cmd, 3, 13);
-			cmd->cmd = ft_strcpy(cmd->cmd, "./bin/our_pwd");
-			cmd->args[0] = ft_strcpy(cmd->args[0], "./bin/our_pwd");
+			cmd->cmd = ft_strcpy(cmd->cmd, "our_pwd");
+			cmd->args[0] = ft_strcpy(cmd->args[0], "our_pwd");
 		}
 	}
 }

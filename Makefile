@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+         #
+#    By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/26 18:35:14 by assokenay         #+#    #+#              #
-#    Updated: 2021/11/17 21:27:10 by mpezzull         ###   ########.fr        #
+#    Updated: 2021/11/20 02:54:00 by mde-rosa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,15 +16,13 @@ SRCS_PATH		=	./srcs/
 
 OBJ_PATH 		= 	./obj/
 
-#LINUX LIBS			=	-L./libft -L/readline-6.3 -lft -lreadline -lhistory -ltinfo
-
 LIBS 			=	-L /Users/$(USER)/.brew/opt/readline/lib ./libft/libft.a -lreadline
 
 INCLUDE			=	-I /Users/$(USER)/.brew/opt/readline/include
 
 CC				=	gcc
 
-CFLAGS			=	-Wall -Wextra -Werror #-fsanitize=address
+CFLAGS			=	-Wall -Wextra -Werror 
 
 OTHER_MAKE_1	=	./libft/
 
@@ -40,16 +38,16 @@ SRCS			=	main.c \
 OBJCS 			= 	$(patsubst %,$(OBJ_PATH)%,$(SRCS:.c=.o))
 
 $(OBJ_PATH)%.o	:	$(SRCS_PATH)%.c
-					@(mkdir -p $(OBJ_PATH))
+					@([ -d $(OBJ_PATH) ] || mkdir -p $(OBJ_PATH))
 					@$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
-	
+
 all		:	$(NAME)
 			
 $(NAME)	:	$(OBJCS)
+			$(export PATH=$(PATH):$(PWD)/bin)
 			@(make -s -C $(OTHER_MAKE_1))
 			@(make -s -C $(OTHER_MAKE_2))
 			@$(CC) $(CFLAGS) -o $(NAME) $(OBJCS) $(LIBS)
-
 			@echo "\033[1;32m\"./$@\" successfully build\033[0m"
 
 clean	:
