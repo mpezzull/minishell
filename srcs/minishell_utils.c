@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:41:43 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/20 03:14:15 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/20 04:14:20 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,11 @@ char	**ft_update_path(char **our_env)
 	t = ft_strjoin(t1, ":");
 	path[1] = ft_strjoin(t, new_path);
 	ft_our_export(path, our_env);
+	ft_free_env(path);
+	free(path);
+	free(old_path);
+	free(t);
+	free(new_path);
+	free(t1);
 	return (our_env);
 }

@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 19:04:49 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/20 03:23:31 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/20 04:39:57 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	ft_is_a_local_command(char **env, t_data *data)
 	if (!get_str)
 		return (0);
 	data->path = ft_strjoin(get_str, "/");
-//	free(get_str);
 	get_str = data->path;
 	data->path = ft_strjoin(data->path, data->com_matrix[0]);
 	free(get_str);
@@ -82,7 +81,6 @@ void	ft_greats(t_cmd *cmd, t_data *data)
 {
 	int		fd;
 	char	*line;
-//	int 	i;
 
 	line = NULL;
 	if (cmd->out == GREAT)
@@ -103,12 +101,6 @@ void	ft_greats(t_cmd *cmd, t_data *data)
 	}
 	if (line)
 		free(line);
-	line = NULL;
-//	write(data->save_stdout, ft_itoa(i), ft_strlen(ft_itoa(i)));
-//	write(data->save_stdout, "\n", 1);
-//	if (line)
-//		free(line);
-//	line = NULL;
 	dup2(data->save_stdout, 1);
 	close(data->fd_pipe[0]);
 	close(fd);

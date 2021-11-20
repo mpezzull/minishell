@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 16:31:46 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/20 02:15:56 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/20 04:35:37 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 char	**ft_executer(t_cmd *cmd, char **our_env)
 {
 	t_data		data;
-	int			pid;
 	char		**our_builtin;
 
 	data.com_matrix = NULL;
@@ -26,30 +25,34 @@ char	**ft_executer(t_cmd *cmd, char **our_env)
 	signal(SIGQUIT, SIG_IGN);
 	if (cmd && !ft_strcmp(cmd->cmd, "exit") && !cmd->next)
 		ft_exit(NULL, NULL, 1);
-	//contare quanti cmd ci sono
 	while (cmd)
 	{
 		our_builtin = ft_our_builtin(cmd, our_env);
 		if (!our_builtin)
-		{
-			data.com_matrix = cp_str_array(cmd->args);
-			if (pipe(data.fd_pipe) == -1)
-				ft_error("Error pipe", 1);
-			pid = fork();
-			if (pid == -1)
-				ft_error("Error fork", 1);
-			else if (pid == 0)
-				ft_executer_child(cmd, &data, our_env);
-			else
-				ft_execute_parent(cmd, &data, pid);
-			ft_free_env(data.com_matrix);
-			free(data.com_matrix);
-		}
+			ft_executer_core(cmd, &data, our_env);
 		else
 			our_env = our_builtin;
 		cmd = cmd->next;
 	}
 	return (our_env);
+}
+
+void	ft_executer_core(t_cmd *cmd, t_data *data, char **our_env)
+{
+	int	pid;
+
+	data->com_matrix = cp_str_array(cmd->args);
+	if (pipe(data->fd_pipe) == -1)
+		ft_error("Error pipe", 1);
+	pid = fork();
+	if (pid == -1)
+		ft_error("Error fork", 1);
+	else if (pid == 0)
+		ft_executer_child(cmd, data, our_env);
+	else
+		ft_execute_parent(cmd, data, pid);
+	ft_free_env(data->com_matrix);
+	free(data->com_matrix);
 }
 
 void	ft_do_execve(char *command, t_data *data, char **env)
@@ -82,14 +85,14 @@ char	**ft_our_builtin(t_cmd *cmd, char **our_env)
 {
 	if (cmd->cmd)
 	{
-		if (!ft_strcmp(ft_strlowcase(cmd->cmd), "cd"))
+		if (!ft_strcmp(cmd->cmd, "exit"))
+			ft_exit(cmd, our_env, 0);
+		else if (!ft_strcmp(ft_strlowcase(cmd->cmd), "cd"))
 			our_env = ft_our_cd(cmd->args, our_env);
 		else if (!ft_strcmp(ft_strlowcase(cmd->cmd), "export"))
 			our_env = ft_our_export(cmd->args, our_env);
 		else if (!ft_strcmp(ft_strlowcase(cmd->cmd), "unset"))
 			our_env = ft_our_unset(cmd->args, our_env);
-		else if (!ft_strcmp(cmd->cmd, "exit"))
-			ft_exit(cmd, our_env, 0);
 		else
 			return (NULL);
 	}
@@ -114,17 +117,20 @@ void	ft_exit(t_cmd *cmd, char **our_env, int only_one)
 			}
 		}
 		if (save_only_one == 1)
-		{
-			ft_free_env(our_env);
-			free(our_env);
-			write(1, "exit\n", 5);
-			rl_clear_history();
-			if (!ft_isnum(cmd->args[1]))
-				ft_error("bash: exit: numeric argument required", 255);
-			ft_cmdclear(&cmd);
-			exit(ft_atoi(ft_pipestatus(GET, 0)));
-		}
+			ft_only_exit(cmd, our_env);
 	}
+}
+
+void	ft_only_exit(t_cmd *cmd, char **our_env)
+{
+	ft_free_env(our_env);
+	free(our_env);
+	write(1, "exit\n", 5);
+	rl_clear_history();
+	if (!ft_isnum(cmd->args[1]))
+		ft_error("bash: exit: numeric argument required", 255);
+	ft_cmdclear(&cmd);
+	exit(ft_atoi(ft_pipestatus(GET, 0)));
 }
 
 void	ft_lessless(t_cmd *cmd, t_data *data)
@@ -152,7 +158,6 @@ void	ft_executer_child(t_cmd *cmd, t_data *data, char **our_env)
 	if (cmd->out != DEFAULT)
 	{
 		close(data->fd_pipe[0]);
-//		data->save_stdout = dup(1);
 		if (dup2(data->fd_pipe[1], 1) < 0)
 			ft_error("Error file descriptor 1", 1);
 		write(data->fd_pipe[1], "$", 1);
@@ -168,7 +173,6 @@ void	ft_executer_child(t_cmd *cmd, t_data *data, char **our_env)
 		data->fd_out = 0;
 		if (data->fd_in < 0)
 			ft_error("Error file descriptor 2", 1);
-//		data->save_stdin = dup(0);
 		if (dup2(data->fd_in, 0) < 0)
 			ft_error("Error file descriptor 3", 1);
 		close(data->fd_in);
@@ -178,12 +182,10 @@ void	ft_executer_child(t_cmd *cmd, t_data *data, char **our_env)
 
 void	ft_execute_parent(t_cmd *cmd, t_data *data, int pid)
 {
-	char	*line;
 	int		status;
 	int		pipe_size;
 	char	buf;
 
-	line = NULL;
 	status = 0;
 	ft_sleep(15);
 	close(data->fd_pipe[1]);
@@ -202,6 +204,14 @@ void	ft_execute_parent(t_cmd *cmd, t_data *data, int pid)
 	else if (cmd->out == PIPE)
 		data->fd_out = data->fd_pipe[0];
 	else
+		ft_print_output(data, cmd);
+}
+
+void	ft_print_output(t_data *data, t_cmd *cmd)
+{
+	char	*line;
+
+	line = NULL;
 	{
 		if (cmd->in != LESSLESS)
 		{

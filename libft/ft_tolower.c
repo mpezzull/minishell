@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 16:28:19 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/11/19 18:19:59 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/20 04:30:41 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ int	ft_tolower(int c)
 	return (c);
 }
 
-char	*ft_strlowcase(char *str)
+char	*ft_strlowcase(char *temp)
 {
 	int	index;
+	char *str;
 
+	str = ft_strdup(temp);
 	index = 0;
 	while (str[index] != '\0')
 	{

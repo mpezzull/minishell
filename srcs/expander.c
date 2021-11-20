@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:48:21 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/20 02:39:35 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/20 04:47:05 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_expand_env(char	*env, char *value, int len_word)
 		cpy_env++;
 	while (*value)
 		*(env++) = *(value++);
-	while (*cpy_env) // provare len word > 0 come condizione
+	while (*cpy_env)
 	{
 		*(env++) = *(cpy_env++);
 		len_word--;
@@ -39,8 +39,6 @@ void	ft_expand_env(char	*env, char *value, int len_word)
 
 void	ft_expander(t_cmd *cmd, char **our_env)
 {
-	int		i;
-
 	while (cmd)
 	{
 		if (cmd->cmd)
@@ -52,19 +50,21 @@ void	ft_expander(t_cmd *cmd, char **our_env)
 			cmd->file_in = ft_find_and_expand(cmd->file_in, our_env);
 		if (cmd->file_out)
 			cmd->file_out = ft_find_and_expand(cmd->file_out, our_env);
-		i = 0;
-		while (cmd->args && cmd->args[i])
-		{
-			cmd->args[i] = ft_find_and_expand(cmd->args[i], our_env);
-			i++;
-		}
-		i = 0;
-		while (cmd->heredoc && cmd->heredoc[i])
-		{
-			cmd->heredoc[i] = ft_find_and_expand(cmd->heredoc[i], our_env);
-			i++;
-		}
+		ft_expander_str(cmd->args, our_env);
+		ft_expander_str(cmd->heredoc, our_env);
 		cmd = cmd->next;
+	}
+}
+
+void	ft_expander_str(char **str, char **our_env)
+{
+	int	i;
+
+	i = 0;
+	while (str && str[i])
+	{
+		str[i] = ft_find_and_expand(str[i], our_env);
+		i++;
 	}
 }
 
@@ -147,7 +147,6 @@ char	*ft_find_and_expand(char *to_replace, char **our_env)
 		}
 		else
 		{
-//			printf("%s\n", to_replace + (pos_dollar - to_replace) + 1);
 			pos_dollar = ft_strchr( to_replace + (pos_dollar - to_replace) + 1, '$');
 			pos_backslash = NULL;
 		}
