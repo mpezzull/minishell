@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 18:27:15 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/21 04:07:19 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/21 15:57:18 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ void	ft_parsing_pipe(t_lexer *lexer, t_cmd *temp, t_parser *data, int *i)
 
 void	ft_parsing_greats(t_lexer *lexer, t_cmd *temp, t_parser *data)
 {
-	temp->file_out = ft_strdup(lexer->args);
+	int	count;
+
+	count = ft_count_args(temp->file_out);
+	temp->file_out = ft_realloc(temp->file_out, count, count + 1);
+	temp->file_out[count] = ft_strdup(lexer->args);
 	temp->out = data->token_found;
 	data->token_found = 0;
 }

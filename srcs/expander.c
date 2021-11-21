@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:48:21 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/20 22:40:38 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/21 15:59:07 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	ft_expander(t_cmd *cmd, char **our_env)
 {
+	int	i;
+
+	i = 0;
 	while (cmd)
 	{
 		if (cmd->cmd)
@@ -23,8 +26,11 @@ void	ft_expander(t_cmd *cmd, char **our_env)
 		}
 		if (cmd->file_in)
 			cmd->file_in = ft_find_and_expand(cmd->file_in, our_env);
-		if (cmd->file_out)
-			cmd->file_out = ft_find_and_expand(cmd->file_out, our_env);
+		while (cmd->file_out && cmd->file_out[i])
+		{
+			cmd->file_out[i] = ft_find_and_expand(cmd->file_out[i], our_env);
+			i++;
+		}
 		ft_expander_str(cmd->args, our_env);
 		ft_expander_str(cmd->heredoc, our_env);
 		cmd = cmd->next;

@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 01:48:20 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/11/21 01:50:10 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/21 15:56:25 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ft_count_args(char **args)
 	int	i;
 
 	i = 0;
-	while (args[i])
+	while (args && args[i])
 		i++;
 	return (i);
 }

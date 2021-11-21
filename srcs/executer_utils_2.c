@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 19:04:49 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/20 22:31:11 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/21 16:08:31 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,34 @@ void	ft_greats(t_cmd *cmd, t_data *data)
 {
 	int		fd;
 	char	*line;
+	int		i;
+	int		count;
 
+	i = 0;
 	line = NULL;
+	count = ft_count_args(cmd->file_out);
 	if (cmd->out == GREAT)
-		fd = open(cmd->file_out, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	{
+		while (cmd->file_out && cmd->file_out[i])
+		{
+			fd = open(cmd->file_out[i++], O_WRONLY | O_TRUNC | O_CREAT, 0644);
+			if (fd < 0)
+				ft_error("Error creating file", 1);
+			if (i != count)
+				close(fd);
+		}
+	}
 	else
-		fd = open(cmd->file_out, O_WRONLY | O_APPEND | O_CREAT, 0644);
-	if (fd < 0)
-		ft_error("Error file descriptor", 1);
+	{
+		while (cmd->file_out && cmd->file_out[i])
+		{
+			fd = open(cmd->file_out[i++], O_WRONLY | O_APPEND | O_CREAT, 0644);
+			if (fd < 0)
+				ft_error("Error opening file", 1);
+			if (i != count)
+				close(fd);
+		}
+	}
 	data->save_stdout = dup(1);
 	if (dup2(fd, 1) < 0)
 		ft_error("Error file descriptor", 1);

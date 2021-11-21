@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 22:36:06 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/11/20 22:36:49 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/21 16:30:52 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,7 @@ char	**ft_our_builtin(t_cmd *cmd, char **our_env)
 		else
 			return (NULL);
 	}
+	else
+		return (NULL);
 	return (our_env);
 }

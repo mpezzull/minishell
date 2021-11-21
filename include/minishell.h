@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/11/21 04:23:45 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/21 15:46:28 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ struct	s_cmd
 	int		in;
 	int		out;
 	char	*file_in;
-	char	*file_out;
+	char	**file_out;
+
 	int		error;
 	t_cmd	*next;
 };

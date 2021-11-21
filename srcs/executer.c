@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 16:31:46 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/20 22:36:52 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/21 16:33:19 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**ft_executer(t_cmd *cmd, char **our_env)
 	data.save_stdout = 1;
 	signal(SIGINT, ft_signal_handler_executer);
 	signal(SIGQUIT, SIG_IGN);
-	if (cmd && !ft_strcmp(cmd->cmd, "exit") && !cmd->next)
+	if (cmd && cmd->cmd && !ft_strcmp(cmd->cmd, "exit") && !cmd->next)
 		ft_exit(NULL, NULL, 1);
 	while (cmd)
 	{
@@ -51,8 +51,11 @@ void	ft_executer_core(t_cmd *cmd, t_data *data, char **our_env)
 		ft_executer_child(cmd, data, our_env);
 	else
 		ft_execute_parent(cmd, data, pid);
-	ft_free_env(data->com_matrix);
-	free(data->com_matrix);
+	if (data->com_matrix)
+	{
+		ft_free_env(data->com_matrix);
+		free(data->com_matrix);
+	}
 }
 
 void	ft_lessless(t_cmd *cmd, t_data *data)
