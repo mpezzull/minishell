@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 16:57:13 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/01/18 13:03:52 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/21 04:31:28 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		strsize(const char *s)
+int	strsize(const char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i])
@@ -24,7 +24,7 @@ int		strsize(const char *s)
 
 char	*ft_strrchr(const char *s, int c)
 {
-	int i;
+	int	i;
 
 	i = strsize(s);
 	while (i >= 0)

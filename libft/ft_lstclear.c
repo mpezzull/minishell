@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:03:21 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/15 19:51:07 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/21 04:26:51 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	t_list *temp;
-	t_list *temp_next;
+	t_list	*temp;
+	t_list	*temp_next;
 
 	temp = *lst;
 	while (temp)

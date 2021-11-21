@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 18:39:34 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/10/18 18:37:16 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/21 04:33:20 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 	if (s == NULL)
 		return (NULL);
-	str = (char*)ft_calloc((len + 1), sizeof(*s));
+	str = (char *)ft_calloc((len + 1), sizeof(*s));
 	if (!str)
 		return (NULL);
 	i = 0;

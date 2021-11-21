@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-rosa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 18:06:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/01/20 18:19:01 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/21 04:29:26 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		numstring(char const *s1, char c)
+static int	numstring(char const *s1, char c)
 {
 	int	a;
 	int	b;
@@ -35,7 +35,7 @@ static int		numstring(char const *s1, char c)
 	return (a);
 }
 
-static int		numchar(char const *s2, char c, int i)
+static int	numchar(char const *s2, char c, int i)
 {
 	int	lenght;
 
@@ -48,7 +48,7 @@ static int		numchar(char const *s2, char c, int i)
 	return (lenght);
 }
 
-static char		**freee(char const **dst, int j)
+static char	**freee(char const **dst, int j)
 {
 	while (j > 0)
 	{
@@ -59,7 +59,7 @@ static char		**freee(char const **dst, int j)
 	return (NULL);
 }
 
-static char		**affect(char const *s, char **dst, char c, int l)
+static char	**affect(char const *s, char **dst, char c, int l)
 {
 	int	i;
 	int	j;
@@ -84,7 +84,7 @@ static char		**affect(char const *s, char **dst, char c, int l)
 	return (dst);
 }
 
-char			**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**dst;
 	int		l;

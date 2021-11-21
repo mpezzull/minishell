@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 20:10:51 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/07/15 19:51:07 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/21 04:27:22 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void *))
 	temp = NULL;
 	while (lst)
 	{
-		if (!(new = ft_lstnew((*f)(lst->content))))
+		new = ft_lstnew((*f)(lst->content));
+		if (!(new))
 		{
 			while (temp)
 			{

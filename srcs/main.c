@@ -6,15 +6,43 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 15:47:27 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/11/21 00:38:40 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/21 04:22:43 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+int	main(int argc, char **argv, char **envp)
+{
+	char	*cmd_line;
+	char	**our_env;
+	t_cmd	*cmd;
+	t_lexer	*lexer;
+
+	our_env = ft_init_minishell(envp, argv, argc);
+	while (TRUE)
+	{
+		signal(SIGINT, ft_signal_handler);
+		signal(SIGQUIT, SIG_IGN);
+		cmd_line = readline("minishell:~$ ");
+		if (ft_ctrl_d(cmd_line, our_env))
+			break ;
+		add_history(cmd_line);
+		lexer = ft_lexer(cmd_line);
+		free(cmd_line);
+		cmd = ft_parsing(lexer);
+		ft_lexerclear(&lexer);
+		ft_expander(cmd, our_env);
+		our_env = ft_executer(cmd, our_env);
+		ft_cmdclear(&cmd);
+		cmd = NULL;
+	}
+	return (0);
+}
+
 void	ft_signal_handler(int sig_num)
 {
-	char 	*str;
+	char	*str;
 	char	*new_line_buffer;
 
 	if (sig_num == SIGINT)
@@ -32,14 +60,9 @@ void	ft_signal_handler(int sig_num)
 	}
 }
 
-int	main(int argc, char **argv, char **envp)
+char	**ft_init_minishell(char **envp, char **argv, int argc)
 {
-	char	*cmd_line;
-	char	*prompt;
-	char	*user;
 	char	**our_env;
-	t_cmd	*cmd;
-	t_lexer	*lexer;
 
 	argv = &(*argv);
 	our_env = envp;
@@ -51,36 +74,19 @@ int	main(int argc, char **argv, char **envp)
 	our_env = ft_update_path(our_env);
 	if (!our_env)
 		ft_error("minishell: system error", 1);
-	printf("\n\t\t\033[1mWelcome in the worst minishell of the world!\n\n\033[0m");
 	ft_error("init fd", 0);
-	while (TRUE)
+	return (our_env);
+}
+
+int	ft_ctrl_d(char *cmd_line, char **our_env)
+{
+	if (cmd_line == NULL)
 	{
-		signal(SIGINT, ft_signal_handler);
-		signal(SIGQUIT, SIG_IGN);
-		user = ft_getenv("USER", our_env);
-		prompt = ft_strjoin(user, "@minishell:~$ ");
-		free(user);
-		cmd_line = readline(prompt);
-		free(prompt);
-		if (cmd_line == NULL) // ctrl + D
-		{
-			ft_free_env(our_env);
-			free(our_env);
-			write(1, "exit\n", 5);
-			rl_clear_history();
-			break ;
-		}
-		add_history(cmd_line);
-		lexer = ft_lexer(cmd_line);
-		free(cmd_line);
-//		ft_print_lexer(lexer);
-		cmd = ft_parsing(lexer);
-		ft_lexerclear(&lexer);
-		ft_expander(cmd, our_env);
-//		ft_print_cmd(cmd);
-		our_env = ft_executer(cmd, our_env);
-		ft_cmdclear(&cmd);
-		cmd = NULL;
+		ft_free_env(our_env);
+		free(our_env);
+		write(1, "exit\n", 5);
+		rl_clear_history();
+		return (1);
 	}
 	return (0);
 }

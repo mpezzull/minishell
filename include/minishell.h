@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/11/21 02:44:05 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/21 04:23:45 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ struct	s_cmd
 	int		out;
 	char	*file_in;
 	char	*file_out;
+	int		error;
 	t_cmd	*next;
 };
 
@@ -140,7 +141,6 @@ char	*ft_save_word(char *cmd_line, int *start, int lenght);
 int		ft_check_closed(char *cmd_line, int i);
 int		ft_word_lenght(char *cmd_line, int *index, int lenght);
 void	ft_word_str(char *cmd_line, int *index, int *start, char *word);
-void	ft_print_lexer(t_lexer *lexer);
 t_cmd	*ft_parsing(t_lexer *lexer);
 void	ft_error(char *strerror, int nbr);
 t_cmd	*init_cmd(void);
@@ -151,7 +151,6 @@ t_cmd	*ft_echo(char *token, char **splitted);
 t_cmd	*ft_cmd_new(int n_args);
 void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new);
 char	**ft_realloc(char	**ptr, int cur_size, int new_size);
-void	ft_print_cmd(t_cmd *cmd);
 int		ft_check_double_token(t_lexer *lexer);
 int		ft_heredoc_shell(t_lexer *lexer, t_cmd *temp);
 void	ft_signal_handler_heredoc(int sig_num);
@@ -237,6 +236,9 @@ int		ft_cd_minus(t_cd *cd, char **our_env);
 char	**ft_update_pwd(t_cd *cd, char **our_env);
 char	**ft_update_env(char **args, int i, char **envp);
 char	**ft_calloc_starstar(int cur_size);
-t_cmd	*ft_parsing_core(t_parser *data, t_lexer *lexer, t_cmd *temp);
+t_cmd	*ft_parsing_core(t_parser *data, t_lexer *lexer, t_cmd *temp, int *i);
+t_cmd	*ft_add_cmd(t_cmd *temp, t_cmd **head);
+char	**ft_init_minishell(char **envp, char **argv, int argc);
+int		ft_ctrl_d(char *cmd_line, char **our_env);
 
 #endif
