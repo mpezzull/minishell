@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 19:34:05 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/21 00:01:47 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/21 17:23:39 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,29 +46,37 @@ void	ft_lexerclear(t_lexer **lexer)
 
 void	ft_cmdclear(t_cmd **cmd)
 {
-	t_free_temp	temp;
+	t_free_temp	s_free;
 
-	temp.temp = *cmd;
-	while (temp.temp)
+	s_free.temp = *cmd;
+	while (s_free.temp)
 	{
-		temp.temp_next = temp.temp->next;
-		if (temp.temp->cmd)
-			free(temp.temp->cmd);
-		if (temp.temp->file_in)
-			free(temp.temp->file_in);
-		if (temp.temp->file_out)
-			free(temp.temp->file_out);
-		temp.to_free = temp.temp->args;
-		while (*(temp.temp->args))
-			free(*(temp.temp->args++));
-		if (temp.to_free)
-			free(temp.to_free);
-		temp.to_free = temp.temp->heredoc;
-		while (*(temp.temp->heredoc))
-			free(*(temp.temp->heredoc++));
-		if (temp.to_free)
-			free(temp.to_free);
-		free(temp.temp);
-		temp.temp = temp.temp_next;
+		s_free.temp_next = s_free.temp->next;
+		if (s_free.temp->cmd)
+			free(s_free.temp->cmd);
+		if (s_free.temp->file_in)
+			free(s_free.temp->file_in);
+		s_free.to_free = s_free.temp->file_out;
+		while (s_free.temp->file_out && *(s_free.temp->file_out))
+			free(*(s_free.temp->file_out++));
+		if (s_free.to_free)
+			free(s_free.to_free);
+		ft_cmdclear_two(&s_free);
+		s_free.temp = s_free.temp_next;
 	}
+}
+
+void	ft_cmdclear_two(t_free_temp *s_free)
+{
+	s_free->to_free = s_free->temp->args;
+	while (s_free->temp->args && *(s_free->temp->args))
+		free(*(s_free->temp->args++));
+	if (s_free->to_free)
+		free(s_free->to_free);
+	s_free->to_free = s_free->temp->heredoc;
+	while (s_free->temp->heredoc && *(s_free->temp->heredoc))
+		free(*(s_free->temp->heredoc++));
+	if (s_free->to_free)
+		free(s_free->to_free);
+	free(s_free->temp);
 }

@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 19:04:49 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/21 16:08:31 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/21 17:45:40 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,34 +81,9 @@ void	ft_greats(t_cmd *cmd, t_data *data)
 {
 	int		fd;
 	char	*line;
-	int		i;
-	int		count;
 
-	i = 0;
 	line = NULL;
-	count = ft_count_args(cmd->file_out);
-	if (cmd->out == GREAT)
-	{
-		while (cmd->file_out && cmd->file_out[i])
-		{
-			fd = open(cmd->file_out[i++], O_WRONLY | O_TRUNC | O_CREAT, 0644);
-			if (fd < 0)
-				ft_error("Error creating file", 1);
-			if (i != count)
-				close(fd);
-		}
-	}
-	else
-	{
-		while (cmd->file_out && cmd->file_out[i])
-		{
-			fd = open(cmd->file_out[i++], O_WRONLY | O_APPEND | O_CREAT, 0644);
-			if (fd < 0)
-				ft_error("Error opening file", 1);
-			if (i != count)
-				close(fd);
-		}
-	}
+	fd = ft_file_creator(cmd);
 	data->save_stdout = dup(1);
 	if (dup2(fd, 1) < 0)
 		ft_error("Error file descriptor", 1);
@@ -126,14 +101,24 @@ void	ft_greats(t_cmd *cmd, t_data *data)
 	close(fd);
 }
 
-char	*ft_pipestatus(int mode, int status)
+int	ft_file_creator(t_cmd *cmd)
 {
-	static unsigned char	pipe_status;
+	int	count;
+	int	i;
+	int	fd;
 
-	if (mode == SET)
+	i = 0;
+	count = ft_count_args(cmd->file_out);
+	while (cmd->file_out && cmd->file_out[i])
 	{
-		pipe_status = (unsigned char)status;
-		return (NULL);
+		if (cmd->out == GREAT)
+			fd = open(cmd->file_out[i++], O_WRONLY | O_TRUNC | O_CREAT, 0644);
+		else
+			fd = open(cmd->file_out[i++], O_WRONLY | O_APPEND | O_CREAT, 0644);
+		if (fd < 0)
+			ft_error("Error creating file", 1);
+		if (i != count)
+			close(fd);
 	}
-	return (ft_uitoa(pipe_status));
+	return (fd);
 }

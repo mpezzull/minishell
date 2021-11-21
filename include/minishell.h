@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/26 16:42:04 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/11/21 15:46:28 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/21 17:18:57 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,5 +241,7 @@ t_cmd	*ft_parsing_core(t_parser *data, t_lexer *lexer, t_cmd *temp, int *i);
 t_cmd	*ft_add_cmd(t_cmd *temp, t_cmd **head);
 char	**ft_init_minishell(char **envp, char **argv, int argc);
 int		ft_ctrl_d(char *cmd_line, char **our_env);
+int		ft_file_creator(t_cmd *cmd);
+void	ft_cmdclear_two(t_free_temp *s_free);
 
 #endif
