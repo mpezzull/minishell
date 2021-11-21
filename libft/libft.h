@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 18:15:56 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/20 01:57:18 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/20 22:24:58 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	*ft_calloc(size_t n, size_t size);
 int		ft_isalnum(int c);
 int		ft_isprint(int c);
 char	*ft_itoa(int num);
+char	*ft_uitoa(unsigned int n);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);

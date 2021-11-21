@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 18:42:42 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/10/18 18:44:47 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/20 22:25:45 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,31 @@ char	*ft_itoa(int n)
 	{
 		str[0] = '-';
 		nbr = nbr * -1;
+	}
+	while (nbr > 0)
+	{
+		str[i--] = 48 + (nbr % 10);
+		nbr = nbr / 10;
+	}
+	return (str);
+}
+
+char	*ft_uitoa(unsigned int n)
+{
+	char			*str;
+	unsigned int	nbr;
+	int				i;
+
+	nbr = n;
+	i = len(nbr);
+	str = (char *)malloc(sizeof(char) * (i + 1));
+	if (!str)
+		return (NULL);
+	str[i--] = '\0';
+	if (nbr == 0)
+	{
+		str[0] = 48;
+		return (str);
 	}
 	while (nbr > 0)
 	{

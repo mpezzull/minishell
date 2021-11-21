@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 19:04:49 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/20 04:39:57 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/20 22:31:11 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,12 +108,12 @@ void	ft_greats(t_cmd *cmd, t_data *data)
 
 char	*ft_pipestatus(int mode, int status)
 {
-	static unsigned int	pipe_status;
+	static unsigned char	pipe_status;
 
 	if (mode == SET)
 	{
-		pipe_status = (unsigned int)status;
+		pipe_status = (unsigned char)status;
 		return (NULL);
 	}
-	return (ft_itoa(pipe_status));
+	return (ft_uitoa(pipe_status));
 }

@@ -9,7 +9,7 @@
                 "-g",
                 "-I",
                 "/Users/mde-rosa/.brew/opt/readline/include",
-                "srcs/main.c","srcs/free.c","srcs/get_next_line.c","srcs/minishell_utils.c","srcs/parser.c","srcs/ft_lexer.c","srcs/ft_lexer_word.c","srcs/ft_lexer_token.c","srcs/parser_utils.c","srcs/our_cd.c","srcs/our_export.c","srcs/our_unset.c","srcs/ft_lexer_utils.c","srcs/expander.c","srcs/executer.c","srcs/parser_utils_2.c","srcs/executer_utils.c","srcs/executer_utils_2.c","srcs/expander_utils.c",
+                "srcs/main.c","srcs/free.c","srcs/get_next_line.c","srcs/minishell_utils.c","srcs/parser.c","srcs/ft_lexer.c","srcs/ft_lexer_word.c","srcs/ft_lexer_token.c","srcs/parser_utils.c","srcs/our_cd.c","srcs/our_export.c","srcs/our_unset.c","srcs/ft_lexer_utils.c","srcs/expander.c","srcs/executer.c","srcs/parser_utils_2.c","srcs/executer_utils.c","srcs/executer_utils_2.c","srcs/expander_utils.c", "srcs/executer_utils_3.c", "srcs/minishell_utils_2.c", "srcs/exit.c", "srcs/our_cd_utils.c" 
                 "-o",
                 "minishell",
                 "-L",

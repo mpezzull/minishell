@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpezzull <mpezzull@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 16:00:52 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/17 21:32:44 by mpezzull         ###   ########.fr       */
+/*   Updated: 2021/11/21 02:23:09 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new)
 	temp->next = new;
 }
 
-int		ft_check_double_token(t_lexer *lexer)
+int	ft_check_double_token(t_lexer *lexer)
 {
 	static int		prev;
 	int				curr;

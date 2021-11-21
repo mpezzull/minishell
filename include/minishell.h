@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/26 16:42:04 by assokenay         #+#    #+#             */
-/*   Updated: 2021/11/20 04:47:13 by mde-rosa         ###   ########.fr       */
+/*   Created: 2021/06/26 16:42:04 by mde-rosa          #+#    #+#             */
+/*   Updated: 2021/11/21 02:44:05 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # include <sys/stat.h>
 # include <sys/ioctl.h>
 
-
 # define DEFAULT	0
 # define GREAT		1
 # define LESS		2
@@ -47,10 +46,13 @@
 //Errors
 # define SYNTAX_ERROR 3
 
-typedef struct s_cmd	t_cmd;
-typedef struct s_lexer	t_lexer;
-typedef struct s_parser	t_parser;
-typedef struct s_env	t_env;
+typedef struct s_cmd		t_cmd;
+typedef struct s_lexer		t_lexer;
+typedef struct s_parser		t_parser;
+typedef struct s_env		t_env;
+typedef struct s_expander	t_expander;
+typedef struct s_free_temp	t_free_temp;
+typedef struct s_cd			t_cd;
 
 struct s_parser
 {
@@ -98,6 +100,30 @@ typedef struct s_data
 	int		save_stdin;
 	int		pipe_lessless[2];	
 }				t_data;
+
+struct s_expander
+{
+	char	*pos_dollar;
+	char	*pos_backslash;
+	char	*env_value;
+	char	*word;
+};
+
+struct s_free_temp
+{
+	t_cmd	*temp;
+	t_cmd	*temp_next;
+	char	**to_free;
+};
+
+struct s_cd
+{
+	int		argc;
+	char	*pwd;
+	char	*temp;
+	char	*oldpwd;
+	int		size_envp;
+};
 
 t_lexer	*ft_lexer(char *str);
 void	ft_lstadd_back_lexer(t_lexer **lst, t_lexer *new);
@@ -193,15 +219,24 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 size_t	ft_strlen(const char *str);
 char	*ft_strcpy(char *dest, const char *src);
 
-
 void	ft_exit(t_cmd *cmd, char **our_env, int only_one);
 char	**ft_update_path(char **our_env);
-
 
 void	ft_executer_core(t_cmd *cmd, t_data *data, char **our_env);
 void	ft_only_exit(t_cmd *cmd, char **our_env);
 void	ft_print_output(t_data *data, t_cmd *cmd);
 void	ft_expander_str(char **str, char **our_env);
-
+char	*ft_get_value(t_expander *exp, char **our_env);
+int		ft_strcmp_lowcase(char *str1, char *str2);
+char	*ft_expander_core(t_expander *exp, char *to_replace, char **our_env);
+void	ft_lexer_core(char *cmd_line, t_lexer **lexer, int token, int *i);
+char	*ft_calloc_protect(void);
+char	*ft_strjoin_free(char **l_read, char *buffer);
+int		ft_init_cd(t_cd *cd, char **args);
+int		ft_cd_minus(t_cd *cd, char **our_env);
+char	**ft_update_pwd(t_cd *cd, char **our_env);
+char	**ft_update_env(char **args, int i, char **envp);
+char	**ft_calloc_starstar(int cur_size);
+t_cmd	*ft_parsing_core(t_parser *data, t_lexer *lexer, t_cmd *temp);
 
 #endif

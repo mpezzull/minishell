@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 17:32:31 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/20 04:38:04 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/20 22:35:41 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,30 @@ void	ft_signal_handler_executer(int sig)
 {
 	if (sig == SIGINT)
 		write(1, "\n", 1);
+}
+
+void	ft_do_execve(char *command, t_data *data, char **env)
+{
+	int	fd;
+
+	if (ft_strchr_int(command, '/') == 0)
+	{
+		fd = open(data->com_matrix[0], O_RDONLY);
+		if (fd > 0)
+		{
+			close(fd);
+			data->path = ft_strdup(data->com_matrix[0]);
+		}
+		else
+			ft_error("Error 1", 1);
+	}
+	else if (ft_strchr_int(command, '.') == 0)
+	{
+		if (!ft_is_a_local_command(env, data))
+			ft_error("Error 2", 1);
+	}
+	else if (!ft_is_a_system_command(env, data))
+		ft_error("minishell: command not found", 127);
+	signal(SIGINT, SIG_DFL);
+	execve(data->path, data->com_matrix, env);
 }

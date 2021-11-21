@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 18:40:48 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/10/20 20:17:44 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/21 00:10:59 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ t_lexer	*ft_lexer(char *cmd_line)
 // fills the list of structures in t_lexer ** lexer
 void	ft_split_lexer(char *cmd_line, t_lexer **lexer)
 {
-	t_lexer		*tmp;
 	int			i;
-	char		*word;
 	int			token;
 
 	i = 0;
@@ -38,21 +36,27 @@ void	ft_split_lexer(char *cmd_line, t_lexer **lexer)
 		while (ft_is_space(cmd_line[i]))
 			i++;
 		if (cmd_line[i] != '\0')
-		{
-			if (cmd_line[i] == '>' || cmd_line[i] == '<' || cmd_line[i] == '|')
-			{
-				word = ft_token(cmd_line, &i);
-				token = ft_token_witch(word, 0);
-			}
-			else
-				word = ft_create_word(cmd_line, &i);
-			if (word == NULL)
-			{
-				lexer = NULL;
-				break ;
-			}
-			tmp = ft_lstnew_two(word, token);
-			ft_lstadd_back_lexer(lexer, tmp);
-		}
+			ft_lexer_core(cmd_line, lexer, token, &i);
 	}
+}
+
+void	ft_lexer_core(char *cmd_line, t_lexer **lexer, int token, int *i)
+{
+	t_lexer	*tmp;
+	char	*word;
+
+	if (cmd_line[*i] == '>' || cmd_line[*i] == '<' || cmd_line[*i] == '|')
+	{
+		word = ft_token(cmd_line, i);
+		token = ft_token_witch(word, 0);
+	}
+	else
+		word = ft_create_word(cmd_line, i);
+	if (word == NULL)
+	{
+		lexer = NULL;
+		return ;
+	}
+	tmp = ft_lstnew_two(word, token);
+	ft_lstadd_back_lexer(lexer, tmp);
 }

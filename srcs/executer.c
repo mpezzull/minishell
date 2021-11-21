@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 16:31:46 by mpezzull          #+#    #+#             */
-/*   Updated: 2021/11/20 04:35:37 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/20 22:36:52 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,84 +53,6 @@ void	ft_executer_core(t_cmd *cmd, t_data *data, char **our_env)
 		ft_execute_parent(cmd, data, pid);
 	ft_free_env(data->com_matrix);
 	free(data->com_matrix);
-}
-
-void	ft_do_execve(char *command, t_data *data, char **env)
-{
-	int	fd;
-
-	if (ft_strchr_int(command, '/') == 0)
-	{
-		fd = open(data->com_matrix[0], O_RDONLY);
-		if (fd > 0)
-		{
-			close(fd);
-			data->path = ft_strdup(data->com_matrix[0]);
-		}
-		else
-			ft_error("Error 1", 1);
-	}
-	else if (ft_strchr_int(command, '.') == 0)
-	{
-		if (!ft_is_a_local_command(env, data))
-			ft_error("Error 2", 1);
-	}
-	else if (!ft_is_a_system_command(env, data))
-		ft_error("minishell: command not found", 127);
-	signal(SIGINT, SIG_DFL);
-	execve(data->path, data->com_matrix, env);
-}
-
-char	**ft_our_builtin(t_cmd *cmd, char **our_env)
-{
-	if (cmd->cmd)
-	{
-		if (!ft_strcmp(cmd->cmd, "exit"))
-			ft_exit(cmd, our_env, 0);
-		else if (!ft_strcmp(ft_strlowcase(cmd->cmd), "cd"))
-			our_env = ft_our_cd(cmd->args, our_env);
-		else if (!ft_strcmp(ft_strlowcase(cmd->cmd), "export"))
-			our_env = ft_our_export(cmd->args, our_env);
-		else if (!ft_strcmp(ft_strlowcase(cmd->cmd), "unset"))
-			our_env = ft_our_unset(cmd->args, our_env);
-		else
-			return (NULL);
-	}
-	return (our_env);
-}
-
-void	ft_exit(t_cmd *cmd, char **our_env, int only_one)
-{
-	static int	save_only_one;
-
-	if (cmd == NULL && our_env == NULL)
-		save_only_one = only_one;
-	else
-	{
-		if (cmd->args[1])
-		{
-			ft_pipestatus(SET, ft_atoi(cmd->args[1]));
-			if (save_only_one != 1 && !ft_isnum(cmd->args[1]))
-			{
-				printf("bash: exit: numeric argument required\n");
-				ft_pipestatus(SET, 255);
-			}
-		}
-		if (save_only_one == 1)
-			ft_only_exit(cmd, our_env);
-	}
-}
-
-void	ft_only_exit(t_cmd *cmd, char **our_env)
-{
-	ft_free_env(our_env);
-	free(our_env);
-	write(1, "exit\n", 5);
-	rl_clear_history();
-	if (!ft_isnum(cmd->args[1]))
-		ft_error("bash: exit: numeric argument required", 255);
-	ft_cmdclear(&cmd);
-	exit(ft_atoi(ft_pipestatus(GET, 0)));
 }
 
 void	ft_lessless(t_cmd *cmd, t_data *data)
@@ -205,27 +127,4 @@ void	ft_execute_parent(t_cmd *cmd, t_data *data, int pid)
 		data->fd_out = data->fd_pipe[0];
 	else
 		ft_print_output(data, cmd);
-}
-
-void	ft_print_output(t_data *data, t_cmd *cmd)
-{
-	char	*line;
-
-	line = NULL;
-	{
-		if (cmd->in != LESSLESS)
-		{
-			while (get_next_line(data->fd_pipe[0], &line) > 0)
-			{
-				printf("%s\n", line);
-				if (line)
-					free(line);
-				line = NULL;
-			}
-			if (line)
-				free(line);
-			line = NULL;
-		}
-		close(data->fd_pipe[0]);
-	}	
 }

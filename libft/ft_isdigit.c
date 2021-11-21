@@ -6,7 +6,7 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 16:09:41 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/11/20 02:06:03 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/11/20 21:13:05 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ int	ft_isnum(char *str)
 	int	i;
 
 	i = 0;
+	while (str[i] && (str[i] == '\f' || str[i] == '\t' || str[i] == ' '
+			|| str[i] == '\n' || str[i] == '\r' || str[i] == '\v'))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
 	while (str && str[i])
 	{
 		if (!(str[i] >= '0' && str[i] <= '9'))
