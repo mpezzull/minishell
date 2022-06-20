@@ -1,8 +1,9 @@
-# ([mde-rosa](https://github.com/mde-rosa)&[mpezzull](https://github.com/mpezzull))@minishell:~$ _
+# minishell:~$ _
  
  The objective is to create a simple shell: as beautiful as a shell.
 >"...with Minishell, you’ll be able to travel through time and come back to problems
 people faced when Windows didn’t exist..."
+
 ### How to use it
 
 Using ``make`` will create the ``minishell`` executable.
